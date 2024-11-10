@@ -15,14 +15,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Documented
-@Constraint(validatedBy = {
-        EnumBrandValidator.class,
-        EnumPetrolValidator.class,
-        EnumGearboxValidator.class,
-        EnumBodyTypeValidator.class,
-        EnumColorPaletteValidator.class,
-        EnumConditionValidator.class
-})
+@Constraint(validatedBy = {})
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidEnumMembersOfCarClass {
