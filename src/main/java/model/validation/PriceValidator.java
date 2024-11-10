@@ -17,24 +17,20 @@ public class PriceValidator implements ConstraintValidator<ValidPrice, Integer> 
 
     @Override
     public boolean isValid(Integer price, ConstraintValidatorContext context) {
-        if (price > maxPrice) {
-            context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("Give price is to big")
-                    .addConstraintViolation();
-        }
-
         if (price < minPrice) {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("Given price cannot be equal or less than 0")
+            context.buildConstraintViolationWithTemplate("Price must be at least" + minPrice)
                     .addConstraintViolation();
+            return false;
         }
 
-        if (price == null) {
+        if (price > maxPrice) {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("Price cannot be null ")
+            context.buildConstraintViolationWithTemplate("Price must be at most" + maxPrice)
                     .addConstraintViolation();
+            return false;
         }
 
-        return false;
+        return true;
     }
 }
