@@ -1,6 +1,11 @@
 package model.validation.annoations;
 
+import model.validation.EnumBodyTypeValidator;
 import model.validation.EnumBrandValidator;
+import model.validation.EnumColorPaletteValidator;
+import model.validation.EnumConditionValidator;
+import model.validation.EnumGearboxValidator;
+import model.validation.EnumPetrolValidator;
 
 import javax.validation.Constraint;
 import java.lang.annotation.Documented;
