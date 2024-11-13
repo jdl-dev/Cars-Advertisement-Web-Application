@@ -1,5 +1,5 @@
 package com.app.myapp.model;
 
-public enum Condition {
+public enum State {
     NEW, USED
 }

@@ -68,7 +68,7 @@ public class Car {
 
     @Enumerated(value = EnumType.STRING)
     //@ValidEnumMembersOfCarClass(enumClass = Condition.class)
-    private Condition condition;
+    private State state;
 
     public Long getId() {
         return id;
@@ -198,11 +198,11 @@ public class Car {
         this.vin = vin;
     }
 
-    public Condition getCondition() {
-        return condition;
+    public State getState() {
+        return state;
     }
 
-    public void setCondition(Condition condition) {
-        this.condition = condition;
+    public void setState(State state) {
+        this.state = state;
     }
 }
