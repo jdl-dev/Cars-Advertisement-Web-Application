@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/cars")
 public class CarController {
@@ -18,5 +20,10 @@ public class CarController {
     @PostMapping("/add")
     public Car save(@RequestBody Car car) {
         return carService.save(car);
+    }
+
+    @PostMapping("/addManyCars")
+    public List<Car> saveManyCars(@RequestBody List<Car> cars) {
+        return carService.saveAll(cars);
     }
 }
