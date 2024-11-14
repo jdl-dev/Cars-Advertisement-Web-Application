@@ -1,9 +1,9 @@
 package com.app.myapp.model.validation;
 
 import com.app.myapp.model.validation.annoations.ValidPrice;
+import jakarta.validation.ConstraintValidator;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidatorContext;
 
 public class PriceValidator implements ConstraintValidator<ValidPrice, Integer> {
     private int minPrice;
