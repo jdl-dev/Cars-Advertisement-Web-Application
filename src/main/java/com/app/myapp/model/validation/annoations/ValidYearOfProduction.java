@@ -17,6 +17,4 @@ public @interface ValidYearOfProduction {
     String message() default "Invalid Year Of Production";
 
     int min() default 1850;
-
-    int max() default 9999;
 }

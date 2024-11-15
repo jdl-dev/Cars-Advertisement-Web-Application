@@ -8,12 +8,12 @@ import java.time.Year;
 
 public class YearOfProduction implements ConstraintValidator<ValidYearOfProduction, Year> {
     private int minYear;
-    private int maxYear;
+    private int currentYear;
 
     @Override
     public void initialize(ValidYearOfProduction constraintAnnotation) {
         this.minYear = constraintAnnotation.min();
-        this.maxYear = Year.now().getValue();
+        this.currentYear = Year.now().getValue();
     }
 
     @Override
@@ -25,9 +25,9 @@ public class YearOfProduction implements ConstraintValidator<ValidYearOfProducti
             return false;
         }
 
-        if (yearOfProduction.getValue() > maxYear) {
+        if (yearOfProduction.getValue() > currentYear) {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("Year must be at most " + maxYear)
+            context.buildConstraintViolationWithTemplate("Year must be at most " + currentYear)
                     .addConstraintViolation();
             return false;
         }
