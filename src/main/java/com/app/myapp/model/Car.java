@@ -1,5 +1,6 @@
 package com.app.myapp.model;
 
+import com.app.myapp.model.validation.annoations.ValidAmountOfSeats;
 import com.app.myapp.model.validation.annoations.ValidDateOfAddingTheAdd;
 import com.app.myapp.model.validation.annoations.ValidDescription;
 import com.app.myapp.model.validation.annoations.ValidDisplacement;
@@ -66,7 +67,7 @@ public class Car {
     @ValidDoorNumbers
     private int doorNumber;
 
-    //@ValidAmountOfSeats
+    @ValidAmountOfSeats
     private int amountOfSeats;
 
     @Enumerated(value = EnumType.STRING)

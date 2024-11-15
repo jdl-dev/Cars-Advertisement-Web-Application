@@ -1,9 +1,8 @@
 package com.app.myapp.model.validation;
 
 import com.app.myapp.model.validation.annoations.ValidAmountOfSeats;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 public class AmountOfSeatsValidator implements ConstraintValidator<ValidAmountOfSeats, Integer> {
 
