@@ -2,6 +2,7 @@ package com.app.myapp.model.validation.annoations;
 
 import com.app.myapp.model.validation.DoorNumberValidator;
 import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -19,4 +20,8 @@ public @interface ValidDoorNumbers {
     int minDoorNumber() default 1;
 
     int maxDoorNumber() default 12;
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
 }

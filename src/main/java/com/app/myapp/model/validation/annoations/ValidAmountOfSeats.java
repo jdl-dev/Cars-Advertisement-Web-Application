@@ -2,6 +2,7 @@ package com.app.myapp.model.validation.annoations;
 
 import com.app.myapp.model.validation.AmountOfSeatsValidator;
 import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -19,4 +20,8 @@ public @interface ValidAmountOfSeats {
     int minSeats() default 1;
 
     int maxSeats() default 100;
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
 }

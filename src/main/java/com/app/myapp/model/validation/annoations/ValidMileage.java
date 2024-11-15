@@ -2,6 +2,7 @@ package com.app.myapp.model.validation.annoations;
 
 import com.app.myapp.model.validation.MileageValidator;
 import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -19,4 +20,8 @@ public @interface ValidMileage {
     int minMileage() default 0;
 
     int maxMileage() default 30000000;
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
 }

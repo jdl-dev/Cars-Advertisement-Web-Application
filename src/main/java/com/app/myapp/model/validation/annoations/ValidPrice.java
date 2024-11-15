@@ -2,6 +2,7 @@ package com.app.myapp.model.validation.annoations;
 
 import com.app.myapp.model.validation.PriceValidator;
 import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -11,7 +12,7 @@ import java.lang.annotation.Target;
 
 @Documented
 @Constraint(validatedBy = {PriceValidator.class})
-@Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE})
+@Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidPrice {
     String message() default "Price is not correct";
@@ -19,4 +20,8 @@ public @interface ValidPrice {
     int minPrice() default 5;
 
     int maxPrice() default 100000000;
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
 }

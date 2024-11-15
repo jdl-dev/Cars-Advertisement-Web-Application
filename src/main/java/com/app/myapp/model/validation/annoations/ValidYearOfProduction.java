@@ -2,6 +2,7 @@ package com.app.myapp.model.validation.annoations;
 
 import com.app.myapp.model.validation.YearOfProduction;
 import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -17,4 +18,8 @@ public @interface ValidYearOfProduction {
     String message() default "Invalid Year Of Production";
 
     int min() default 1850;
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
 }
