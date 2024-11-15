@@ -1,5 +1,6 @@
 package com.app.myapp.model;
 
+import com.app.myapp.model.validation.annoations.ValidDisplacement;
 import com.app.myapp.model.validation.annoations.ValidEnumMembersOfCarClass;
 import com.app.myapp.model.validation.annoations.ValidMileage;
 import com.app.myapp.model.validation.annoations.ValidPrice;
@@ -42,7 +43,7 @@ public class Car {
     @ValidEnumMembersOfCarClass(enumClass = Bodytype.class)
     private Bodytype bodytype;
 
-    //@ValidDisplacement
+    @ValidDisplacement
     private int displacement;
 
     //@ValidPower

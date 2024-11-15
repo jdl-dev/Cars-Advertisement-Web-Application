@@ -1,9 +1,8 @@
 package com.app.myapp.model.validation;
 
 import com.app.myapp.model.validation.annoations.ValidDisplacement;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 public class DisplacementValidator implements ConstraintValidator<ValidDisplacement, Integer> {
     private int minDisplacement;
