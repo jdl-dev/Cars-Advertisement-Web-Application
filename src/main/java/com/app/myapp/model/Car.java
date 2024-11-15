@@ -1,5 +1,6 @@
 package com.app.myapp.model;
 
+import com.app.myapp.model.validation.annoations.ValidMileage;
 import com.app.myapp.model.validation.annoations.ValidPrice;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -21,7 +22,7 @@ public class Car {
     @ValidPrice
     private int price;
 
-    //@ValidMileage
+    @ValidMileage
     private int mileage;
 
     @Enumerated(value = EnumType.STRING)
