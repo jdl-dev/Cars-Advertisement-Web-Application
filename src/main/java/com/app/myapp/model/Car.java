@@ -7,6 +7,7 @@ import com.app.myapp.model.validation.annoations.ValidEnumMembersOfCarClass;
 import com.app.myapp.model.validation.annoations.ValidMileage;
 import com.app.myapp.model.validation.annoations.ValidPower;
 import com.app.myapp.model.validation.annoations.ValidPrice;
+import com.app.myapp.model.validation.annoations.ValidYearOfProduction;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -58,10 +59,10 @@ public class Car {
     @ValidDateOfAddingTheAdd
     private LocalDateTime dateOfAddingTheAdd;
 
-    //@ValidYearOfProduction
+    @ValidYearOfProduction
     private Year yearOfProduction;
 
-    //@ValidDoorNumbers
+    // @ValidDoorNumbers
     private int doorNumber;
 
     //@ValidAmountOfSeats
