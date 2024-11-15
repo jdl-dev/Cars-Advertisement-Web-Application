@@ -1,9 +1,7 @@
 package com.app.myapp.model.validation.annoations;
 
 import com.app.myapp.model.validation.PriceValidator;
-
 import jakarta.validation.Constraint;
-import jakarta.validation.Payload;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -21,8 +19,4 @@ public @interface ValidPrice {
     int minPrice() default 5;
 
     int maxPrice() default 100000000;
-
-    Class<?>[] groups() default {};
-
-    Class<? extends Payload>[] payload() default {};
 }
