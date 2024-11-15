@@ -3,6 +3,7 @@ package com.app.myapp.model;
 import com.app.myapp.model.validation.annoations.ValidDateOfAddingTheAdd;
 import com.app.myapp.model.validation.annoations.ValidDescription;
 import com.app.myapp.model.validation.annoations.ValidDisplacement;
+import com.app.myapp.model.validation.annoations.ValidDoorNumbers;
 import com.app.myapp.model.validation.annoations.ValidEnumMembersOfCarClass;
 import com.app.myapp.model.validation.annoations.ValidMileage;
 import com.app.myapp.model.validation.annoations.ValidPower;
@@ -62,7 +63,7 @@ public class Car {
     @ValidYearOfProduction
     private Year yearOfProduction;
 
-    // @ValidDoorNumbers
+    @ValidDoorNumbers
     private int doorNumber;
 
     //@ValidAmountOfSeats
