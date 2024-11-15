@@ -39,7 +39,7 @@ public class Car {
     private Gearbos gearbox;
 
     @Enumerated(value = EnumType.STRING)
-    //@ValidEnumMembersOfCarClass(enumClass = Bodytype.class)
+    @ValidEnumMembersOfCarClass(enumClass = Bodytype.class)
     private Bodytype bodytype;
 
     //@ValidDisplacement
