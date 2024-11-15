@@ -79,7 +79,7 @@ public class Car {
     private String vin;
 
     @Enumerated(value = EnumType.STRING)
-    //@ValidEnumMembersOfCarClass(enumClass = Condition.class)
+    @ValidEnumMembersOfCarClass(enumClass = State.class)
     private State state;
 
     public Long getId() {

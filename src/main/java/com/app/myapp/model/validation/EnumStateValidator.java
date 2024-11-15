@@ -2,12 +2,12 @@ package com.app.myapp.model.validation;
 
 import com.app.myapp.model.State;
 import com.app.myapp.model.validation.annoations.ValidEnumMembersOfCarClass;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
 import java.util.Arrays;
 
-public class EnumConditionValidator implements ConstraintValidator<ValidEnumMembersOfCarClass, State> {
+public class EnumStateValidator implements ConstraintValidator<ValidEnumMembersOfCarClass, State> {
     private Class<? extends Enum<?>> enumClass;
 
     @Override
