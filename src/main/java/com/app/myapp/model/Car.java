@@ -35,7 +35,7 @@ public class Car {
     private Petrol petrol;
 
     @Enumerated(value = EnumType.STRING)
-    //@ValidEnumMembersOfCarClass(enumClass = Gearbos.class)
+    @ValidEnumMembersOfCarClass(enumClass = Gearbos.class)
     private Gearbos gearbox;
 
     @Enumerated(value = EnumType.STRING)
