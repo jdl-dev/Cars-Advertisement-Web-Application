@@ -1,6 +1,7 @@
 package com.app.myapp.model.validation.annoations;
 
-import javax.validation.Constraint;
+import jakarta.validation.Constraint;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

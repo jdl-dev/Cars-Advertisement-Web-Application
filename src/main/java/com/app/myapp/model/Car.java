@@ -1,5 +1,6 @@
 package com.app.myapp.model;
 
+import com.app.myapp.model.validation.annoations.ValidEnumMembersOfCarClass;
 import com.app.myapp.model.validation.annoations.ValidMileage;
 import com.app.myapp.model.validation.annoations.ValidPrice;
 import jakarta.persistence.Entity;
@@ -26,7 +27,7 @@ public class Car {
     private int mileage;
 
     @Enumerated(value = EnumType.STRING)
-    //@ValidEnumMembersOfCarClass(enumClass = Brand.class)
+    @ValidEnumMembersOfCarClass(enumClass = Brand.class)
     private Brand brand;
 
     @Enumerated(value = EnumType.STRING)
