@@ -9,6 +9,7 @@ import com.app.myapp.model.validation.annoations.ValidEnumMembersOfCarClass;
 import com.app.myapp.model.validation.annoations.ValidMileage;
 import com.app.myapp.model.validation.annoations.ValidPower;
 import com.app.myapp.model.validation.annoations.ValidPrice;
+import com.app.myapp.model.validation.annoations.ValidVin;
 import com.app.myapp.model.validation.annoations.ValidYearOfProduction;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -74,7 +75,7 @@ public class Car {
     @ValidEnumMembersOfCarClass(enumClass = ColorPalette.class)
     private ColorPalette color;
 
-    //@ValidVin
+    @ValidVin
     private String vin;
 
     @Enumerated(value = EnumType.STRING)
