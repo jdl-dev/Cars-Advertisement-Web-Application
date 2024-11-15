@@ -1,5 +1,6 @@
 package com.app.myapp.model;
 
+import com.app.myapp.model.validation.annoations.ValidDateOfAddingTheAdd;
 import com.app.myapp.model.validation.annoations.ValidDescription;
 import com.app.myapp.model.validation.annoations.ValidDisplacement;
 import com.app.myapp.model.validation.annoations.ValidEnumMembersOfCarClass;
@@ -54,7 +55,7 @@ public class Car {
     @ValidDescription
     private String description;
 
-    // @ValidDateOfAddingTheAdd
+    @ValidDateOfAddingTheAdd
     private LocalDateTime dateOfAddingTheAdd;
 
     //@ValidYearOfProduction
