@@ -71,7 +71,7 @@ public class Car {
     private int amountOfSeats;
 
     @Enumerated(value = EnumType.STRING)
-    //@ValidEnumMembersOfCarClass(enumClass = ColorPalette.class)
+    @ValidEnumMembersOfCarClass(enumClass = ColorPalette.class)
     private ColorPalette color;
 
     //@ValidVin
