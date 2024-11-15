@@ -1,9 +1,8 @@
 package com.app.myapp.model.validation;
 
 import com.app.myapp.model.validation.annoations.ValidPower;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 public class PowerValidator implements ConstraintValidator<ValidPower, Integer> {
     private int minPower;
@@ -17,7 +16,7 @@ public class PowerValidator implements ConstraintValidator<ValidPower, Integer> 
 
     @Override
     public boolean isValid(Integer integer, ConstraintValidatorContext context) {
-        if (integer > minPower) {
+        if (integer < minPower) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate("Power must be at least" + minPower)
                     .addConstraintViolation();

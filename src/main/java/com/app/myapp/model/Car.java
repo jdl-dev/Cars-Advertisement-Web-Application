@@ -3,6 +3,7 @@ package com.app.myapp.model;
 import com.app.myapp.model.validation.annoations.ValidDisplacement;
 import com.app.myapp.model.validation.annoations.ValidEnumMembersOfCarClass;
 import com.app.myapp.model.validation.annoations.ValidMileage;
+import com.app.myapp.model.validation.annoations.ValidPower;
 import com.app.myapp.model.validation.annoations.ValidPrice;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -46,7 +47,7 @@ public class Car {
     @ValidDisplacement
     private int displacement;
 
-    //@ValidPower
+    @ValidPower
     private int power;
 
     //@ValidDescription
