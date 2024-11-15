@@ -14,9 +14,9 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidDisplacement {
-    public String message() default "Displacement is not valid";
+    String message() default "Displacement is not valid";
 
-    public int minDisplacement() default 1;
+    int minDisplacement() default 1;
 
-    public int maxDisplacement() default 10000;
+    int maxDisplacement() default 10000;
 }
