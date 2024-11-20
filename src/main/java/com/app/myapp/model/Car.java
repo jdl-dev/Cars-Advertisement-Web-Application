@@ -1,16 +1,9 @@
 package com.app.myapp.model;
 
-import com.app.myapp.model.validation.annotations.ValidAmountOfSeats;
-import com.app.myapp.model.validation.annotations.ValidDateOfAddingTheAdd;
-import com.app.myapp.model.validation.annotations.ValidDescription;
-import com.app.myapp.model.validation.annotations.ValidDisplacement;
-import com.app.myapp.model.validation.annotations.ValidDoorNumbers;
-import com.app.myapp.model.validation.annotations.ValidEnumMembersOfCarClass;
-import com.app.myapp.model.validation.annotations.ValidMileage;
-import com.app.myapp.model.validation.annotations.ValidPower;
-import com.app.myapp.model.validation.annotations.ValidPrice;
-import com.app.myapp.model.validation.annotations.ValidVin;
-import com.app.myapp.model.validation.annotations.ValidYearOfProduction;
+import com.app.myapp.model.payloads.Severity;
+import com.app.myapp.model.validation.ValidDateOfAddingTheAdd;
+import com.app.myapp.model.validation.ValidDescription;
+import com.app.myapp.model.validation.ValidEnumMembersOfCarClass;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -18,6 +11,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.time.Year;
 
@@ -27,34 +23,41 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ValidPrice(min = 1, max = 100000000)
+    @Min(value = 1, message = "{price.min}", payload = Severity.Error.class)
+    @Max(value = 99999999, message = "{price.max}", payload = Severity.Error.class)
     private int price;
 
-    @ValidMileage(min = 0, max = 30000000)
+    @Min(value = 0, message = "{mileage.min}", payload = Severity.Error.class)
+    @Max(value = 15000000, message = "{mileage.max}", payload = Severity.Error.class)
     private int mileage;
 
-    @ValidDisplacement(min = 1, max = 10000)
+    @Min(value = 1, message = "{displacement.min}", payload = Severity.Error.class)
+    @Max(value = 10000, message = "{displacement.max}", payload = Severity.Error.class)
     private int displacement;
 
-    @ValidPower(min = 1, max = 5000)
+    @Min(value = 1, message = "{power.min}", payload = Severity.Error.class)
+    @Max(value = 5000, message = "{power.max}", payload = Severity.Error.class)
     private int power;
 
-    @ValidDescription(defaultDescription = "", maxDescriptionLength = 2500)
+    @ValidDescription(defaultDescription = "", maxDescriptionLength = 5000)
     private String description;
 
     @ValidDateOfAddingTheAdd
     private LocalDateTime dateOfAddingTheAdd;
 
-    @ValidYearOfProduction(min = 1850, max = 9999)
+    @Min(1850)
+    @Max(9999)
     private Year yearOfProduction;
 
-    @ValidDoorNumbers(min = 1, max = 12)
+    @Min(1)
+    @Max(12)
     private int doorNumber;
 
-    @ValidAmountOfSeats(min = 2, max = 100)
+    @Min(1)
+    @Max(100)
     private int amountOfSeats;
 
-    @ValidVin(regex = "\b[(A-H|J-N|P|R-Z|0-9)]{17}\b")
+    @Pattern(regexp = "\b[(A-H|J-N|P|R-Z|0-9)]{17}\b")
     private String vin;
 
     @Enumerated(value = EnumType.STRING)
