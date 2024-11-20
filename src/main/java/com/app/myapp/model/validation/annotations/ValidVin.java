@@ -21,5 +21,5 @@ public @interface ValidVin {
 
     Class<? extends Payload>[] payload() default {};
 
-    String regex() default "\b[(A-H|J-N|P|R-Z|0-9)]{17}\b";
+    String regex();
 }
