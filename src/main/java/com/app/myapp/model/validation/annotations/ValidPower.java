@@ -1,4 +1,6 @@
-package com.app.myapp.model.validation.annoations;
+package com.app.myapp.model.validation.annotations;
+
+import com.app.myapp.model.validation.PowerValidator;
 
 import javax.validation.Constraint;
 import java.lang.annotation.Documented;
@@ -8,11 +10,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Documented
-@Constraint(validatedBy = {})
+@Constraint(validatedBy = PowerValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidEnumMembersOfCarClass {
-    String message() default "Invalid value. This is not permitted.";
+public @interface ValidPower {
+    String message() default "Invalid power value";
 
-    Class<? extends Enum<?>> enumClass();
+    int min() default 1;
+
+    int max() default 5000;
 }

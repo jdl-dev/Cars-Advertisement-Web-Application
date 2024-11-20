@@ -1,6 +1,6 @@
-package com.app.myapp.model.validation.annoations;
+package com.app.myapp.model.validation.annotations;
 
-import com.app.myapp.model.validation.DescriptionValidator;
+import com.app.myapp.model.validation.DateOfAddingTheAdd;
 
 import javax.validation.Constraint;
 import java.lang.annotation.Documented;
@@ -10,11 +10,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Documented
-@Constraint(validatedBy = DescriptionValidator.class)
+@Constraint(validatedBy = DateOfAddingTheAdd.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidDescription {
-    String message() default "Description is not valid";
-
-    int maxDescriptionLength() default 2500;
+public @interface ValidDateOfAddingTheAdd {
+    String message() default "Invalid Date of Adding";
 }

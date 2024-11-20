@@ -1,6 +1,6 @@
 package com.app.myapp.model.validation;
 
-import com.app.myapp.model.validation.annoations.ValidDescription;
+import com.app.myapp.model.validation.annotations.ValidDescription;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

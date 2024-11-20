@@ -1,6 +1,6 @@
 package com.app.myapp.model.validation;
 
-import com.app.myapp.model.validation.annoations.ValidDateOfAddingTheAdd;
+import com.app.myapp.model.validation.annotations.ValidDateOfAddingTheAdd;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

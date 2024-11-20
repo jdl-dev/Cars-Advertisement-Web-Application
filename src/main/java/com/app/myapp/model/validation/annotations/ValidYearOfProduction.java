@@ -1,6 +1,6 @@
-package com.app.myapp.model.validation.annoations;
+package com.app.myapp.model.validation.annotations;
 
-import com.app.myapp.model.validation.MileageValidator;
+import com.app.myapp.model.validation.YearOfProduction;
 
 import javax.validation.Constraint;
 import java.lang.annotation.Documented;
@@ -10,13 +10,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Documented
-@Constraint(validatedBy = MileageValidator.class)
+@Constraint(validatedBy = YearOfProduction.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidMileage {
-    String message() default "Mileage is not valid";
+public @interface ValidYearOfProduction {
+    String message() default "Invalid Year Of Production";
 
-    int minMileage() default 0;
+    int min() default 1850;
 
-    int maxMileage() default 30000000;
+    int max() default 9999;
 }

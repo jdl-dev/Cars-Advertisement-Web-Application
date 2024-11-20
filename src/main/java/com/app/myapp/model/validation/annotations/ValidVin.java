@@ -1,6 +1,6 @@
-package com.app.myapp.model.validation.annoations;
+package com.app.myapp.model.validation.annotations;
 
-import com.app.myapp.model.validation.PriceValidator;
+import com.app.myapp.model.validation.VinValidator;
 
 import javax.validation.Constraint;
 import java.lang.annotation.Documented;
@@ -10,13 +10,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Documented
-@Constraint(validatedBy = PriceValidator.class)
+@Constraint(validatedBy = VinValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidPrice {
-    String message() default "Price is not correct";
+public @interface ValidVin {
+    String message() default "Invalid VIN";
 
-    int minPrice() default 1;
-
-    int maxPrice() default 100000000;
+    String regex() default "\b[(A-H|J-N|P|R-Z|0-9)]{17}\b";
 }

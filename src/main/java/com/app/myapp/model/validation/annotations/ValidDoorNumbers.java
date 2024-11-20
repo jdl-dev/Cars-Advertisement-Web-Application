@@ -1,4 +1,4 @@
-package com.app.myapp.model.validation.annoations;
+package com.app.myapp.model.validation.annotations;
 
 import com.app.myapp.model.validation.DoorNumberValidator;
 

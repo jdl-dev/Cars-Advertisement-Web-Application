@@ -1,6 +1,6 @@
-package com.app.myapp.model.validation.annoations;
+package com.app.myapp.model.validation.annotations;
 
-import com.app.myapp.model.validation.DateOfAddingTheAdd;
+import com.app.myapp.model.validation.PriceValidator;
 
 import javax.validation.Constraint;
 import java.lang.annotation.Documented;
@@ -10,9 +10,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Documented
-@Constraint(validatedBy = DateOfAddingTheAdd.class)
+@Constraint(validatedBy = PriceValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidDateOfAddingTheAdd {
-    String message() default "Invalid Date of Adding";
+public @interface ValidPrice {
+    String message() default "Price is not correct";
+
+    int minPrice() default 1;
+
+    int maxPrice() default 100000000;
 }

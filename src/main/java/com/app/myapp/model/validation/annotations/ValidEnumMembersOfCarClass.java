@@ -1,6 +1,4 @@
-package com.app.myapp.model.validation.annoations;
-
-import com.app.myapp.model.validation.VinValidator;
+package com.app.myapp.model.validation.annotations;
 
 import javax.validation.Constraint;
 import java.lang.annotation.Documented;
@@ -10,11 +8,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Documented
-@Constraint(validatedBy = VinValidator.class)
+@Constraint(validatedBy = {})
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidVin {
-    String message() default "Invalid VIN";
+public @interface ValidEnumMembersOfCarClass {
+    String message() default "Invalid value. This is not permitted.";
 
-    String regex() default "\b[(A-H|J-N|P|R-Z|0-9)]{17}\b";
+    Class<? extends Enum<?>> enumClass();
 }

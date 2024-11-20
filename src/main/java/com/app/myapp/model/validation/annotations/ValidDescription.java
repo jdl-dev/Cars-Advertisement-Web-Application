@@ -1,6 +1,6 @@
-package com.app.myapp.model.validation.annoations;
+package com.app.myapp.model.validation.annotations;
 
-import com.app.myapp.model.validation.YearOfProduction;
+import com.app.myapp.model.validation.DescriptionValidator;
 
 import javax.validation.Constraint;
 import java.lang.annotation.Documented;
@@ -10,13 +10,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Documented
-@Constraint(validatedBy = YearOfProduction.class)
+@Constraint(validatedBy = DescriptionValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidYearOfProduction {
-    String message() default "Invalid Year Of Production";
+public @interface ValidDescription {
+    String message() default "Description is not valid";
 
-    int min() default 1850;
-
-    int max() default 9999;
+    int maxDescriptionLength() default 2500;
 }

@@ -1,5 +1,6 @@
 package com.app.myapp.model;
 
+import com.app.myapp.model.validation.annotations.ValidPrice;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -16,7 +17,7 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@ValidPrice
+    @ValidPrice
     private int price;
 
     //@ValidMileage
