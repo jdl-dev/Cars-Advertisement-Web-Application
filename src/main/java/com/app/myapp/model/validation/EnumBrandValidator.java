@@ -17,13 +17,6 @@ public class EnumBrandValidator implements ConstraintValidator<ValidEnumMembersO
 
     @Override
     public boolean isValid(Brand brand, ConstraintValidatorContext context) {
-        if (brand == null) {
-            context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("Brand value is not valid " + brand)
-                    .addConstraintViolation();
-            return false;
-        }
-
         if (Arrays.stream(enumClass.getEnumConstants()).anyMatch(e -> e == brand)) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate("Brand value is not valid " + brand)

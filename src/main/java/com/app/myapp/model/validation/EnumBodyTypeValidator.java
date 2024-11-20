@@ -17,13 +17,6 @@ public class EnumBodyTypeValidator implements ConstraintValidator<ValidEnumMembe
 
     @Override
     public boolean isValid(Bodytype bodytype, ConstraintValidatorContext context) {
-        if (bodytype == null) {
-            context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("Bodytype value is not valid " + bodytype)
-                    .addConstraintViolation();
-            return false;
-        }
-
         if (Arrays.stream(enumClass.getEnumConstants()).anyMatch(e -> e == bodytype)) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate("Bodytype value is not valid " + bodytype)

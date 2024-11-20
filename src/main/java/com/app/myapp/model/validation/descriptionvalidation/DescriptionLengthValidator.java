@@ -5,11 +5,13 @@ import com.app.myapp.model.validation.ValidDescription;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class DescriptionValidator implements ConstraintValidator<ValidDescription, String> {
-    int maxDescriptionLength;
+public class DescriptionLengthValidator implements ConstraintValidator<ValidDescription, String> {
+
+    private int maxDescriptionLength;
 
     @Override
     public void initialize(ValidDescription constraintAnnotation) {
+
         this.maxDescriptionLength = constraintAnnotation.maxDescriptionLength();
     }
 

@@ -17,13 +17,6 @@ public class EnumColorPaletteValidator implements ConstraintValidator<ValidEnumM
 
     @Override
     public boolean isValid(ColorPalette colorPalette, ConstraintValidatorContext context) {
-        if (colorPalette == null) {
-            context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("Color palette value is not valid " + colorPalette)
-                    .addConstraintViolation();
-            return false;
-        }
-
         if (Arrays.stream(enumClass.getEnumConstants()).anyMatch(e -> e == colorPalette)) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate("Color palette value is not valid " + colorPalette)

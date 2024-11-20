@@ -17,13 +17,6 @@ public class EnumPetrolValidator implements ConstraintValidator<ValidEnumMembers
 
     @Override
     public boolean isValid(Petrol petrol, ConstraintValidatorContext context) {
-        if (petrol == null) {
-            context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("Petrol value is not valid " + petrol)
-                    .addConstraintViolation();
-            return false;
-        }
-
         if (Arrays.stream(enumClass.getEnumConstants()).anyMatch(e -> e == petrol)) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate("Petrol value is not valid " + petrol)

@@ -16,13 +16,6 @@ public class EnumGearboxValidator implements ConstraintValidator<ValidEnumMember
 
     @Override
     public boolean isValid(Gearbox gearbox, ConstraintValidatorContext context) {
-        if (gearbox == null) {
-            context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("Gearbox value is not valid " + gearbox)
-                    .addConstraintViolation();
-            return false;
-        }
-
         if (Arrays.stream(enumClass.getEnumConstants()).anyMatch(e -> e == gearbox)) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate("Gearbox value is not valid " + gearbox)
