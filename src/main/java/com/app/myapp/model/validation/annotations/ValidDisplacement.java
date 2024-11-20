@@ -21,7 +21,7 @@ public @interface ValidDisplacement {
 
     Class<? extends Payload>[] payload() default {};
 
-    public int minDisplacement() default 1;
+    public int minDisplacement();
 
-    public int maxDisplacement() default 10000;
+    public int maxDisplacement();
 }
