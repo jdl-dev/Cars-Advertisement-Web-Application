@@ -21,5 +21,7 @@ public @interface ValidDescription {
 
     Class<? extends Payload>[] payload() default {};
 
-    int maxDescriptionLength() default 2500;
+    String defaultDescription();
+
+    int maxDescriptionLength();
 }
