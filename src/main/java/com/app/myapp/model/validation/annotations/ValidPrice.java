@@ -21,7 +21,7 @@ public @interface ValidPrice {
 
     Class<? extends Payload>[] payload() default {};
 
-    int minPrice() default 1;
+    int minPrice();
 
-    int maxPrice() default 100000000;
+    int maxPrice();
 }
