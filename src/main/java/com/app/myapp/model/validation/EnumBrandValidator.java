@@ -1,9 +1,9 @@
 package com.app.myapp.model.validation;
 
 import com.app.myapp.model.Brand;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
 import java.util.Arrays;
 
 public class EnumBrandValidator implements ConstraintValidator<ValidEnumMembersOfCarClass, Brand> {

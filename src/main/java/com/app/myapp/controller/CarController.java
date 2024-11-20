@@ -2,6 +2,7 @@ package com.app.myapp.controller;
 
 import com.app.myapp.model.Car;
 import com.app.myapp.service.CarService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,7 @@ public class CarController {
     private CarService carService;
 
     @PostMapping("/add")
-    public Car save(@RequestBody Car car) {
+    public Car save(@Valid @RequestBody Car car) {
         return carService.save(car);
     }
 

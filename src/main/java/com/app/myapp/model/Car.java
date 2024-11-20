@@ -2,7 +2,6 @@ package com.app.myapp.model;
 
 import com.app.myapp.model.payloads.Severity;
 import com.app.myapp.model.validation.ValidDateOfAddingTheAdd;
-import com.app.myapp.model.validation.ValidDescription;
 import com.app.myapp.model.validation.ValidEnumMembersOfCarClass;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,10 +9,12 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.time.Year;
 
@@ -39,8 +40,8 @@ public class Car {
     @Max(value = 5000, message = "{power.max}", payload = Severity.Error.class)
     private int power;
 
-    @ValidDescription(defaultDescription = "", maxDescriptionLength = 5000)
-    private String description;
+    @Size(min = 0, max = 5000, message = "Description can have at most {description.max}")
+    private String description = "";
 
     @ValidDateOfAddingTheAdd
     private LocalDateTime dateOfAddingTheAdd;
@@ -61,26 +62,32 @@ public class Car {
     private String vin;
 
     @Enumerated(value = EnumType.STRING)
+    @NotNull
     @ValidEnumMembersOfCarClass(enumClass = ColorPalette.class)
     private ColorPalette color;
 
     @Enumerated(value = EnumType.STRING)
+    @NotNull
     @ValidEnumMembersOfCarClass(enumClass = State.class)
     private State state;
 
     @Enumerated(value = EnumType.STRING)
+    @NotNull
     @ValidEnumMembersOfCarClass(enumClass = Brand.class)
     private Brand brand;
 
     @Enumerated(value = EnumType.STRING)
+    @NotNull
     @ValidEnumMembersOfCarClass(enumClass = Petrol.class)
     private Petrol petrol;
 
     @Enumerated(value = EnumType.STRING)
+    @NotNull
     @ValidEnumMembersOfCarClass(enumClass = Gearbox.class)
     private Gearbox gearbox;
 
     @Enumerated(value = EnumType.STRING)
+    @NotNull
     @ValidEnumMembersOfCarClass(enumClass = Bodytype.class)
     private Bodytype bodytype;
 

@@ -1,9 +1,9 @@
 package com.app.myapp.model.validation;
 
-import com.app.myapp.model.validation.descriptionvalidation.DescriptionValidator;
+import com.app.myapp.model.validation.descriptionvalidation.DescriptionForbiddenWordsValidator;
+import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
 
-import javax.validation.Constraint;
-import javax.validation.Payload;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,7 +11,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Documented
-@Constraint(validatedBy = DescriptionValidator.class)
+@Constraint(validatedBy = DescriptionForbiddenWordsValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidDescription {
@@ -20,8 +20,4 @@ public @interface ValidDescription {
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
-
-    String defaultDescription();
-
-    int maxDescriptionLength();
 }

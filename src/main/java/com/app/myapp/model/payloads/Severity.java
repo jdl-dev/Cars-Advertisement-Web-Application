@@ -1,6 +1,6 @@
 package com.app.myapp.model.payloads;
 
-import javax.validation.Payload;
+import jakarta.validation.Payload;
 
 public class Severity {
     public interface Info extends Payload {

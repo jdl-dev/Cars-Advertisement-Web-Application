@@ -1,9 +1,9 @@
 package com.app.myapp.model.validation;
 
 import com.app.myapp.model.Bodytype;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
 import java.util.Arrays;
 
 public class EnumBodyTypeValidator implements ConstraintValidator<ValidEnumMembersOfCarClass, Bodytype> {
