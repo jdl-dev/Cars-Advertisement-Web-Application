@@ -21,7 +21,7 @@ public @interface ValidYearOfProduction {
 
     Class<? extends Payload>[] payload() default {};
 
-    int min() default 1850;
+    int min();
 
-    int max() default 9999;
+    int max();
 }
