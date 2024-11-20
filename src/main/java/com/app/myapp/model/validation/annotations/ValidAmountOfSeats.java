@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidAmountOfSeats {
-    String message() default "{com.app.myapp.model.validation.annoations.AmountOfSeats}";
+    String message() default "{com.app.myapp.model.validation.annotations.AmountOfSeats}";
 
     Class<?>[] groups() default {};
 

@@ -13,6 +13,14 @@ import java.time.Year;
 
 @Entity
 public class Car {
+
+    /*
+
+    //!!! ADD NOT NULL VALIDATION (IF NEEDED) EXPLICITLY !!!!
+    IT'S RECOMMENDED BY DOCUMENTATION
+     */
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,6 +33,8 @@ public class Car {
 
     @Enumerated(value = EnumType.STRING)
     //@ValidEnumMembersOfCarClass(enumClass = Brand.class)
+
+
     private Brand brand;
 
     @Enumerated(value = EnumType.STRING)
