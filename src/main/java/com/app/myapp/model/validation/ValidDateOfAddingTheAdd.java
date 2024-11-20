@@ -1,6 +1,4 @@
-package com.app.myapp.model.validation.annotations;
-
-import com.app.myapp.model.validation.DateOfAddingTheAdd;
+package com.app.myapp.model.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

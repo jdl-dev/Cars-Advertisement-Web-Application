@@ -1,4 +1,4 @@
-package com.app.myapp.model.validation.annotations;
+package com.app.myapp.model.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

@@ -1,7 +1,6 @@
 package com.app.myapp.model.validation;
 
 import com.app.myapp.model.Bodytype;
-import com.app.myapp.model.validation.annotations.ValidEnumMembersOfCarClass;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
