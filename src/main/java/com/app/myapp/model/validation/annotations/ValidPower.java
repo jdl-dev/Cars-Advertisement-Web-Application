@@ -21,7 +21,7 @@ public @interface ValidPower {
 
     Class<? extends Payload>[] payload() default {};
 
-    int min() default 1;
+    int min();
 
-    int max() default 5000;
+    int max();
 }
