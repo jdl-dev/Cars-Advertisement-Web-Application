@@ -21,7 +21,7 @@ public @interface ValidMileage {
 
     Class<? extends Payload>[] payload() default {};
 
-    int minMileage() default 0;
+    int minMileage();
 
-    int maxMileage() default 30000000;
+    int maxMileage();
 }
