@@ -2,7 +2,6 @@ package com.app.myapp.model.validation.annotations;
 
 import com.app.myapp.model.validation.AmountOfSeatsValidator;
 
-
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.Documented;
@@ -22,7 +21,7 @@ public @interface ValidAmountOfSeats {
 
     Class<? extends Payload>[] payload() default {};
 
-    int minSeats() default 1;
+    int minSeats();
 
-    int maxSeats() default 100;
+    int maxSeats();
 }
