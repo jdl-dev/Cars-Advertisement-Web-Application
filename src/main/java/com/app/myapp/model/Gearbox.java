@@ -1,5 +1,5 @@
 package com.app.myapp.model;
 
-public enum Gearbos {
+public enum Gearbox {
     AUTOMATIC, MANUAL
 }

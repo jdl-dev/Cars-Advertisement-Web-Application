@@ -1,13 +1,13 @@
 package com.app.myapp.model.validation;
 
-import com.app.myapp.model.Gearbos;
+import com.app.myapp.model.Gearbox;
 import com.app.myapp.model.validation.annotations.ValidEnumMembersOfCarClass;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Arrays;
 
-public class EnumGearboxValidator implements ConstraintValidator<ValidEnumMembersOfCarClass, Gearbos> {
+public class EnumGearboxValidator implements ConstraintValidator<ValidEnumMembersOfCarClass, Gearbox> {
     private Class<? extends Enum<?>> enumClass;
 
     @Override
@@ -16,17 +16,17 @@ public class EnumGearboxValidator implements ConstraintValidator<ValidEnumMember
     }
 
     @Override
-    public boolean isValid(Gearbos gearbos, ConstraintValidatorContext context) {
-        if (gearbos == null) {
+    public boolean isValid(Gearbox gearbox, ConstraintValidatorContext context) {
+        if (gearbox == null) {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("Gearbox value is not valid " + gearbos)
+            context.buildConstraintViolationWithTemplate("Gearbox value is not valid " + gearbox)
                     .addConstraintViolation();
             return false;
         }
 
-        if (Arrays.stream(enumClass.getEnumConstants()).anyMatch(e -> e == gearbos)) {
+        if (Arrays.stream(enumClass.getEnumConstants()).anyMatch(e -> e == gearbox)) {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("Gearbox value is not valid " + gearbos)
+            context.buildConstraintViolationWithTemplate("Gearbox value is not valid " + gearbox)
                     .addConstraintViolation();
             return false;
         }
