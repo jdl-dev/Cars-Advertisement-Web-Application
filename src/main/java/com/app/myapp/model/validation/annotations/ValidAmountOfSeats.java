@@ -21,7 +21,7 @@ public @interface ValidAmountOfSeats {
 
     Class<? extends Payload>[] payload() default {};
 
-    int minSeats();
+    int min();
 
-    int maxSeats();
+    int max();
 }

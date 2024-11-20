@@ -21,7 +21,7 @@ public @interface ValidDoorNumbers {
 
     Class<? extends Payload>[] payload() default {};
 
-    int minDoorNumber();
+    int min();
 
-    int maxDoorNumber();
+    int max();
 }

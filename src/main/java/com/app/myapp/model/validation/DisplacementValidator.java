@@ -11,8 +11,8 @@ public class DisplacementValidator implements ConstraintValidator<ValidDisplacem
 
     @Override
     public void initialize(ValidDisplacement constraintAnnotation) {
-        minDisplacement = constraintAnnotation.minDisplacement();
-        maxDisplacement = constraintAnnotation.maxDisplacement();
+        minDisplacement = constraintAnnotation.min();
+        maxDisplacement = constraintAnnotation.max();
     }
 
     @Override

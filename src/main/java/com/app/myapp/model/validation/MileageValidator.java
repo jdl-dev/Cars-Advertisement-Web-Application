@@ -11,8 +11,8 @@ public class MileageValidator implements ConstraintValidator<ValidMileage, Integ
 
     @Override
     public void initialize(ValidMileage constraintAnnotation) {
-        this.minMileage = constraintAnnotation.minMileage();
-        this.maxMileage = constraintAnnotation.maxMileage();
+        this.minMileage = constraintAnnotation.min();
+        this.maxMileage = constraintAnnotation.max();
     }
 
     @Override

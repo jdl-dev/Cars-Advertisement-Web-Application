@@ -11,8 +11,8 @@ public class PriceValidator implements ConstraintValidator<ValidPrice, Integer> 
 
     @Override
     public void initialize(ValidPrice constraintAnnotation) {
-        this.minPrice = constraintAnnotation.minPrice();
-        this.maxPrice = constraintAnnotation.maxPrice();
+        this.minPrice = constraintAnnotation.min();
+        this.maxPrice = constraintAnnotation.max();
     }
 
     @Override

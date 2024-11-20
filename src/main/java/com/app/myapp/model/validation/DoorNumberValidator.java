@@ -12,8 +12,8 @@ public class DoorNumberValidator implements ConstraintValidator<ValidDoorNumbers
 
     @Override
     public void initialize(ValidDoorNumbers constraintAnnotation) {
-        this.minDoorNumber = constraintAnnotation.minDoorNumber();
-        this.maxDoorNumber = constraintAnnotation.maxDoorNumber();
+        this.minDoorNumber = constraintAnnotation.min();
+        this.maxDoorNumber = constraintAnnotation.max();
     }
 
     @Override

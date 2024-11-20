@@ -12,8 +12,8 @@ public class AmountOfSeatsValidator implements ConstraintValidator<ValidAmountOf
 
     @Override
     public void initialize(ValidAmountOfSeats constraintAnnotation) {
-        this.minAmountOfSeats = constraintAnnotation.minSeats();
-        this.maxAmountOfSeats = constraintAnnotation.maxSeats();
+        this.minAmountOfSeats = constraintAnnotation.min();
+        this.maxAmountOfSeats = constraintAnnotation.max();
     }
 
     @Override
