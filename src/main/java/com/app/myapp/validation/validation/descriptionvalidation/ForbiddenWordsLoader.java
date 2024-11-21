@@ -1,4 +1,4 @@
-package com.app.myapp.model.validation.descriptionvalidation;
+package com.app.myapp.validation.validation.descriptionvalidation;
 
 import java.io.BufferedReader;
 import java.io.IOException;

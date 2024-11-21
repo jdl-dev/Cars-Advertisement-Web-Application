@@ -1,8 +1,8 @@
-package com.app.myapp.model;
+package com.app.myapp.model.model;
 
-import com.app.myapp.model.payloads.Severity;
-import com.app.myapp.model.validation.ValidDateOfAddingTheAdd;
-import com.app.myapp.model.validation.ValidEnumMembersOfCarClass;
+import com.app.myapp.validation.payloads.Severity;
+import com.app.myapp.validation.validation.ValidDateOfAddingTheAdd;
+import com.app.myapp.validation.validation.ValidEnumMembersOfCarClass;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -46,8 +46,8 @@ public class Car {
     @ValidDateOfAddingTheAdd
     private LocalDateTime dateOfAddingTheAdd;
 
-    @Min(1850)
-    @Max(9999)
+    //@Min(1850)
+    //@Max(9999)
     private Year yearOfProduction;
 
     @Min(1)
@@ -58,7 +58,7 @@ public class Car {
     @Max(100)
     private int amountOfSeats;
 
-    @Pattern(regexp = "\b[(A-H|J-N|P|R-Z|0-9)]{17}\b")
+    @Pattern(regexp = "^[A-HJ-NPR-Z0-9]{17}$", message = "{vin.incorrect}")
     private String vin;
 
     @Enumerated(value = EnumType.STRING)
@@ -73,7 +73,7 @@ public class Car {
 
     @Enumerated(value = EnumType.STRING)
     @NotNull
-    @ValidEnumMembersOfCarClass(enumClass = Brand.class)
+    @ValidEnumMembersOfCarClass(enumClass = Brand.class, message = "Brand is not valid")
     private Brand brand;
 
     @Enumerated(value = EnumType.STRING)

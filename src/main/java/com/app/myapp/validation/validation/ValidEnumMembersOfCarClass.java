@@ -1,6 +1,5 @@
-package com.app.myapp.model.validation;
+package com.app.myapp.validation.validation;
 
-import com.app.myapp.model.validation.descriptionvalidation.DescriptionForbiddenWordsValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -11,13 +10,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Documented
-@Constraint(validatedBy = DescriptionForbiddenWordsValidator.class)
+@Constraint(validatedBy = {})
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidDescription {
-    String message() default "Description is not valid";
+public @interface ValidEnumMembersOfCarClass {
+    String message() default "Invalid value. This is not permitted.";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
+
+    Class<? extends Enum<?>> enumClass();
 }

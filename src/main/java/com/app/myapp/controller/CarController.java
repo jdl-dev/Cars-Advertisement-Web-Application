@@ -1,6 +1,6 @@
 package com.app.myapp.controller;
 
-import com.app.myapp.model.Car;
+import com.app.myapp.model.model.Car;
 import com.app.myapp.service.CarService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

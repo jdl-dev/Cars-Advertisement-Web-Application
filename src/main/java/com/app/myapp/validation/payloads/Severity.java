@@ -1,4 +1,4 @@
-package com.app.myapp.model.payloads;
+package com.app.myapp.validation.payloads;
 
 import jakarta.validation.Payload;
 
