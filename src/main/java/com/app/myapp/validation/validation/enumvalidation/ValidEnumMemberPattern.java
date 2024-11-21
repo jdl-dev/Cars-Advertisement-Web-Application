@@ -1,4 +1,4 @@
-package com.app.myapp.validation.validation;
+package com.app.myapp.validation.validation.enumvalidation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidEnumMemberPattern {
-    String message() default "Given value is not correct";
+    String message() default "Given value is not correct.";
 
     Class<?>[] groups() default {};
 

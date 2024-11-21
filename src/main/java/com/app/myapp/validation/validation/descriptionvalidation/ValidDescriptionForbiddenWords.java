@@ -1,6 +1,5 @@
-package com.app.myapp.validation.validation;
+package com.app.myapp.validation.validation.descriptionvalidation;
 
-import com.app.myapp.validation.validation.descriptionvalidation.DescriptionForbiddenWordsValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -14,10 +13,12 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = DescriptionForbiddenWordsValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidDescription {
-    String message() default "Given description is not correct";
+public @interface ValidDescriptionForbiddenWords {
+    String message() default "Given description contains not allowed words.";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
+
+    String forbiddenWords();
 }

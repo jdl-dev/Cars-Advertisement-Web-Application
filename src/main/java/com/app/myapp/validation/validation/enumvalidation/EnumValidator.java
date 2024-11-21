@@ -1,4 +1,4 @@
-package com.app.myapp.validation.validation;
+package com.app.myapp.validation.validation.enumvalidation;
 
 
 import jakarta.validation.ConstraintValidator;
