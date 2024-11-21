@@ -10,13 +10,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Documented
-@Constraint(validatedBy = DateOfAddingTheAdd.class)
+@Constraint(validatedBy = {EnumValidator.class})
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidDateOfAddingTheAdd {
-    String message() default "Invalid Date of Adding";
+public @interface ValidEnumMemberPattern {
+    String message() default "Given value is not correct";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
+
+    String regexp();
 }

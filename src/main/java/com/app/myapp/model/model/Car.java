@@ -2,13 +2,14 @@ package com.app.myapp.model.model;
 
 import com.app.myapp.validation.payloads.Severity;
 import com.app.myapp.validation.validation.ValidDateOfAddingTheAdd;
-import com.app.myapp.validation.validation.ValidEnumMembersOfCarClass;
+import com.app.myapp.validation.validation.ValidEnumMemberPattern;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -40,22 +41,21 @@ public class Car {
     @Max(value = 5000, message = "{power.max}", payload = Severity.Error.class)
     private int power;
 
-    @Size(min = 0, max = 5000, message = "Description can have at most {description.max}")
+    @Size(min = 0, max = 5000, message = "{description.max}", payload = Severity.Error.class)
     private String description = "";
 
-    @ValidDateOfAddingTheAdd
     private LocalDateTime dateOfAddingTheAdd;
 
     //@Min(1850)
     //@Max(9999)
     private Year yearOfProduction;
 
-    @Min(1)
-    @Max(12)
+    @Min(value = 1, message = "{doorNumber.min}")
+    @Max(value = 20, message = "{doorNumber.max}")
     private int doorNumber;
 
-    @Min(1)
-    @Max(100)
+    @Min(value = 1, message = "{amountOfSeats.min}")
+    @Max(value = 100, message = "{amountOfSeats.max}")
     private int amountOfSeats;
 
     @Pattern(regexp = "^[A-HJ-NPR-Z0-9]{17}$", message = "{vin.incorrect}")
@@ -63,32 +63,32 @@ public class Car {
 
     @Enumerated(value = EnumType.STRING)
     @NotNull
-    @ValidEnumMembersOfCarClass(enumClass = ColorPalette.class)
+    @ValidEnumMemberPattern(regexp = "WHITE|BLACK|GRAY|SILVER|BLUE|RED|BROWN|GREEN|ORANGE|BEIGE|PURPLE|GOLD|YELLOW", message = "{color.colorIsNotCorrect}")
     private ColorPalette color;
 
     @Enumerated(value = EnumType.STRING)
     @NotNull
-    @ValidEnumMembersOfCarClass(enumClass = State.class)
+    @ValidEnumMemberPattern(regexp = "NEW|USED", message = "{state.stateIsNotCorrect}")
     private State state;
 
     @Enumerated(value = EnumType.STRING)
     @NotNull
-    @ValidEnumMembersOfCarClass(enumClass = Brand.class, message = "Brand is not valid")
+    @ValidEnumMemberPattern(regexp = "BMW|AUDI|VOLKSWAGEN|FORD|MERCEDES_BENZ|OPEL|TOYOTA|SKODA|RENAULT|PEUGEOT", message = "{brand.brandIsNotCorrect}")
     private Brand brand;
 
     @Enumerated(value = EnumType.STRING)
     @NotNull
-    @ValidEnumMembersOfCarClass(enumClass = Petrol.class)
+    @ValidEnumMemberPattern(regexp = "PETROL|PETROL_AND_CNG|PETROL_AND_LPG|DIESEL|ELECTRIC|ETHANOL|HYBRID|HYBRID_PLUG_IN|HYDROGEN", message = "{petrol.petrolIsNotCorrect}")
     private Petrol petrol;
 
     @Enumerated(value = EnumType.STRING)
     @NotNull
-    @ValidEnumMembersOfCarClass(enumClass = Gearbox.class)
+    @ValidEnumMemberPattern(regexp = "AUTOMATIC|MANUAL", message = "{gearbox.gearboxIsNotCorrect}")
     private Gearbox gearbox;
 
     @Enumerated(value = EnumType.STRING)
     @NotNull
-    @ValidEnumMembersOfCarClass(enumClass = Bodytype.class)
+    @ValidEnumMemberPattern(regexp = "SMALL_CARS|CITY_CAR|COUPE|CABRIOLET|STATION_WAGON|COMPACT|MINIVAN|SEDAN|SUV", message = "{bodytype.bodyTypeIsNotCorrect}")
     private Bodytype bodytype;
 
     public Long getId() {

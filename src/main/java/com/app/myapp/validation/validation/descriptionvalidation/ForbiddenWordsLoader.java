@@ -11,7 +11,6 @@ public final class ForbiddenWordsLoader {
 
     private static final String FILE_PATH = "forbidden_words.txt";
     private static final Set<String> forbiddenWords = new HashSet<>();
-    private static ForbiddenWordsLoader instance;
 
     private ForbiddenWordsLoader() {
         loadForbiddenWords();
