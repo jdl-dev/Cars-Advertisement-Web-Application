@@ -3,6 +3,7 @@ package com.app.myapp.model.model;
 import com.app.myapp.validation.payloads.Severity;
 import com.app.myapp.validation.validation.descriptionvalidation.ValidDescriptionForbiddenWords;
 import com.app.myapp.validation.validation.enumvalidation.ValidEnumMemberPattern;
+import com.app.myapp.validation.validation.yearproductionvalidation.ValidYearOfProduction;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -77,8 +78,8 @@ public class Car {
 
     private LocalDateTime dateOfAddingTheAdd;
 
-    //@Min(1850)
-    //@Max(9999)
+    @NotNull
+    @ValidYearOfProduction(minProductionYear = 1850, maxProductionYear = 9999)
     private Year yearOfProduction;
 
     @Min(
