@@ -1,4 +1,4 @@
-package com.app.myapp.model.model;
+package com.app.myapp.model.model.modelmembers;
 
 public enum Bodytype {
     SMALL_CARS("e.g. Citroen C1, Fiat 500, SMart, Kia Picanto"),

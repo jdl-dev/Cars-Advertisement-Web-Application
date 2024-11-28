@@ -1,5 +1,11 @@
 package com.app.myapp.model.model;
 
+import com.app.myapp.model.model.modelmembers.Bodytype;
+import com.app.myapp.model.model.modelmembers.Brand;
+import com.app.myapp.model.model.modelmembers.ColorPalette;
+import com.app.myapp.model.model.modelmembers.Gearbox;
+import com.app.myapp.model.model.modelmembers.Petrol;
+import com.app.myapp.model.model.modelmembers.State;
 import com.app.myapp.validation.payloads.Severity;
 import com.app.myapp.validation.validation.descriptionvalidation.ValidDescriptionForbiddenWords;
 import com.app.myapp.validation.validation.enumvalidation.ValidEnumMemberPattern;
