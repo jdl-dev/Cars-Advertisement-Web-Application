@@ -7,12 +7,12 @@ import com.app.myapp.dto.searchrangedtomembers.PowerRangeDto;
 import com.app.myapp.dto.searchrangedtomembers.PriceRangeDto;
 import com.app.myapp.dto.searchrangedtomembers.SeatsRangeDto;
 import com.app.myapp.dto.searchrangedtomembers.YearOfProductionRangeDto;
-import com.app.myapp.model.model.modelmembers.Bodytype;
-import com.app.myapp.model.model.modelmembers.Brand;
-import com.app.myapp.model.model.modelmembers.ColorPalette;
-import com.app.myapp.model.model.modelmembers.Gearbox;
-import com.app.myapp.model.model.modelmembers.Petrol;
-import com.app.myapp.model.model.modelmembers.State;
+import com.app.myapp.model.model.carmembers.Bodytype;
+import com.app.myapp.model.model.carmembers.Brand;
+import com.app.myapp.model.model.carmembers.ColorPalette;
+import com.app.myapp.model.model.carmembers.Gearbox;
+import com.app.myapp.model.model.carmembers.Petrol;
+import com.app.myapp.model.model.carmembers.State;
 import com.app.myapp.validation.validation.searchrangedto.validvaluesrange.ValidValuesRange;
 
 import java.util.List;

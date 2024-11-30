@@ -1,11 +1,11 @@
 package com.app.myapp.model.model;
 
-import com.app.myapp.model.model.modelmembers.Bodytype;
-import com.app.myapp.model.model.modelmembers.Brand;
-import com.app.myapp.model.model.modelmembers.ColorPalette;
-import com.app.myapp.model.model.modelmembers.Gearbox;
-import com.app.myapp.model.model.modelmembers.Petrol;
-import com.app.myapp.model.model.modelmembers.State;
+import com.app.myapp.model.model.carmembers.Bodytype;
+import com.app.myapp.model.model.carmembers.Brand;
+import com.app.myapp.model.model.carmembers.ColorPalette;
+import com.app.myapp.model.model.carmembers.Gearbox;
+import com.app.myapp.model.model.carmembers.Petrol;
+import com.app.myapp.model.model.carmembers.State;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
