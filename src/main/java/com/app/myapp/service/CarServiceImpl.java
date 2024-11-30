@@ -21,22 +21,28 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car addCar(CarDto carDto) {
-        return carRepository.save(CarMapper.toEntity(carDto));
+    public CarDto addCar(CarDto carDto) {
+        carRepository.save(CarMapper.toEntity(carDto));
+        return carDto;
     }
 
     @Override
-    public List<Car> addManyCars(List<CarDto> carDtoList) {
+    public List<CarDto> addManyCars(List<CarDto> carDtoList) {
         List<Car> cars = carDtoList.stream()
                 .map(CarMapper::toEntity)
                 .toList();
 
-        return carRepository.saveAll(cars);
+        List<Car> cars1 = carRepository.saveAll(cars);
+
+        return cars1.stream()
+                .map(CarMapper::toDto)
+                .toList();
     }
 
     @Override
-    public List<Car> getAllCarsFromDB() {
-        return carRepository.findAll();
+    public List<CarDto> getAllCarsFromDB() {
+        List<Car> cars = carRepository.findAll();
+        return cars.stream().map(CarMapper::toDto).toList();
     }
 
     @Override
@@ -51,17 +57,19 @@ public class CarServiceImpl implements CarService {
     }
 
     private boolean filterCarsForUserWithGivenSearchRangeBounds(CarDto carDto, SearchRangeDto searchRangeDto) {
-        if (carDto.getPrice() >= searchRangeDto.getPriceRangeDto().getMinPrice() &&
-                carDto.getPrice() <= searchRangeDto.getPriceRangeDto().getMaxPrice()) {
-            return true;
+        if (carDto.getPrice() <= searchRangeDto.getPriceRangeDto().getMinPrice() ||
+                carDto.getPrice() >= searchRangeDto.getPriceRangeDto().getMaxPrice()) {
+            return false;
         }
 
-        if (carDto.getMileage() >= searchRangeDto.getMileageRangeDto().getMinMileage() &&
-                carDto.getMileage() <= searchRangeDto.getMileageRangeDto().getMaxMileage()) {
-            return true;
+        if (carDto.getMileage() <= searchRangeDto.getMileageRangeDto().getMinMileage() ||
+                carDto.getMileage() >= searchRangeDto.getMileageRangeDto().getMaxMileage()) {
+            return false;
         }
 
-        return false;
+        //TODO
+
+        return true;
     }
 
     /*

@@ -7,9 +7,9 @@ import com.app.myapp.model.model.carmembers.Gearbox;
 import com.app.myapp.model.model.carmembers.Petrol;
 import com.app.myapp.model.model.carmembers.State;
 import com.app.myapp.validation.payloads.Severity;
-import com.app.myapp.validation.validation.cardto.descriptionvalidation.ValidDescriptionForbiddenWords;
-import com.app.myapp.validation.validation.cardto.enumvalidation.ValidEnumMemberPattern;
-import com.app.myapp.validation.validation.cardto.yearproductionvalidation.ValidYearOfProduction;
+import com.app.myapp.validation.validation.descriptionvalidation.ValidDescriptionForbiddenWords;
+import com.app.myapp.validation.validation.enumvalidation.ValidEnumMemberPattern;
+import com.app.myapp.validation.validation.yearproductionvalidation.ValidYearOfProduction;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Max;
@@ -111,7 +111,6 @@ public class CarDto {
             payload = Severity.Error.class)
     private String vin;
 
-    @Enumerated(value = EnumType.STRING)
     @NotNull
     @ValidEnumMemberPattern(
             regexp = "WHITE|BLACK|GRAY|SILVER|BLUE|RED|BROWN|GREEN|ORANGE|BEIGE|PURPLE|GOLD|YELLOW",
@@ -119,7 +118,6 @@ public class CarDto {
             payload = Severity.Error.class)
     private ColorPalette color;
 
-    @Enumerated(value = EnumType.STRING)
     @NotNull
     @ValidEnumMemberPattern(
             regexp = "NEW|USED",
@@ -127,7 +125,6 @@ public class CarDto {
             payload = Severity.Error.class)
     private State state;
 
-    @Enumerated(value = EnumType.STRING)
     @NotNull
     @ValidEnumMemberPattern(
             regexp = "BMW|AUDI|VOLKSWAGEN|FORD|MERCEDES_BENZ|OPEL|TOYOTA|SKODA|RENAULT|PEUGEOT",
@@ -135,7 +132,6 @@ public class CarDto {
             payload = Severity.Error.class)
     private Brand brand;
 
-    @Enumerated(value = EnumType.STRING)
     @NotNull
     @ValidEnumMemberPattern(
             regexp = "PETROL|PETROL_AND_CNG|PETROL_AND_LPG|DIESEL|ELECTRIC|ETHANOL|HYBRID|HYBRID_PLUG_IN|HYDROGEN",
@@ -143,7 +139,6 @@ public class CarDto {
             payload = Severity.Error.class)
     private Petrol petrol;
 
-    @Enumerated(value = EnumType.STRING)
     @NotNull
     @ValidEnumMemberPattern(
             regexp = "AUTOMATIC|MANUAL",
@@ -151,7 +146,6 @@ public class CarDto {
             payload = Severity.Error.class)
     private Gearbox gearbox;
 
-    @Enumerated(value = EnumType.STRING)
     @NotNull
     @ValidEnumMemberPattern(
             regexp = "SMALL_CARS|CITY_CAR|COUPE|CABRIOLET|STATION_WAGON|COMPACT|MINIVAN|SEDAN|SUV",
@@ -391,5 +385,28 @@ public class CarDto {
 
     public void setBodytype(@NotNull Bodytype bodytype) {
         this.bodytype = bodytype;
+    }
+
+    @Override
+    public String toString() {
+        return "CarDto{" +
+                "price=" + price +
+                ", mileage=" + mileage +
+                ", displacement=" + displacement +
+                ", power=" + power +
+                ", description='" + description + '\'' +
+                ", dateOfAddingTheAdd=" + dateOfAddingTheAdd +
+                ", dateOfUpdatingTheAdd=" + dateOfUpdatingTheAdd +
+                ", yearOfProduction=" + yearOfProduction +
+                ", doorNumber=" + doorNumber +
+                ", amountOfSeats=" + amountOfSeats +
+                ", vin='" + vin + '\'' +
+                ", color=" + color +
+                ", state=" + state +
+                ", brand=" + brand +
+                ", petrol=" + petrol +
+                ", gearbox=" + gearbox +
+                ", bodytype=" + bodytype +
+                '}';
     }
 }

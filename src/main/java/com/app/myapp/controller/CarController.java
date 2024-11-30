@@ -2,7 +2,6 @@ package com.app.myapp.controller;
 
 import com.app.myapp.dto.CarDto;
 import com.app.myapp.dto.SearchRangeDto;
-import com.app.myapp.model.model.Car;
 import com.app.myapp.service.CarService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,17 +26,17 @@ public class CarController {
     }
 
     @PostMapping("/addCar")
-    public Car addCar(@Valid @RequestBody CarDto carDto) {
+    public CarDto addCar(@Valid @RequestBody CarDto carDto) {
         return carService.addCar(carDto);
     }
 
     @PostMapping("/addManyCars")
-    public List<Car> addManyCars(@RequestBody List<@Valid CarDto> carDtoList) {
+    public List<CarDto> addManyCars(@RequestBody List<@Valid CarDto> carDtoList) {
         return carService.addManyCars(carDtoList);
     }
 
     @GetMapping("/allCars")
-    public List<Car> getAllCars(Model model) {
+    public List<CarDto> getAllCars(Model model) {
         return carService.getAllCarsFromDB();
     }
 

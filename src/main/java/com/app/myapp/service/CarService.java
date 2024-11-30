@@ -9,14 +9,12 @@ import java.util.List;
 public interface CarService {
 
     //CREATE
-    Car addCar(CarDto carDto);
+    CarDto addCar(CarDto carDto);
 
-    List<Car> addManyCars(List<CarDto> carDtoList);
+    List<CarDto> addManyCars(List<CarDto> carDtoList);
 
     //READ
-    List<Car> getAllCarsFromDB();
-
-
+    List<CarDto> getAllCarsFromDB();
     List<CarDto> getAllCarsFromTheGivenRange(SearchRangeDto searchRangeDto);
 
     /*

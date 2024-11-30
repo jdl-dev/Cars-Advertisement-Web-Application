@@ -7,6 +7,8 @@ import com.app.myapp.model.model.carmembers.Gearbox;
 import com.app.myapp.model.model.carmembers.Petrol;
 import com.app.myapp.model.model.carmembers.State;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,18 +25,25 @@ public class Car {
     private int mileage;
     private int displacement;
     private int power;
-    private String description = "";
+    private String description;
     private LocalDateTime dateOfAddingTheAdd;
     private LocalDateTime dateOfUpdatingTheAdd;
     private Year yearOfProduction;
     private int doorNumber;
     private int amountOfSeats;
+
     private String vin;
+    @Enumerated(EnumType.STRING)
     private ColorPalette color;
+    @Enumerated(EnumType.STRING)
     private State state;
+    @Enumerated(EnumType.STRING)
     private Brand brand;
+    @Enumerated(EnumType.STRING)
     private Petrol petrol;
+    @Enumerated(EnumType.STRING)
     private Gearbox gearbox;
+    @Enumerated(EnumType.STRING)
     private Bodytype bodytype;
 
     public Long getId() {

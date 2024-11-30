@@ -1,4 +1,4 @@
-package com.app.myapp.validation.validation.cardto.enumvalidation;
+package com.app.myapp.validation.validation.enumvalidation;
 
 
 import jakarta.validation.ConstraintValidator;
@@ -22,10 +22,6 @@ public class EnumValidator implements ConstraintValidator<ValidEnumMemberPattern
 
     @Override
     public boolean isValid(Enum<?> value, ConstraintValidatorContext context) {
-        if (value == null) {
-            return true;
-        }
-
         Matcher m = pattern.matcher(value.name());
         return m.matches();
     }

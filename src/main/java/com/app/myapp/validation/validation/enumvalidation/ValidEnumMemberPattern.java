@@ -1,4 +1,4 @@
-package com.app.myapp.validation.validation.cardto.yearproductionvalidation;
+package com.app.myapp.validation.validation.enumvalidation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -10,17 +10,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Documented
-@Constraint(validatedBy = {YearOfProductionValidator.class})
-@Target(ElementType.FIELD)
+@Constraint(validatedBy = {EnumValidator.class})
+@Target({ElementType.TYPE_USE, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidYearOfProduction {
-    String message() default "Given year of production is not correct.";
+public @interface ValidEnumMemberPattern {
+    String regexp();
 
+    String message() default "must match \"{regexp}\"";
     Class<?>[] groups() default {};
-
     Class<? extends Payload>[] payload() default {};
-
-    int minProductionYear();
-
-    int maxProductionYear();
 }

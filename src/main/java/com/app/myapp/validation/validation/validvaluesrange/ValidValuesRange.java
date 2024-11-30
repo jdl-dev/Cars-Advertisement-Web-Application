@@ -1,4 +1,4 @@
-package com.app.myapp.validation.validation.cardto.enumvalidation;
+package com.app.myapp.validation.validation.validvaluesrange;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -10,13 +10,21 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Documented
-@Constraint(validatedBy = {EnumValidator.class})
+@Constraint(validatedBy = ValidValuesRangeValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidEnumMemberPattern {
-    String regexp();
+public @interface ValidValuesRange {
+    String message() default "Given range is not correct.";
 
-    String message() default "must match \"{regexp}\"";
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
+
+    int min();
+
+    int max();
+
+    String minField();
+
+    String maxField();
 }

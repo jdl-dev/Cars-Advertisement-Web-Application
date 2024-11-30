@@ -1,4 +1,4 @@
-package com.app.myapp.validation.validation.cardto.descriptionvalidation;
+package com.app.myapp.validation.validation.descriptionvalidation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

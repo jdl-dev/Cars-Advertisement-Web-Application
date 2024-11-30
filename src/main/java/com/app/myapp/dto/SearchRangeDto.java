@@ -13,26 +13,75 @@ import com.app.myapp.model.model.carmembers.ColorPalette;
 import com.app.myapp.model.model.carmembers.Gearbox;
 import com.app.myapp.model.model.carmembers.Petrol;
 import com.app.myapp.model.model.carmembers.State;
-import com.app.myapp.validation.validation.searchrangedto.validvaluesrange.ValidValuesRange;
+import com.app.myapp.validation.payloads.Severity;
+import com.app.myapp.validation.validation.enumvalidation.ValidEnumMemberPattern;
+import com.app.myapp.validation.validation.validvaluesrange.ValidValuesRange;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.NotNull;
 
+import java.time.Year;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchRangeDto {
 
     @ValidValuesRange(min = 1, max = 99999999, minField = "minPrice", maxField = "maxPrice")
-    private PriceRangeDto priceRangeDto;
-    private MileageRangeDto mileageRangeDto;
-    private DisplacementRangeDto displacementRangeDto;
-    private PowerRangeDto powerRangeDto;
-    private YearOfProductionRangeDto yearOfProductionRangeDto;
-    private DoorsRangeDto doorsRangeDto;
-    private SeatsRangeDto seatsRangeDto;
-    private List<ColorPalette> colors;
-    private List<State> states;
-    private List<Brand> brands;
-    private List<Petrol> petrolTypes;
-    private List<Gearbox> gearboxTypes;
-    private List<Bodytype> bodytypeList;
+    private PriceRangeDto priceRangeDto = new PriceRangeDto();
+
+    @ValidValuesRange(min = 0, max = 15000000, minField = "minMileage", maxField = "maxMileage")
+    private MileageRangeDto mileageRangeDto = new MileageRangeDto();
+
+    @ValidValuesRange(min = 1, max = 10000, minField = "minDisplacement", maxField = "maxDisplacement")
+    private DisplacementRangeDto displacementRangeDto = new DisplacementRangeDto();
+
+    @ValidValuesRange(min = 1, max = 5000, minField = "minPower", maxField = "maxPower")
+    private PowerRangeDto powerRangeDto = new PowerRangeDto();
+
+    @ValidValuesRange(min = 1850, max = 9999, minField = "minYearOfProduction", maxField = "maxYearOfProduction")
+    private YearOfProductionRangeDto yearOfProductionRangeDto = new YearOfProductionRangeDto();
+
+    @ValidValuesRange(min = 1, max = 20, minField = "minDoorNumber", maxField = "maxDoorNumber")
+    private DoorsRangeDto doorsRangeDto = new DoorsRangeDto();
+
+    @ValidValuesRange(min = 1, max = 100, minField = "minAmountOfSeats", maxField = "maxAmountOfSeats")
+    private SeatsRangeDto seatsRangeDto = new SeatsRangeDto();
+
+    private List<@ValidEnumMemberPattern(
+            regexp = "WHITE|BLACK|GRAY|SILVER|BLUE|RED|BROWN|GREEN|ORANGE|BEIGE|PURPLE|GOLD|YELLOW",
+            message = "{color.colorIsNotCorrect}",
+            payload = Severity.Error.class) ColorPalette> colors = new ArrayList<>();
+
+    private List<@ValidEnumMemberPattern(
+            regexp = "NEW|USED",
+            message = "{state.stateIsNotCorrect}",
+            payload = Severity.Error.class)
+            State> states = new ArrayList<>();
+    ;
+
+    private List<@ValidEnumMemberPattern(
+            regexp = "BMW|AUDI|VOLKSWAGEN|FORD|MERCEDES_BENZ|OPEL|TOYOTA|SKODA|RENAULT|PEUGEOT",
+            message = "{brand.brandIsNotCorrect}",
+            payload = Severity.Error.class) Brand> brands = new ArrayList<>();
+    ;
+
+    private List<@ValidEnumMemberPattern(
+            regexp = "PETROL|PETROL_AND_CNG|PETROL_AND_LPG|DIESEL|ELECTRIC|ETHANOL|HYBRID|HYBRID_PLUG_IN|HYDROGEN",
+            message = "{petrol.petrolIsNotCorrect}",
+            payload = Severity.Error.class) Petrol> petrolTypes = new ArrayList<>();
+    ;
+
+    private List<@ValidEnumMemberPattern(
+            regexp = "AUTOMATIC|MANUAL",
+            message = "{gearbox.gearboxIsNotCorrect}",
+            payload = Severity.Warning.class) Gearbox> gearboxTypes = new ArrayList<>();
+    ;
+
+    private List<@ValidEnumMemberPattern(
+            regexp = "SMALL_CARS|CITY_CAR|COUPE|CABRIOLET|STATION_WAGON|COMPACT|MINIVAN|SEDAN|SUV",
+            message = "{bodytype.bodyTypeIsNotCorrect}",
+            payload = Severity.Error.class) Bodytype> bodytypeList = new ArrayList<>();
+    ;
 
     public PriceRangeDto getPriceRangeDto() {
         return priceRangeDto;
@@ -98,43 +147,62 @@ public class SearchRangeDto {
         this.colors = colors;
     }
 
-    public List<State> getStates() {
+    public @NotNull List<State> getStates() {
         return states;
     }
 
-    public void setStates(List<State> states) {
+    public void setStates(@NotNull List<State> states) {
         this.states = states;
     }
 
-    public List<Brand> getBrands() {
+    public @NotNull List<Brand> getBrands() {
         return brands;
     }
 
-    public void setBrands(List<Brand> brands) {
+    public void setBrands(@NotNull List<Brand> brands) {
         this.brands = brands;
     }
 
-    public List<Petrol> getPetrolTypes() {
+    public @NotNull List<Petrol> getPetrolTypes() {
         return petrolTypes;
     }
 
-    public void setPetrolTypes(List<Petrol> petrolTypes) {
+    public void setPetrolTypes(@NotNull List<Petrol> petrolTypes) {
         this.petrolTypes = petrolTypes;
     }
 
-    public List<Gearbox> getGearboxTypes() {
+    public @NotNull List<Gearbox> getGearboxTypes() {
         return gearboxTypes;
     }
 
-    public void setGearboxTypes(List<Gearbox> gearboxTypes) {
+    public void setGearboxTypes(@NotNull List<Gearbox> gearboxTypes) {
         this.gearboxTypes = gearboxTypes;
     }
 
-    public List<Bodytype> getBodytypeList() {
+    public @NotNull List<Bodytype> getBodytypeList() {
         return bodytypeList;
     }
 
-    public void setBodytypeList(List<Bodytype> bodytypeList) {
+    public void setBodytypeList(@NotNull List<Bodytype> bodytypeList) {
         this.bodytypeList = bodytypeList;
+    }
+
+    @Override
+    public String toString() {
+        return "SearchRangeDto{" +
+                "priceRangeDto=" + priceRangeDto +
+                ", mileageRangeDto=" + mileageRangeDto +
+                ", displacementRangeDto=" + displacementRangeDto +
+                ", powerRangeDto=" + powerRangeDto +
+                ", yearOfProductionRangeDto=" + yearOfProductionRangeDto +
+                ", doorsRangeDto=" + doorsRangeDto +
+                ", seatsRangeDto=" + seatsRangeDto +
+                ", colors=" + colors +
+                ", states=" + states +
+                ", brands=" + brands +
+                ", petrolTypes=" + petrolTypes +
+                ", gearboxTypes=" + gearboxTypes +
+                ", bodytypeList=" + bodytypeList +
+                '}';
     }
 }

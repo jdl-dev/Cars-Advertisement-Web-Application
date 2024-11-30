@@ -1,4 +1,4 @@
-package com.app.myapp.validation.validation.cardto.descriptionvalidation;
+package com.app.myapp.validation.validation.descriptionvalidation;
 
 import java.io.BufferedReader;
 import java.io.IOException;

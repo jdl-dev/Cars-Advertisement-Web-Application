@@ -1,4 +1,4 @@
-package com.app.myapp.validation.validation.searchrangedto.validvaluesrange;
+package com.app.myapp.validation.validation.yearproductionvalidation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -10,21 +10,17 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Documented
-@Constraint(validatedBy = ValidValuesRangeValidator.class)
+@Constraint(validatedBy = {YearOfProductionValidator.class})
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidValuesRange {
-    String message() default "Given range is not correct.";
+public @interface ValidYearOfProduction {
+    String message() default "Given year of production is not correct.";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
 
-    int min();
+    int minProductionYear();
 
-    int max();
-
-    String minField();
-
-    String maxField();
+    int maxProductionYear();
 }

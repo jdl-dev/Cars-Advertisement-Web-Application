@@ -1,4 +1,4 @@
-package com.app.myapp.validation.validation.searchrangedto.validvaluesrange;
+package com.app.myapp.validation.validation.validvaluesrange;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -22,6 +22,11 @@ public class ValidValuesRangeValidator implements ConstraintValidator<ValidValue
 
     @Override
     public boolean isValid(Object object, ConstraintValidatorContext constraintValidatorContext) {
+
+        if (object == null) {
+            return true;
+        }
+
         Class<?> clazz = object.getClass();
 
         try {
@@ -32,16 +37,8 @@ public class ValidValuesRangeValidator implements ConstraintValidator<ValidValue
             minClazzField.setAccessible(true);
             maxClazzField.setAccessible(true);
 
-            int minValue;
-            int maxValue;
-
-            if (minClazzField.getType().equals(int.class)) {
-                minValue = (int) minClazzField.get(object);
-                maxValue = (int) maxClazzField.get(object);
-            } else {
-                minValue = Integer.parseInt((String) minClazzField.get(object));
-                maxValue = Integer.parseInt((String) maxClazzField.get(object));
-            }
+            int minValue = minClazzField.getInt(object);
+            int maxValue = maxClazzField.getInt(object);
 
             HibernateConstraintValidatorContext hibernateContext =
                     constraintValidatorContext.unwrap(HibernateConstraintValidatorContext.class);
