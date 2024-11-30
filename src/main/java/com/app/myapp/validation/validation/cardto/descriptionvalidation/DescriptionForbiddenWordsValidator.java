@@ -19,7 +19,7 @@ public class DescriptionForbiddenWordsValidator implements ConstraintValidator<V
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
         for (String forbiddenWord : forbiddenWords) {
 
-            if (s.compareToIgnoreCase(forbiddenWord) == 1) {
+            if (s.compareToIgnoreCase(forbiddenWord) == 0) {
                 return false;
 
             }

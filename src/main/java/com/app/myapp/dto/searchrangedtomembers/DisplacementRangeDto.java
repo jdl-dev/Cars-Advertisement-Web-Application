@@ -1,12 +1,10 @@
 package com.app.myapp.dto.searchrangedtomembers;
 
 public class DisplacementRangeDto {
-    private int minDisplacement;
-    private int maxDisplacement;
+    private int minDisplacement = 1;
+    private int maxDisplacement = 10000;
 
-    public DisplacementRangeDto(int minDisplacement, int maxDisplacement) {
-        this.minDisplacement = minDisplacement;
-        this.maxDisplacement = maxDisplacement;
+    public DisplacementRangeDto() {
     }
 
     public int getMinDisplacement() {

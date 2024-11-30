@@ -1,12 +1,10 @@
 package com.app.myapp.dto.searchrangedtomembers;
 
 public class DoorsRangeDto {
-    private int minDoorNumber;
-    private int maxDoorNumber;
+    private int minDoorNumber = 1;
+    private int maxDoorNumber = 20;
 
-    public DoorsRangeDto(int minDoorNumber, int maxDoorNumber) {
-        this.minDoorNumber = minDoorNumber;
-        this.maxDoorNumber = maxDoorNumber;
+    public DoorsRangeDto() {
     }
 
     public int getMinDoorNumber() {

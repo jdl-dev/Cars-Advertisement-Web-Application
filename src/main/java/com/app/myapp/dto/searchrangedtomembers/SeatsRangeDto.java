@@ -1,12 +1,10 @@
 package com.app.myapp.dto.searchrangedtomembers;
 
 public class SeatsRangeDto {
-    private int minAmountOfSeats;
-    private int maxAmountOfSeats;
+    private int minAmountOfSeats = 1;
+    private int maxAmountOfSeats = 100;
 
-    public SeatsRangeDto(int minAmountOfSeats, int maxAmountOfSeats) {
-        this.minAmountOfSeats = minAmountOfSeats;
-        this.maxAmountOfSeats = maxAmountOfSeats;
+    public SeatsRangeDto() {
     }
 
     public int getMinAmountOfSeats() {

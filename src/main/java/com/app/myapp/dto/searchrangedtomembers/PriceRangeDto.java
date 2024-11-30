@@ -1,12 +1,10 @@
 package com.app.myapp.dto.searchrangedtomembers;
 
 public class PriceRangeDto {
-    private int minPrice;
-    private int maxPrice;
+    private int minPrice = 1;
+    private int maxPrice = 99999999;
 
-    public PriceRangeDto(int minPrice, int maxPrice) {
-        this.minPrice = minPrice;
-        this.maxPrice = maxPrice;
+    public PriceRangeDto() {
     }
 
     public int getMinPrice() {

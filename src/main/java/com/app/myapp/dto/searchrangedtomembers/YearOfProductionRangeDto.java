@@ -3,12 +3,10 @@ package com.app.myapp.dto.searchrangedtomembers;
 import java.time.Year;
 
 public class YearOfProductionRangeDto {
-    private Year minYearOfProduction;
-    private Year maxYearOfProduction;
+    private Year minYearOfProduction = Year.of(1850);
+    private Year maxYearOfProduction = Year.now();
 
-    public YearOfProductionRangeDto(Year minYearOfProduction, Year maxYearOfProduction) {
-        this.minYearOfProduction = minYearOfProduction;
-        this.maxYearOfProduction = maxYearOfProduction;
+    public YearOfProductionRangeDto() {
     }
 
     public Year getMinYearOfProduction() {

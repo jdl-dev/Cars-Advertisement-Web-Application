@@ -14,11 +14,9 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidEnumMemberPattern {
-    String message() default "Given value is not correct.";
-
-    Class<?>[] groups() default {};
-
-    Class<? extends Payload>[] payload() default {};
-
     String regexp();
+
+    String message() default "must match \"{regexp}\"";
+    Class<?>[] groups() default {};
+    Class<? extends Payload>[] payload() default {};
 }

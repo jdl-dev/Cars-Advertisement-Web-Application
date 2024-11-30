@@ -1,12 +1,10 @@
 package com.app.myapp.dto.searchrangedtomembers;
 
 public class MileageRangeDto {
-    private int minMileage;
-    private int maxMileage;
+    private int minMileage = 0;
+    private int maxMileage = 15000000;
 
-    public MileageRangeDto(int minMileage, int maxMileage) {
-        this.minMileage = minMileage;
-        this.maxMileage = maxMileage;
+    public MileageRangeDto() {
     }
 
     public int getMinMileage() {

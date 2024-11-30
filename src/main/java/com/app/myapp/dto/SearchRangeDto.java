@@ -13,11 +13,13 @@ import com.app.myapp.model.model.modelmembers.ColorPalette;
 import com.app.myapp.model.model.modelmembers.Gearbox;
 import com.app.myapp.model.model.modelmembers.Petrol;
 import com.app.myapp.model.model.modelmembers.State;
+import com.app.myapp.validation.validation.searchrangedto.validvaluesrange.ValidValuesRange;
 
 import java.util.List;
 
 public class SearchRangeDto {
 
+    @ValidValuesRange(min = 1, max = 99999999, minField = "minPrice", maxField = "maxPrice")
     private PriceRangeDto priceRangeDto;
     private MileageRangeDto mileageRangeDto;
     private DisplacementRangeDto displacementRangeDto;

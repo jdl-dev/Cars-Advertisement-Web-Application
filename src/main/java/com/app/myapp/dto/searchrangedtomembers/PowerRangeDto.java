@@ -1,12 +1,10 @@
 package com.app.myapp.dto.searchrangedtomembers;
 
 public class PowerRangeDto {
-    private int minPower;
-    private int maxPower;
+    private int minPower = 1;
+    private int maxPower = 5000;
 
-    public PowerRangeDto(int minPower, int maxPower) {
-        this.minPower = minPower;
-        this.maxPower = maxPower;
+    public PowerRangeDto() {
     }
 
     public int getMinPower() {
