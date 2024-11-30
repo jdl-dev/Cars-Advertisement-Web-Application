@@ -1,4 +1,4 @@
-package com.app.myapp.validation.validation.enumvalidation;
+package com.app.myapp.validation.validation.cardto.descriptionvalidation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -10,15 +10,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Documented
-@Constraint(validatedBy = {EnumValidator.class})
+@Constraint(validatedBy = DescriptionForbiddenWordsValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidEnumMemberPattern {
-    String message() default "Given value is not correct.";
+public @interface ValidDescriptionForbiddenWords {
+    String message() default "Given description contains not allowed words.";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
 
-    String regexp();
+    String forbiddenWords();
 }
