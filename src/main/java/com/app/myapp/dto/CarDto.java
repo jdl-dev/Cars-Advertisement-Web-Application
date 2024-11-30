@@ -1,4 +1,4 @@
-package com.app.myapp.model.dto;
+package com.app.myapp.dto;
 
 import com.app.myapp.model.model.modelmembers.Bodytype;
 import com.app.myapp.model.model.modelmembers.Brand;
@@ -7,9 +7,9 @@ import com.app.myapp.model.model.modelmembers.Gearbox;
 import com.app.myapp.model.model.modelmembers.Petrol;
 import com.app.myapp.model.model.modelmembers.State;
 import com.app.myapp.validation.payloads.Severity;
-import com.app.myapp.validation.validation.descriptionvalidation.ValidDescriptionForbiddenWords;
-import com.app.myapp.validation.validation.enumvalidation.ValidEnumMemberPattern;
-import com.app.myapp.validation.validation.yearproductionvalidation.ValidYearOfProduction;
+import com.app.myapp.validation.validation.cardto.descriptionvalidation.ValidDescriptionForbiddenWords;
+import com.app.myapp.validation.validation.cardto.enumvalidation.ValidEnumMemberPattern;
+import com.app.myapp.validation.validation.cardto.yearproductionvalidation.ValidYearOfProduction;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Max;
@@ -17,13 +17,13 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.time.Year;
 
 public class CarDto {
-    private Long id;
-
     @Min(
             value = 1,
             message = "{price.min}",
@@ -75,7 +75,11 @@ public class CarDto {
             payload = Severity.Error.class)
     private String description = "";
 
+    @CreationTimestamp
     private LocalDateTime dateOfAddingTheAdd;
+
+    @UpdateTimestamp
+    private LocalDateTime dateOfUpdatingTheAdd;
 
     @NotNull
     @ValidYearOfProduction(minProductionYear = 1850, maxProductionYear = 9999)
@@ -154,14 +158,6 @@ public class CarDto {
             message = "{bodytype.bodyTypeIsNotCorrect}",
             payload = Severity.Error.class)
     private Bodytype bodytype;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     @Min(
             value = 1,
@@ -273,6 +269,14 @@ public class CarDto {
 
     public void setDateOfAddingTheAdd(LocalDateTime dateOfAddingTheAdd) {
         this.dateOfAddingTheAdd = dateOfAddingTheAdd;
+    }
+
+    public LocalDateTime getDateOfUpdatingTheAdd() {
+        return dateOfUpdatingTheAdd;
+    }
+
+    public void setDateOfUpdatingTheAdd(LocalDateTime dateOfUpdatingTheAdd) {
+        this.dateOfUpdatingTheAdd = dateOfUpdatingTheAdd;
     }
 
     public @NotNull Year getYearOfProduction() {
