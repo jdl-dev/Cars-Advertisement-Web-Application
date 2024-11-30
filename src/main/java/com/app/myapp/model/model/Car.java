@@ -21,6 +21,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.time.Year;
@@ -82,7 +84,11 @@ public class Car {
             payload = Severity.Error.class)
     private String description = "";
 
+    @CreationTimestamp
     private LocalDateTime dateOfAddingTheAdd;
+
+    @UpdateTimestamp
+    private LocalDateTime dateOfUpdatingTheAdd;
 
     @NotNull
     @ValidYearOfProduction(minProductionYear = 1850, maxProductionYear = 9999)
@@ -216,6 +222,14 @@ public class Car {
 
     public void setDateOfAddingTheAdd(LocalDateTime dateOfAddingTheAdd) {
         this.dateOfAddingTheAdd = dateOfAddingTheAdd;
+    }
+
+    public LocalDateTime getDateOfUpdatingTheAdd() {
+        return dateOfUpdatingTheAdd;
+    }
+
+    public void setDateOfUpdatingTheAdd(LocalDateTime dateOfUpdateingTheAdd) {
+        this.dateOfUpdatingTheAdd = dateOfUpdateingTheAdd;
     }
 
     public Year getYearOfProduction() {
