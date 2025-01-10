@@ -5,7 +5,6 @@ import com.app.myapp.dto.SearchRangeDto;
 import com.app.myapp.service.CarService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,7 +41,7 @@ public class CarController {
 
     @GetMapping("/allCars")
     public List<CarDto> getAllCars(Model model) {
-        return carService.getAllCarsFromDB();
+        return carService.getAllCars();
     }
 
     @GetMapping("/filteredCars")

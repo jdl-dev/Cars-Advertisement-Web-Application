@@ -2,7 +2,6 @@ package com.app.myapp.service;
 
 import com.app.myapp.dto.CarDto;
 import com.app.myapp.dto.SearchRangeDto;
-import com.app.myapp.model.model.Car;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ public interface CarService {
     List<CarDto> addManyCars(List<CarDto> carDtoList);
 
     //READ
-    List<CarDto> getAllCarsFromDB();
+    List<CarDto> getAllCars();
 
     List<CarDto> getAllCarsFromTheGivenRange(SearchRangeDto searchRangeDto);
 

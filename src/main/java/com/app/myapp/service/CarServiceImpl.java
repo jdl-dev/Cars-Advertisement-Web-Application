@@ -49,7 +49,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<CarDto> getAllCarsFromDB() {
+    public List<CarDto> getAllCars() {
         List<Car> cars = carRepository.findAll();
         return cars.stream().map(CarMapper::toDto).toList();
     }
