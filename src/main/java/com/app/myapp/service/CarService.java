@@ -15,13 +15,14 @@ public interface CarService {
 
     //READ
     List<CarDto> getAllCarsFromDB();
+
     List<CarDto> getAllCarsFromTheGivenRange(SearchRangeDto searchRangeDto);
 
-    /*
+
     //UPDATE
-    Car updateCar(int id, CarDto carDto);
+    CarDto updateCar(long id, CarDto carDto);
 
     //DELETE
-    Car deleteCar(int id);
-     */
+    CarDto deleteCar(long id);
+
 }
