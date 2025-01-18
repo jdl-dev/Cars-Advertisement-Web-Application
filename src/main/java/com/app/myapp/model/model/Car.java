@@ -1,17 +1,18 @@
 package com.app.myapp.model.model;
 
-import com.app.myapp.model.model.carmembers.Bodytype;
-import com.app.myapp.model.model.carmembers.Brand;
-import com.app.myapp.model.model.carmembers.ColorPalette;
-import com.app.myapp.model.model.carmembers.Gearbox;
-import com.app.myapp.model.model.carmembers.Petrol;
-import com.app.myapp.model.model.carmembers.State;
+import com.app.myapp.model.model.car_members.Bodytype;
+import com.app.myapp.model.model.car_members.Brand;
+import com.app.myapp.model.model.car_members.ColorPalette;
+import com.app.myapp.model.model.car_members.Gearbox;
+import com.app.myapp.model.model.car_members.Petrol;
+import com.app.myapp.model.model.car_members.State;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 import java.time.LocalDateTime;
 import java.time.Year;
@@ -45,6 +46,9 @@ public class Car {
     private Gearbox gearbox;
     @Enumerated(EnumType.STRING)
     private Bodytype bodytype;
+
+    @ManyToOne
+    private User user;
 
     public Long getId() {
         return id;
@@ -188,5 +192,13 @@ public class Car {
 
     public void setBodytype(Bodytype bodytype) {
         this.bodytype = bodytype;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

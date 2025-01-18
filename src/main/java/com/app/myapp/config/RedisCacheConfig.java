@@ -1,30 +1,69 @@
 package com.app.myapp.config;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
-import org.springframework.data.redis.cache.RedisCacheManager;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.time.Duration;
-import java.util.Collections;
 
-//SLF4J
 
-@Configuration
 
 // Włączenie mechanizmu cache
 //Po dodaniu @EnableCaching Spring zaczyna skanować komponenty w poszukiwaniu adnotacji związanych z cachem, takich jak:
 //@Cacheable - Zapisuje wynik metody w pamięci podręcznej.
 //@CachePut - Aktualizuje wartość w cache.
 //@CacheEvict - Usuwa dane z pamięci podręcznej.
-
-@EnableCaching
+@Configuration
 public class RedisCacheConfig {
+
+
+    @Bean
+    public RedisCacheConfiguration defaultCacheConfig() {
+        ObjectMapper mapper = new ObjectMapper()
+                .findAndRegisterModules()
+                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+
+        return RedisCacheConfiguration
+                .defaultCacheConfig()
+                .entryTtl(Duration.ofMinutes(10))
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer(mapper)));
+    }
+
+//    @Bean
+//    public <T> RedisTemplate<String, T> redisTemplate(@Autowired LettuceConnectionFactory lettuceConnectionFactory) {
+//        RedisTemplate<String, T> template = new RedisTemplate<>();
+//        template.setConnectionFactory(lettuceConnectionFactory);
+//
+//        StringRedisSerializer keySerializer = new StringRedisSerializer();
+//        RedisSerializer<Object> valueSerializer = RedisSerializer.json();
+//
+//        template.setKeySerializer(keySerializer);
+//        template.setValueSerializer(valueSerializer);
+//
+//        template.setHashKeySerializer(keySerializer);
+//        template.setHashValueSerializer(valueSerializer);
+//
+//        template.afterPropertiesSet();
+//        return template;
+//    }
+//
+//    @Bean
+//    public RedisCacheManager redisCacheManager(RedisConnectionFactory factory) {
+//
+//        return RedisCacheManager.builder(factory)
+//                .cacheDefaults(config)
+//                .build();
+//    }
+//
 
     //CACHING Z IMPLEMENTACJA  REDIS !!!
 
@@ -38,23 +77,23 @@ public class RedisCacheConfig {
     //RedisCacheManager behavior can be configured with RedisCacheManager.RedisCacheManagerBuilder,
     // letting you set the default RedisCacheManager, transaction behavior, and predefined caches.
 
-    @Bean
-    public RedisCacheManager redisCacheManager(RedisConnectionFactory connectionFactory) {
-//        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
-//                .entryTtl(Duration.ofMinutes(10)) //key expiration times, Ttl (time-to-live)
-//                .disableCachingNullValues();
-
-//        RedisCacheManager redisCach1 = RedisCacheManager.builder(connectionFactory).cacheDefaults(config).build();
-
-        RedisCacheManager redisCache2 = RedisCacheManager.builder(connectionFactory)
-                .cacheDefaults(RedisCacheConfiguration.defaultCacheConfig().serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())))
-                .transactionAware() //Enable RedisCaches to synchronize cache put/ evict (put/delete) operations with ongoing Spring-managed transactions.
-                .withInitialCacheConfigurations(Collections.singletonMap("predefined", RedisCacheConfiguration.defaultCacheConfig().disableCachingNullValues()))
-                .enableStatistics() //collect local hits and misses through
-                .build();
-
-        return redisCache2;
-    }
+//    @Bean
+//    public RedisCacheManager redisCacheManager(RedisConnectionFactory connectionFactory) {
+////        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
+////                .entryTtl(Duration.ofMinutes(10)) //key expiration times, Ttl (time-to-live)
+////                .disableCachingNullValues();
+//
+////        RedisCacheManager redisCach1 = RedisCacheManager.builder(connectionFactory).cacheDefaults(config).build();
+//
+//        RedisCacheManager redisCache2 = RedisCacheManager.builder(connectionFactory)
+//                .cacheDefaults(RedisCacheConfiguration.defaultCacheConfig().serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())))
+//                .transactionAware() //Enable RedisCaches to synchronize cache put/ evict (put/delete) operations with ongoing Spring-managed transactions.
+//                .withInitialCacheConfigurations(Collections.singletonMap("predefined", RedisCacheConfiguration.defaultCacheConfig().disableCachingNullValues()))
+//                .enableStatistics() //collect local hits and misses through
+//                .build();
+//
+//        return redisCache2;
+//    }
 
 
     //Jedis, needed extra dependency

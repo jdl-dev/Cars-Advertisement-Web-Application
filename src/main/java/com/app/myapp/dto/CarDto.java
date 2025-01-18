@@ -1,19 +1,19 @@
 package com.app.myapp.dto;
 
-import com.app.myapp.model.model.carmembers.Bodytype;
-import com.app.myapp.model.model.carmembers.Brand;
-import com.app.myapp.model.model.carmembers.ColorPalette;
-import com.app.myapp.model.model.carmembers.Gearbox;
-import com.app.myapp.model.model.carmembers.Petrol;
-import com.app.myapp.model.model.carmembers.State;
+import com.app.myapp.model.model.User;
+import com.app.myapp.model.model.car_members.Bodytype;
+import com.app.myapp.model.model.car_members.Brand;
+import com.app.myapp.model.model.car_members.ColorPalette;
+import com.app.myapp.model.model.car_members.Gearbox;
+import com.app.myapp.model.model.car_members.Petrol;
+import com.app.myapp.model.model.car_members.State;
 import com.app.myapp.validation.payloads.Severity;
-import com.app.myapp.validation.validation.descriptionvalidation.ValidDescriptionForbiddenWords;
-import com.app.myapp.validation.validation.enumvalidation.ValidEnumMemberPattern;
-import com.app.myapp.validation.validation.yearproductionvalidation.ValidYearOfProduction;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import com.app.myapp.validation.validation.description_validation.ValidDescriptionForbiddenWords;
+import com.app.myapp.validation.validation.enum_validation.ValidEnumMemberPattern;
+import com.app.myapp.validation.validation.year_production_validation.ValidYearOfProduction;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -81,7 +81,7 @@ public class CarDto {
     @UpdateTimestamp
     private LocalDateTime dateOfUpdatingTheAdd;
 
-    @NotNull
+    @NotBlank
     @ValidYearOfProduction(minProductionYear = 1850, maxProductionYear = 9999)
     private Year yearOfProduction;
 
@@ -152,6 +152,9 @@ public class CarDto {
             message = "{bodytype.bodyTypeIsNotCorrect}",
             payload = Severity.Error.class)
     private Bodytype bodytype;
+
+    @NotNull
+    private User user;
 
     @Min(
             value = 1,
@@ -387,6 +390,14 @@ public class CarDto {
         this.bodytype = bodytype;
     }
 
+    public @NotNull User getUser() {
+        return user;
+    }
+
+    public void setUser(@NotNull User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "CarDto{" +
@@ -407,6 +418,7 @@ public class CarDto {
                 ", petrol=" + petrol +
                 ", gearbox=" + gearbox +
                 ", bodytype=" + bodytype +
+                ", user=" + user +
                 '}';
     }
 }

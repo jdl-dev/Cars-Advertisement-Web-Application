@@ -1,29 +1,28 @@
 package com.app.myapp.dto;
 
-import com.app.myapp.dto.searchrangedtomembers.DisplacementRangeDto;
-import com.app.myapp.dto.searchrangedtomembers.DoorsRangeDto;
-import com.app.myapp.dto.searchrangedtomembers.MileageRangeDto;
-import com.app.myapp.dto.searchrangedtomembers.PowerRangeDto;
-import com.app.myapp.dto.searchrangedtomembers.PriceRangeDto;
-import com.app.myapp.dto.searchrangedtomembers.SeatsRangeDto;
-import com.app.myapp.dto.searchrangedtomembers.YearOfProductionRangeDto;
-import com.app.myapp.model.model.carmembers.Bodytype;
-import com.app.myapp.model.model.carmembers.Brand;
-import com.app.myapp.model.model.carmembers.ColorPalette;
-import com.app.myapp.model.model.carmembers.Gearbox;
-import com.app.myapp.model.model.carmembers.Petrol;
-import com.app.myapp.model.model.carmembers.State;
+import com.app.myapp.dto.search_range_dto_members.DisplacementRangeDto;
+import com.app.myapp.dto.search_range_dto_members.DoorsRangeDto;
+import com.app.myapp.dto.search_range_dto_members.MileageRangeDto;
+import com.app.myapp.dto.search_range_dto_members.PowerRangeDto;
+import com.app.myapp.dto.search_range_dto_members.PriceRangeDto;
+import com.app.myapp.dto.search_range_dto_members.SeatsRangeDto;
+import com.app.myapp.dto.search_range_dto_members.YearOfProductionRangeDto;
+import com.app.myapp.model.model.car_members.Bodytype;
+import com.app.myapp.model.model.car_members.Brand;
+import com.app.myapp.model.model.car_members.ColorPalette;
+import com.app.myapp.model.model.car_members.Gearbox;
+import com.app.myapp.model.model.car_members.Petrol;
+import com.app.myapp.model.model.car_members.State;
 import com.app.myapp.validation.payloads.Severity;
-import com.app.myapp.validation.validation.enumvalidation.ValidEnumMemberPattern;
-import com.app.myapp.validation.validation.validvaluesrange.ValidValuesRange;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import com.app.myapp.validation.validation.enum_validation.ValidEnumMemberPattern;
+import com.app.myapp.validation.validation.valid_values_range.ValidValuesRange;
 import jakarta.validation.constraints.NotNull;
+import lombok.NoArgsConstructor;
 
-import java.time.Year;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+@NoArgsConstructor
 public class SearchRangeDto {
 
     @ValidValuesRange(min = 1, max = 99999999, minField = "minPrice", maxField = "maxPrice")
@@ -50,37 +49,37 @@ public class SearchRangeDto {
     private List<@ValidEnumMemberPattern(
             regexp = "WHITE|BLACK|GRAY|SILVER|BLUE|RED|BROWN|GREEN|ORANGE|BEIGE|PURPLE|GOLD|YELLOW",
             message = "{color.colorIsNotCorrect}",
-            payload = Severity.Error.class) ColorPalette> colors = new ArrayList<>();
+            payload = Severity.Error.class) ColorPalette> colors = List.of(ColorPalette.values());
 
     private List<@ValidEnumMemberPattern(
             regexp = "NEW|USED",
             message = "{state.stateIsNotCorrect}",
             payload = Severity.Error.class)
-            State> states = new ArrayList<>();
+            State> states = List.of(State.values());
     ;
 
     private List<@ValidEnumMemberPattern(
             regexp = "BMW|AUDI|VOLKSWAGEN|FORD|MERCEDES_BENZ|OPEL|TOYOTA|SKODA|RENAULT|PEUGEOT",
             message = "{brand.brandIsNotCorrect}",
-            payload = Severity.Error.class) Brand> brands = new ArrayList<>();
+            payload = Severity.Error.class) Brand> brands = List.of(Brand.values());
     ;
 
     private List<@ValidEnumMemberPattern(
             regexp = "PETROL|PETROL_AND_CNG|PETROL_AND_LPG|DIESEL|ELECTRIC|ETHANOL|HYBRID|HYBRID_PLUG_IN|HYDROGEN",
             message = "{petrol.petrolIsNotCorrect}",
-            payload = Severity.Error.class) Petrol> petrolTypes = new ArrayList<>();
+            payload = Severity.Error.class) Petrol> petrolTypes = List.of(Petrol.values());
     ;
 
     private List<@ValidEnumMemberPattern(
             regexp = "AUTOMATIC|MANUAL",
             message = "{gearbox.gearboxIsNotCorrect}",
-            payload = Severity.Warning.class) Gearbox> gearboxTypes = new ArrayList<>();
+            payload = Severity.Warning.class) Gearbox> gearboxTypes = List.of(Gearbox.values());
     ;
 
     private List<@ValidEnumMemberPattern(
             regexp = "SMALL_CARS|CITY_CAR|COUPE|CABRIOLET|STATION_WAGON|COMPACT|MINIVAN|SEDAN|SUV",
             message = "{bodytype.bodyTypeIsNotCorrect}",
-            payload = Severity.Error.class) Bodytype> bodytypeList = new ArrayList<>();
+            payload = Severity.Error.class) Bodytype> bodytypeList = List.of(Bodytype.values());
     ;
 
     public PriceRangeDto getPriceRangeDto() {
@@ -185,6 +184,19 @@ public class SearchRangeDto {
 
     public void setBodytypeList(@NotNull List<Bodytype> bodytypeList) {
         this.bodytypeList = bodytypeList;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        SearchRangeDto that = (SearchRangeDto) object;
+        return Objects.equals(priceRangeDto, that.priceRangeDto) && Objects.equals(mileageRangeDto, that.mileageRangeDto) && Objects.equals(displacementRangeDto, that.displacementRangeDto) && Objects.equals(powerRangeDto, that.powerRangeDto) && Objects.equals(yearOfProductionRangeDto, that.yearOfProductionRangeDto) && Objects.equals(doorsRangeDto, that.doorsRangeDto) && Objects.equals(seatsRangeDto, that.seatsRangeDto) && Objects.equals(colors, that.colors) && Objects.equals(states, that.states) && Objects.equals(brands, that.brands) && Objects.equals(petrolTypes, that.petrolTypes) && Objects.equals(gearboxTypes, that.gearboxTypes) && Objects.equals(bodytypeList, that.bodytypeList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(priceRangeDto, mileageRangeDto, displacementRangeDto, powerRangeDto, yearOfProductionRangeDto, doorsRangeDto, seatsRangeDto, colors, states, brands, petrolTypes, gearboxTypes, bodytypeList);
     }
 
     @Override

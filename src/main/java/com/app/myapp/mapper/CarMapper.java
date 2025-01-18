@@ -27,6 +27,7 @@ public class CarMapper {
         car.setPetrol(carDto.getPetrol());
         car.setGearbox(carDto.getGearbox());
         car.setBodytype(carDto.getBodytype());
+        car.setUser(carDto.getUser());
 
         return car;
     }
@@ -50,6 +51,7 @@ public class CarMapper {
         carDto.setPetrol(car.getPetrol());
         carDto.setGearbox(car.getGearbox());
         carDto.setBodytype(car.getBodytype());
+        carDto.setUser(car.getUser());
 
         return carDto;
     }
