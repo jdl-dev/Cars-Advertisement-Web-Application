@@ -22,6 +22,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.time.Year;
+import java.time.temporal.ChronoUnit;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -251,7 +252,7 @@ public class CarDto {
     }
 
     public void setDateOfAddingTheAdd(LocalDateTime dateOfAddingTheAdd) {
-        this.dateOfAddingTheAdd = dateOfAddingTheAdd;
+        this.dateOfAddingTheAdd = dateOfAddingTheAdd.truncatedTo(ChronoUnit.SECONDS);
     }
 
     public LocalDateTime getDateOfUpdatingTheAdd() {
@@ -259,7 +260,7 @@ public class CarDto {
     }
 
     public void setDateOfUpdatingTheAdd(LocalDateTime dateOfUpdatingTheAdd) {
-        this.dateOfUpdatingTheAdd = dateOfUpdatingTheAdd;
+        this.dateOfUpdatingTheAdd = dateOfUpdatingTheAdd.truncatedTo(ChronoUnit.SECONDS);
     }
 
     public @NotNull Year getYearOfProduction() {

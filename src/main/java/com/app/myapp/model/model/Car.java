@@ -18,6 +18,7 @@ import jakarta.persistence.ManyToOne;
 
 import java.time.LocalDateTime;
 import java.time.Year;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 public class Car {
@@ -107,7 +108,7 @@ public class Car {
     }
 
     public void setDateOfAddingTheAdd(LocalDateTime dateOfAddingTheAdd) {
-        this.dateOfAddingTheAdd = dateOfAddingTheAdd;
+        this.dateOfAddingTheAdd = dateOfAddingTheAdd.truncatedTo(ChronoUnit.SECONDS);
     }
 
     public LocalDateTime getDateOfUpdatingTheAdd() {
@@ -115,7 +116,7 @@ public class Car {
     }
 
     public void setDateOfUpdatingTheAdd(LocalDateTime dateOfUpdatingTheAdd) {
-        this.dateOfUpdatingTheAdd = dateOfUpdatingTheAdd;
+        this.dateOfUpdatingTheAdd = dateOfUpdatingTheAdd.truncatedTo(ChronoUnit.SECONDS);
     }
 
     public Year getYearOfProduction() {
