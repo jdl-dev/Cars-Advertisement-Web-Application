@@ -3,9 +3,11 @@ package com.app.myapp.mapper;
 import com.app.myapp.dto.UserDto;
 import com.app.myapp.model.model.User;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserMapper {
-    public static User toEntity(@NotNull UserDto userDto) {
+    public User toEntity(@NotNull UserDto userDto) {
         User user = new User();
 
         user.setName(userDto.getName());
@@ -25,7 +27,7 @@ public class UserMapper {
         return user;
     }
 
-    public static UserDto toDto(@NotNull User user) {
+    public UserDto toDto(@NotNull User user) {
         UserDto userDto = new UserDto();
 
         userDto.setName(user.getName());

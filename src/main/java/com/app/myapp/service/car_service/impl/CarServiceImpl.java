@@ -30,17 +30,18 @@ public class CarServiceImpl implements CarService {
 
 
     private final CarRepository carRepository;
-
+    private final CarMapper carMapper;
 
     @Autowired
-    public CarServiceImpl(CarRepository carRepository) {
+    public CarServiceImpl(CarRepository carRepository, CarMapper carMapper) {
         this.carRepository = carRepository;
+        this.carMapper = carMapper;
     }
 
     @Override
     public CarDto addCar(CarDto carDto) {
 
-        carRepository.save(CarMapper.toEntity(carDto));
+        carRepository.save(carMapper.toEntity(carDto));
         return carDto;
     }
 
@@ -48,19 +49,19 @@ public class CarServiceImpl implements CarService {
     public List<CarDto> addManyCars(List<CarDto> carDtoList) {
 
         List<Car> cars = carDtoList.stream()
-                .map(CarMapper::toEntity)
+                .map(carMapper::toEntity)
                 .toList();
 
-        List<Car> cars1 = carRepository.saveAll(cars);
+        List<Car> savedCars = carRepository.saveAll(cars);
 
-        return cars1.stream()
-                .map(CarMapper::toDto)
+        return savedCars.stream()
+                .map(carMapper::toDto)
                 .toList();
     }
 
     @Override
     public CarDto getCarById(long id) {
-        return CarMapper
+        return carMapper
                 .toDto(carRepository
                         .findById(id)
                         .orElseThrow(() -> new RuntimeException("Car not found")));
@@ -73,7 +74,7 @@ public class CarServiceImpl implements CarService {
         List<Car> cars = carRepository.findAll();
         return cars
                 .stream()
-                .map(CarMapper::toDto)
+                .map(carMapper::toDto)
                 .toList();
     }
 
@@ -102,7 +103,7 @@ public class CarServiceImpl implements CarService {
                 .getContent()
                 .stream()
                 .filter(car -> filterCarsForUserWithGivenSearchRangeBounds(car, finalSearchRangeDto))
-                .map(CarMapper::toDto)
+                .map(carMapper::toDto)
                 .toList();
 
         return new RestPage<>(carDtoResultPare, page, size, carDtoResultPare.size());
@@ -181,7 +182,7 @@ public class CarServiceImpl implements CarService {
             carRepository.save(car);
         }
 
-        return CarMapper.toDto(car);
+        return carMapper.toDto(car);
     }
 
     @Override
@@ -192,7 +193,7 @@ public class CarServiceImpl implements CarService {
                 .orElseThrow(() -> new IllegalArgumentException("Car with given id doesn't exist"));
 
         carRepository.deleteById(id);
-        return CarMapper.toDto(car);
+        return carMapper.toDto(car);
     }
 
     private boolean filterCarsForUserWithGivenSearchRangeBounds(Car car, SearchRangeDto searchRangeDto) {

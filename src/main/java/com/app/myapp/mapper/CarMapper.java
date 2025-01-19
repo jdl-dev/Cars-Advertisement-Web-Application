@@ -3,12 +3,14 @@ package com.app.myapp.mapper;
 import com.app.myapp.dto.CarDto;
 import com.app.myapp.model.model.Car;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+@Service
 public class CarMapper {
 
-    public static Car toEntity(@NotNull CarDto carDto) {
+    public Car toEntity(@NotNull CarDto carDto) {
         Car car = new Car();
 
         car.setPrice(carDto.getPrice());
@@ -32,7 +34,7 @@ public class CarMapper {
         return car;
     }
 
-    public static CarDto toDto(@NotNull Car car) {
+    public CarDto toDto(@NotNull Car car) {
         CarDto carDto = new CarDto();
 
         carDto.setPrice(car.getPrice());
