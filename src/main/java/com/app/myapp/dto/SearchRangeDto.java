@@ -16,12 +16,14 @@ import com.app.myapp.model.model.car_members.State;
 import com.app.myapp.validation.payloads.Severity;
 import com.app.myapp.validation.validation.valid_values_range.ValidValuesRange;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.Objects;
 
 @NoArgsConstructor
+@AllArgsConstructor
 public class SearchRangeDto {
 
     @ValidValuesRange(min = 1, max = 99999999, minField = "minPrice", maxField = "maxPrice", payload = Severity.Info.class)

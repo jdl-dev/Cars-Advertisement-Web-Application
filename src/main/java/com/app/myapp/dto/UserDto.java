@@ -7,10 +7,14 @@ import com.app.myapp.validation.validation.pesel_validation.UniquePesel;
 import com.app.myapp.validation.validation.phone_number_validation.ValidPhoneNumber;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDto {
 
     @NotBlank(message = "Name must be given")

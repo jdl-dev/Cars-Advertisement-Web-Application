@@ -12,16 +12,19 @@ import com.app.myapp.validation.validation.description_validation.ValidDescripti
 import com.app.myapp.validation.validation.year_production_validation.ValidYearOfProduction;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.time.Year;
 
+@NoArgsConstructor
+@AllArgsConstructor
 public class CarDto {
 
     @NotNull(message = "Price must be given")
