@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/cars")
-public class CarControllerImpl {
+public class CarControllerImpl implements CarController {
 
     private final CarService carService;
 
