@@ -1,4 +1,4 @@
-package com.app.myapp.service.car_service;
+package com.app.myapp.service.car_service.impl;
 
 import com.app.myapp.dto.CarDto;
 import com.app.myapp.dto.SearchRangeDto;
@@ -11,6 +11,8 @@ import com.app.myapp.model.model.car_members.Gearbox;
 import com.app.myapp.model.model.car_members.Petrol;
 import com.app.myapp.model.model.car_members.State;
 import com.app.myapp.repository.CarRepository;
+import com.app.myapp.service.car_service.CarService;
+import com.app.myapp.service.car_service.RestPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;

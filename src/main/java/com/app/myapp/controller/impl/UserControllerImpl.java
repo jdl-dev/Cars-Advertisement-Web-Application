@@ -1,8 +1,8 @@
-package com.app.myapp.controller;
+package com.app.myapp.controller.impl;
 
+import com.app.myapp.controller.UserController;
 import com.app.myapp.dto.UserDto;
-import com.app.myapp.repository.UserRepository;
-import com.app.myapp.service.user_service.UserServiceImpl;
+import com.app.myapp.service.user_service.impl.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;

@@ -1,5 +1,6 @@
-package com.app.myapp.controller;
+package com.app.myapp.controller.impl;
 
+import com.app.myapp.controller.CarController;
 import com.app.myapp.dto.CarDto;
 import com.app.myapp.dto.SearchRangeDto;
 import com.app.myapp.service.car_service.CarService;
