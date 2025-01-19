@@ -1,6 +1,8 @@
 package com.app.myapp.model.model;
 
+import com.app.myapp.model.model.user_members.Gender;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,13 +21,21 @@ public class User {
     private String surname;
     private String username;
     private LocalDate birthday;
+
+    @Column(unique = true)
     private String email;
+
     private String password;
+
+    @Column(unique = true)
     private String phone;
     private String address;
     private String city;
+
+    @Column(unique = true)
     private String pesel;
-    private String gender;
+
+    private Gender gender;
 
     @OneToMany(mappedBy = "user")
     @JsonManagedReference //prevents child from serializing parent (car is child in this case)
@@ -119,11 +129,11 @@ public class User {
         this.pesel = pesel;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 

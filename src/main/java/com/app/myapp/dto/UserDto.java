@@ -1,6 +1,7 @@
 package com.app.myapp.dto;
 
 import com.app.myapp.model.model.Car;
+import com.app.myapp.model.model.user_members.Gender;
 import com.app.myapp.validation.payloads.Severity;
 import com.app.myapp.validation.validation.email_validation.UniqueEmail;
 import com.app.myapp.validation.validation.enum_validation.ValidEnumMemberPattern;
@@ -52,7 +53,7 @@ public class UserDto {
             regexp = "MALE|FEMALE",
             message = "{gender.incorrect}",
             payload = Severity.Error.class)
-    private String gender;
+    private Gender gender;
 
     private List<Car> advertisements;
 
@@ -139,14 +140,14 @@ public class UserDto {
     public @NotNull @ValidEnumMemberPattern(
             regexp = "MALE|FEMALE",
             message = "{gender.incorrect}",
-            payload = Severity.Error.class) String getGender() {
+            payload = Severity.Error.class) Gender getGender() {
         return gender;
     }
 
     public void setGender(@NotNull @ValidEnumMemberPattern(
             regexp = "MALE|FEMALE",
             message = "{gender.incorrect}",
-            payload = Severity.Error.class) String gender) {
+            payload = Severity.Error.class) Gender gender) {
         this.gender = gender;
     }
 
