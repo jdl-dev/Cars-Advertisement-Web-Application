@@ -1,5 +1,6 @@
 package com.app.myapp.model.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,7 +25,9 @@ public class User {
     private String city;
     private String pesel;
     private String gender;
+
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference //prevents child from serializing parent (car is child in this case)
     private List<Car> advertisements;
 
     public long getId() {

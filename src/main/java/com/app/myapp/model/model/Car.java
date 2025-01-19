@@ -6,12 +6,14 @@ import com.app.myapp.model.model.car_members.ColorPalette;
 import com.app.myapp.model.model.car_members.Gearbox;
 import com.app.myapp.model.model.car_members.Petrol;
 import com.app.myapp.model.model.car_members.State;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 import java.time.LocalDateTime;
@@ -48,6 +50,8 @@ public class Car {
     private Bodytype bodytype;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
     public Long getId() {
