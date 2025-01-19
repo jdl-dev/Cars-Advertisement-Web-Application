@@ -25,25 +25,25 @@ import java.util.Objects;
 @NoArgsConstructor
 public class SearchRangeDto {
 
-    @ValidValuesRange(min = 1, max = 99999999, minField = "minPrice", maxField = "maxPrice")
+    @ValidValuesRange(min = 1, max = 99999999, minField = "minPrice", maxField = "maxPrice", payload = Severity.Info.class)
     private PriceRangeDto priceRangeDto = new PriceRangeDto();
 
-    @ValidValuesRange(min = 0, max = 15000000, minField = "minMileage", maxField = "maxMileage")
+    @ValidValuesRange(min = 0, max = 15000000, minField = "minMileage", maxField = "maxMileage", payload = Severity.Info.class)
     private MileageRangeDto mileageRangeDto = new MileageRangeDto();
 
-    @ValidValuesRange(min = 1, max = 10000, minField = "minDisplacement", maxField = "maxDisplacement")
+    @ValidValuesRange(min = 1, max = 10000, minField = "minDisplacement", maxField = "maxDisplacement", payload = Severity.Info.class)
     private DisplacementRangeDto displacementRangeDto = new DisplacementRangeDto();
 
-    @ValidValuesRange(min = 1, max = 5000, minField = "minPower", maxField = "maxPower")
+    @ValidValuesRange(min = 1, max = 5000, minField = "minPower", maxField = "maxPower", payload = Severity.Info.class)
     private PowerRangeDto powerRangeDto = new PowerRangeDto();
 
-    @ValidValuesRange(min = 1850, max = 9999, minField = "minYearOfProduction", maxField = "maxYearOfProduction")
+    @ValidValuesRange(min = 1850, max = 9999, minField = "minYearOfProduction", maxField = "maxYearOfProduction", payload = Severity.Info.class)
     private YearOfProductionRangeDto yearOfProductionRangeDto = new YearOfProductionRangeDto();
 
-    @ValidValuesRange(min = 1, max = 20, minField = "minDoorNumber", maxField = "maxDoorNumber")
+    @ValidValuesRange(min = 1, max = 20, minField = "minDoorNumber", maxField = "maxDoorNumber", payload = Severity.Info.class)
     private DoorsRangeDto doorsRangeDto = new DoorsRangeDto();
 
-    @ValidValuesRange(min = 1, max = 100, minField = "minAmountOfSeats", maxField = "maxAmountOfSeats")
+    @ValidValuesRange(min = 1, max = 100, minField = "minAmountOfSeats", maxField = "maxAmountOfSeats", payload = Severity.Info.class)
     private SeatsRangeDto seatsRangeDto = new SeatsRangeDto();
 
     private List<@ValidEnumMemberPattern(
