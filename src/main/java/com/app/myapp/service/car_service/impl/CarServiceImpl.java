@@ -81,14 +81,6 @@ public class CarServiceImpl implements CarService {
     @Cacheable(cacheNames = "cars")
     @Override
     public Page<CarDto> getAllCarsFromTheGivenRange(SearchRangeDto searchRangeDto, int page, int size, String sortBy, String order) {
-
-
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
         if (searchRangeDto == null) {
             searchRangeDto = new SearchRangeDto();
         }
