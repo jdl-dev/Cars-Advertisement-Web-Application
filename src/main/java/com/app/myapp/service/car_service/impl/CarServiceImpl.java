@@ -39,7 +39,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public CarDto addCar(CarDto carDto) {
+    public CarDto saveCar(CarDto carDto) {
 
         carRepository.save(carMapper.toEntity(carDto));
         return carDto;

@@ -9,7 +9,7 @@ import java.util.List;
 public interface CarService {
 
     //CREATE
-    CarDto addCar(CarDto carDto);
+    CarDto saveCar(CarDto carDto);
 
     List<CarDto> addManyCars(List<CarDto> carDtoList);
 

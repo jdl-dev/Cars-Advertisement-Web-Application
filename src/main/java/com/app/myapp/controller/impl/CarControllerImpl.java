@@ -38,7 +38,7 @@ public class CarControllerImpl implements CarController {
 
     @PostMapping("/addCar")
     public CarDto addCar(@Valid @RequestBody CarDto carDto) {
-        return carService.addCar(carDto);
+        return carService.saveCar(carDto);
     }
 
     @PostMapping("/addManyCars")
