@@ -20,7 +20,7 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String name;
     private String surname;
     private String username;
@@ -45,11 +45,11 @@ public class User {
     @JsonManagedReference //prevents child from serializing parent (car is child in this case)
     private List<Car> advertisements;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
