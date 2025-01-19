@@ -15,11 +15,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.time.Year;
 import java.time.temporal.ChronoUnit;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Car {
     @Id

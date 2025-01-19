@@ -8,10 +8,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class User {
     @Id
