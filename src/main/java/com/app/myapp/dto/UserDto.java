@@ -13,10 +13,16 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class UserDto {
+
     @NotBlank
     private String name;
+
     @NotBlank
     private String username;
+
+    @NotBlank
+    private String surname;
+
     @NotBlank
     private LocalDate birthday;
 
@@ -47,5 +53,108 @@ public class UserDto {
             message = "{gender.incorrect}",
             payload = Severity.Error.class)
     private String gender;
+
     private List<Car> advertisements;
+
+    public @NotBlank String getName() {
+        return name;
+    }
+
+    public void setName(@NotBlank String name) {
+        this.name = name;
+    }
+
+    public @NotBlank String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(@NotBlank String surname) {
+        this.surname = surname;
+    }
+
+    public @NotBlank String getUsername() {
+        return username;
+    }
+
+    public void setUsername(@NotBlank String username) {
+        this.username = username;
+    }
+
+    public @NotBlank LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(@NotBlank LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
+    public @NotBlank String getEmail() {
+        return email;
+    }
+
+    public void setEmail(@NotBlank String email) {
+        this.email = email;
+    }
+
+    public @NotBlank String getPassword() {
+        return password;
+    }
+
+    public void setPassword(@NotBlank String password) {
+        this.password = password;
+    }
+
+    public @NotBlank String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(@NotBlank String phone) {
+        this.phone = phone;
+    }
+
+    public @NotBlank String getAddress() {
+        return address;
+    }
+
+    public void setAddress(@NotBlank String address) {
+        this.address = address;
+    }
+
+    public @NotBlank String getCity() {
+        return city;
+    }
+
+    public void setCity(@NotBlank String city) {
+        this.city = city;
+    }
+
+    public @NotBlank String getPesel() {
+        return pesel;
+    }
+
+    public void setPesel(@NotBlank String pesel) {
+        this.pesel = pesel;
+    }
+
+    public @NotNull @ValidEnumMemberPattern(
+            regexp = "MALE|FEMALE",
+            message = "{gender.incorrect}",
+            payload = Severity.Error.class) String getGender() {
+        return gender;
+    }
+
+    public void setGender(@NotNull @ValidEnumMemberPattern(
+            regexp = "MALE|FEMALE",
+            message = "{gender.incorrect}",
+            payload = Severity.Error.class) String gender) {
+        this.gender = gender;
+    }
+
+    public List<Car> getAdvertisements() {
+        return advertisements;
+    }
+
+    public void setAdvertisements(List<Car> advertisements) {
+        this.advertisements = advertisements;
+    }
 }
