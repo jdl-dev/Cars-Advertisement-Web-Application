@@ -153,14 +153,13 @@ public class User {
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        User user = (User) object;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(surname, user.surname) && Objects.equals(username, user.username) && Objects.equals(birthday, user.birthday) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(phone, user.phone) && Objects.equals(address, user.address) && Objects.equals(city, user.city) && Objects.equals(pesel, user.pesel) && gender == user.gender && Objects.equals(advertisements, user.advertisements);
+        if (!(object instanceof User user)) return false;
+        return Objects.equals(getName(), user.getName()) && Objects.equals(getSurname(), user.getSurname()) && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getBirthday(), user.getBirthday()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getPhone(), user.getPhone()) && Objects.equals(getAddress(), user.getAddress()) && Objects.equals(getCity(), user.getCity()) && Objects.equals(getPesel(), user.getPesel()) && getGender() == user.getGender() && Objects.equals(getAdvertisements(), user.getAdvertisements());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, username, birthday, email, password, phone, address, city, pesel, gender, advertisements);
+        return Objects.hash(getName(), getSurname(), getUsername(), getBirthday(), getEmail(), getPassword(), getPhone(), getAddress(), getCity(), getPesel(), getGender(), getAdvertisements());
     }
 
     @Override

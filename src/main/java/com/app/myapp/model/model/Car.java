@@ -221,14 +221,13 @@ public class Car {
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        Car car = (Car) object;
-        return price == car.price && mileage == car.mileage && displacement == car.displacement && power == car.power && doorNumber == car.doorNumber && amountOfSeats == car.amountOfSeats && Objects.equals(id, car.id) && Objects.equals(description, car.description) && Objects.equals(dateOfAddingTheAdd, car.dateOfAddingTheAdd) && Objects.equals(dateOfUpdatingTheAdd, car.dateOfUpdatingTheAdd) && Objects.equals(yearOfProduction, car.yearOfProduction) && Objects.equals(vin, car.vin) && color == car.color && state == car.state && brand == car.brand && petrol == car.petrol && gearbox == car.gearbox && bodytype == car.bodytype && Objects.equals(user, car.user);
+        if (!(object instanceof Car car)) return false;
+        return getPrice() == car.getPrice() && getMileage() == car.getMileage() && getDisplacement() == car.getDisplacement() && getPower() == car.getPower() && getDoorNumber() == car.getDoorNumber() && getAmountOfSeats() == car.getAmountOfSeats() && Objects.equals(getDescription(), car.getDescription()) && Objects.equals(getDateOfAddingTheAdd(), car.getDateOfAddingTheAdd()) && Objects.equals(getDateOfUpdatingTheAdd(), car.getDateOfUpdatingTheAdd()) && Objects.equals(getYearOfProduction(), car.getYearOfProduction()) && Objects.equals(getVin(), car.getVin()) && getColor() == car.getColor() && getState() == car.getState() && getBrand() == car.getBrand() && getPetrol() == car.getPetrol() && getGearbox() == car.getGearbox() && getBodytype() == car.getBodytype() && Objects.equals(getUser(), car.getUser());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, price, mileage, displacement, power, description, dateOfAddingTheAdd, dateOfUpdatingTheAdd, yearOfProduction, doorNumber, amountOfSeats, vin, color, state, brand, petrol, gearbox, bodytype, user);
+        return Objects.hash(getPrice(), getMileage(), getDisplacement(), getPower(), getDescription(), getDateOfAddingTheAdd(), getDateOfUpdatingTheAdd(), getYearOfProduction(), getDoorNumber(), getAmountOfSeats(), getVin(), getColor(), getState(), getBrand(), getPetrol(), getGearbox(), getBodytype(), getUser());
     }
 
     @Override
