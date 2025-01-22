@@ -21,7 +21,8 @@ public class CarMapper {
         car.setDisplacement(carDto.getDisplacement());
         car.setPower(carDto.getPower());
         car.setDescription(carDto.getDescription());
-        car.setDateOfAddingTheAdd(carDto.getDateOfAddingTheAdd().truncatedTo(ChronoUnit.SECONDS));
+        car.setDateOfAddingTheAdd(carDto.getDateOfAddingTheAdd());
+        car.setDateOfUpdatingTheAdd(carDto.getDateOfUpdatingTheAdd());
         car.setYearOfProduction(carDto.getYearOfProduction());
         car.setDoorNumber(carDto.getDoorNumber());
         car.setAmountOfSeats(carDto.getAmountOfSeats());
@@ -49,7 +50,8 @@ public class CarMapper {
         carDto.setDisplacement(car.getDisplacement());
         carDto.setPower(car.getPower());
         carDto.setDescription(car.getDescription());
-        carDto.setDateOfAddingTheAdd(car.getDateOfAddingTheAdd().truncatedTo(ChronoUnit.SECONDS));
+        carDto.setDateOfAddingTheAdd(car.getDateOfAddingTheAdd());
+        carDto.setDateOfUpdatingTheAdd(car.getDateOfUpdatingTheAdd());
         carDto.setYearOfProduction(car.getYearOfProduction());
         carDto.setDoorNumber(car.getDoorNumber());
         carDto.setAmountOfSeats(car.getAmountOfSeats());
