@@ -1,5 +1,6 @@
 package com.app.myapp.model.model;
 
+import com.app.myapp.model.model.converter.LocalDateTimeToStringConverter;
 import com.app.myapp.model.model.car_members.Bodytype;
 import com.app.myapp.model.model.car_members.Brand;
 import com.app.myapp.model.model.car_members.ColorPalette;
@@ -7,6 +8,7 @@ import com.app.myapp.model.model.car_members.Gearbox;
 import com.app.myapp.model.model.car_members.Petrol;
 import com.app.myapp.model.model.car_members.State;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -21,6 +23,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.time.Year;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,12 +37,13 @@ public class Car {
     private int displacement;
     private int power;
     private String description;
+    @Convert(converter = LocalDateTimeToStringConverter.class)
     private LocalDateTime dateOfAddingTheAdd;
+    @Convert(converter = LocalDateTimeToStringConverter.class)
     private LocalDateTime dateOfUpdatingTheAdd;
     private Year yearOfProduction;
     private int doorNumber;
     private int amountOfSeats;
-
     private String vin;
     @Enumerated(EnumType.STRING)
     private ColorPalette color;
@@ -112,7 +116,7 @@ public class Car {
     }
 
     public void setDateOfAddingTheAdd(LocalDateTime dateOfAddingTheAdd) {
-        this.dateOfAddingTheAdd = dateOfAddingTheAdd.truncatedTo(ChronoUnit.SECONDS);
+        this.dateOfAddingTheAdd = dateOfAddingTheAdd;
     }
 
     public LocalDateTime getDateOfUpdatingTheAdd() {
@@ -120,7 +124,10 @@ public class Car {
     }
 
     public void setDateOfUpdatingTheAdd(LocalDateTime dateOfUpdatingTheAdd) {
-        this.dateOfUpdatingTheAdd = dateOfUpdatingTheAdd.truncatedTo(ChronoUnit.SECONDS);
+        if (dateOfUpdatingTheAdd != null)
+            this.dateOfUpdatingTheAdd = dateOfUpdatingTheAdd.truncatedTo(ChronoUnit.SECONDS);
+        else
+            this.dateOfUpdatingTheAdd = null;
     }
 
     public Year getYearOfProduction() {
@@ -209,5 +216,43 @@ public class Car {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Car car = (Car) object;
+        return price == car.price && mileage == car.mileage && displacement == car.displacement && power == car.power && doorNumber == car.doorNumber && amountOfSeats == car.amountOfSeats && Objects.equals(id, car.id) && Objects.equals(description, car.description) && Objects.equals(dateOfAddingTheAdd, car.dateOfAddingTheAdd) && Objects.equals(dateOfUpdatingTheAdd, car.dateOfUpdatingTheAdd) && Objects.equals(yearOfProduction, car.yearOfProduction) && Objects.equals(vin, car.vin) && color == car.color && state == car.state && brand == car.brand && petrol == car.petrol && gearbox == car.gearbox && bodytype == car.bodytype && Objects.equals(user, car.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, price, mileage, displacement, power, description, dateOfAddingTheAdd, dateOfUpdatingTheAdd, yearOfProduction, doorNumber, amountOfSeats, vin, color, state, brand, petrol, gearbox, bodytype, user);
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", price=" + price +
+                ", mileage=" + mileage +
+                ", displacement=" + displacement +
+                ", power=" + power +
+                ", description='" + description + '\'' +
+                ", dateOfAddingTheAdd=" + dateOfAddingTheAdd +
+                ", dateOfUpdatingTheAdd=" + dateOfUpdatingTheAdd +
+                ", yearOfProduction=" + yearOfProduction +
+                ", doorNumber=" + doorNumber +
+                ", amountOfSeats=" + amountOfSeats +
+                ", vin='" + vin + '\'' +
+                ", color=" + color +
+                ", state=" + state +
+                ", brand=" + brand +
+                ", petrol=" + petrol +
+                ", gearbox=" + gearbox +
+                ", bodytype=" + bodytype +
+                ", user=" + user +
+                '}';
     }
 }
