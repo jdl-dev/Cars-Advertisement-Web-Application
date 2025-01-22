@@ -252,6 +252,7 @@ public class CarDto {
     }
 
     public void setDateOfAddingTheAdd(LocalDateTime dateOfAddingTheAdd) {
+
         this.dateOfAddingTheAdd = dateOfAddingTheAdd.truncatedTo(ChronoUnit.SECONDS);
     }
 
@@ -260,7 +261,10 @@ public class CarDto {
     }
 
     public void setDateOfUpdatingTheAdd(LocalDateTime dateOfUpdatingTheAdd) {
-        this.dateOfUpdatingTheAdd = dateOfUpdatingTheAdd.truncatedTo(ChronoUnit.SECONDS);
+        if (dateOfUpdatingTheAdd != null)
+            this.dateOfUpdatingTheAdd = dateOfUpdatingTheAdd.truncatedTo(ChronoUnit.SECONDS);
+        else
+            this.dateOfUpdatingTheAdd = null;
     }
 
     public @NotNull Year getYearOfProduction() {
