@@ -41,8 +41,14 @@ public class CarServiceImpl implements CarService {
     @Override
     public CarDto saveCar(CarDto carDto) {
 
-        carRepository.save(carMapper.toEntity(carDto));
-        return carDto;
+        Car carToSave = carMapper
+                .toEntity(carDto);
+
+        Car savedCar = carRepository
+                .save(carToSave);
+
+        return carMapper
+                .toDto(savedCar);
     }
 
     @Override
@@ -61,10 +67,13 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public CarDto getCarById(long id) {
-        return carMapper
-                .toDto(carRepository
-                        .findById(id)
-                        .orElseThrow(() -> new RuntimeException("Car not found")));
+        Car car = carRepository
+                .findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Car with given id doesn't exist"));
+
+        CarDto carDto = carMapper.toDto(car);
+
+        return carDto;
     }
 
     @Cacheable(cacheNames = "allCars")
@@ -72,10 +81,13 @@ public class CarServiceImpl implements CarService {
     public List<CarDto> getAllCars() {
 
         List<Car> cars = carRepository.findAll();
-        return cars
+
+        List<CarDto> carsDtoList = cars
                 .stream()
                 .map(carMapper::toDto)
                 .toList();
+
+        return carsDtoList;
     }
 
     @Cacheable(cacheNames = "cars")
