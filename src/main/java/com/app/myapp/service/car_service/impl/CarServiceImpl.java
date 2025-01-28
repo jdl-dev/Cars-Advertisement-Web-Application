@@ -1,4 +1,4 @@
-package com.app.myapp.service.car_service;
+package com.app.myapp.service.car_service.impl;
 
 import com.app.myapp.dto.CarDto;
 import com.app.myapp.dto.SearchRangeDto;
@@ -11,6 +11,8 @@ import com.app.myapp.model.model.car_members.Gearbox;
 import com.app.myapp.model.model.car_members.Petrol;
 import com.app.myapp.model.model.car_members.State;
 import com.app.myapp.repository.CarRepository;
+import com.app.myapp.service.car_service.CarService;
+import com.app.myapp.service.car_service.RestPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -28,40 +30,50 @@ public class CarServiceImpl implements CarService {
 
 
     private final CarRepository carRepository;
-
+    private final CarMapper carMapper;
 
     @Autowired
-    public CarServiceImpl(CarRepository carRepository) {
+    public CarServiceImpl(CarRepository carRepository, CarMapper carMapper) {
         this.carRepository = carRepository;
+        this.carMapper = carMapper;
     }
 
     @Override
-    public CarDto addCar(CarDto carDto) {
+    public CarDto saveCar(CarDto carDto) {
 
-        carRepository.save(CarMapper.toEntity(carDto));
-        return carDto;
+        Car carToSave = carMapper
+                .toEntity(carDto);
+
+        Car savedCar = carRepository
+                .save(carToSave);
+
+        return carMapper
+                .toDto(savedCar);
     }
 
     @Override
     public List<CarDto> addManyCars(List<CarDto> carDtoList) {
 
         List<Car> cars = carDtoList.stream()
-                .map(CarMapper::toEntity)
+                .map(carMapper::toEntity)
                 .toList();
 
-        List<Car> cars1 = carRepository.saveAll(cars);
+        List<Car> savedCars = carRepository.saveAll(cars);
 
-        return cars1.stream()
-                .map(CarMapper::toDto)
+        return savedCars.stream()
+                .map(carMapper::toDto)
                 .toList();
     }
 
     @Override
     public CarDto getCarById(long id) {
-        return CarMapper
-                .toDto(carRepository
-                        .findById(id)
-                        .orElseThrow(() -> new RuntimeException("Car not found")));
+        Car car = carRepository
+                .findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Car with given id doesn't exist"));
+
+        CarDto carDto = carMapper.toDto(car);
+
+        return carDto;
     }
 
     @Cacheable(cacheNames = "allCars")
@@ -69,23 +81,18 @@ public class CarServiceImpl implements CarService {
     public List<CarDto> getAllCars() {
 
         List<Car> cars = carRepository.findAll();
-        return cars
+
+        List<CarDto> carsDtoList = cars
                 .stream()
-                .map(CarMapper::toDto)
+                .map(carMapper::toDto)
                 .toList();
+
+        return carsDtoList;
     }
 
     @Cacheable(cacheNames = "cars")
     @Override
     public Page<CarDto> getAllCarsFromTheGivenRange(SearchRangeDto searchRangeDto, int page, int size, String sortBy, String order) {
-
-
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
         if (searchRangeDto == null) {
             searchRangeDto = new SearchRangeDto();
         }
@@ -100,7 +107,7 @@ public class CarServiceImpl implements CarService {
                 .getContent()
                 .stream()
                 .filter(car -> filterCarsForUserWithGivenSearchRangeBounds(car, finalSearchRangeDto))
-                .map(CarMapper::toDto)
+                .map(carMapper::toDto)
                 .toList();
 
         return new RestPage<>(carDtoResultPare, page, size, carDtoResultPare.size());
@@ -179,7 +186,7 @@ public class CarServiceImpl implements CarService {
             carRepository.save(car);
         }
 
-        return CarMapper.toDto(car);
+        return carMapper.toDto(car);
     }
 
     @Override
@@ -190,7 +197,7 @@ public class CarServiceImpl implements CarService {
                 .orElseThrow(() -> new IllegalArgumentException("Car with given id doesn't exist"));
 
         carRepository.deleteById(id);
-        return CarMapper.toDto(car);
+        return carMapper.toDto(car);
     }
 
     private boolean filterCarsForUserWithGivenSearchRangeBounds(Car car, SearchRangeDto searchRangeDto) {

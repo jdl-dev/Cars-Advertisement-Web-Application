@@ -9,21 +9,26 @@ import com.app.myapp.model.model.car_members.Petrol;
 import com.app.myapp.model.model.car_members.State;
 import com.app.myapp.validation.payloads.Severity;
 import com.app.myapp.validation.validation.description_validation.ValidDescriptionForbiddenWords;
-import com.app.myapp.validation.validation.enum_validation.ValidEnumMemberPattern;
 import com.app.myapp.validation.validation.year_production_validation.ValidYearOfProduction;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.time.Year;
+import java.time.temporal.ChronoUnit;
 
+@NoArgsConstructor
+@AllArgsConstructor
 public class CarDto {
+
+    @NotNull(message = "Price must be given")
     @Min(
             value = 1,
             message = "{price.min}",
@@ -34,6 +39,7 @@ public class CarDto {
             payload = Severity.Error.class)
     private int price;
 
+    @NotNull(message = "Mileage must be given")
     @Min(
             value = 0,
             message = "{mileage.min}",
@@ -44,6 +50,7 @@ public class CarDto {
             payload = Severity.Error.class)
     private int mileage;
 
+    @NotNull(message = "Displacement must be given")
     @Min(
             value = 1,
             message = "{displacement.min}",
@@ -54,6 +61,7 @@ public class CarDto {
             payload = Severity.Error.class)
     private int displacement;
 
+    @NotNull(message = "Power must be given")
     @Min(
             value = 1,
             message = "{power.min}",
@@ -64,6 +72,7 @@ public class CarDto {
             payload = Severity.Error.class)
     private int power;
 
+    @NotNull(message = "Description must be given")
     @Size(
             min = 0,
             max = 5000,
@@ -81,10 +90,11 @@ public class CarDto {
     @UpdateTimestamp
     private LocalDateTime dateOfUpdatingTheAdd;
 
-    @NotBlank
+    @NotNull(message = "Year must be given")
     @ValidYearOfProduction(minProductionYear = 1850, maxProductionYear = 9999)
     private Year yearOfProduction;
 
+    @NotNull(message = "Door number must be given")
     @Min(
             value = 1,
             message = "{doorNumber.min}",
@@ -95,6 +105,7 @@ public class CarDto {
             payload = Severity.Error.class)
     private int doorNumber;
 
+    @NotNull(message = "Amount of seats must be given")
     @Min(
             value = 1,
             message = "{amountOfSeats.min}",
@@ -112,45 +123,21 @@ public class CarDto {
     private String vin;
 
     @NotNull
-    @ValidEnumMemberPattern(
-            regexp = "WHITE|BLACK|GRAY|SILVER|BLUE|RED|BROWN|GREEN|ORANGE|BEIGE|PURPLE|GOLD|YELLOW",
-            message = "{color.colorIsNotCorrect}",
-            payload = Severity.Error.class)
     private ColorPalette color;
 
     @NotNull
-    @ValidEnumMemberPattern(
-            regexp = "NEW|USED",
-            message = "{state.stateIsNotCorrect}",
-            payload = Severity.Error.class)
     private State state;
 
     @NotNull
-    @ValidEnumMemberPattern(
-            regexp = "BMW|AUDI|VOLKSWAGEN|FORD|MERCEDES_BENZ|OPEL|TOYOTA|SKODA|RENAULT|PEUGEOT",
-            message = "{brand.brandIsNotCorrect}",
-            payload = Severity.Error.class)
     private Brand brand;
 
     @NotNull
-    @ValidEnumMemberPattern(
-            regexp = "PETROL|PETROL_AND_CNG|PETROL_AND_LPG|DIESEL|ELECTRIC|ETHANOL|HYBRID|HYBRID_PLUG_IN|HYDROGEN",
-            message = "{petrol.petrolIsNotCorrect}",
-            payload = Severity.Error.class)
     private Petrol petrol;
 
     @NotNull
-    @ValidEnumMemberPattern(
-            regexp = "AUTOMATIC|MANUAL",
-            message = "{gearbox.gearboxIsNotCorrect}",
-            payload = Severity.Error.class)
     private Gearbox gearbox;
 
     @NotNull
-    @ValidEnumMemberPattern(
-            regexp = "SMALL_CARS|CITY_CAR|COUPE|CABRIOLET|STATION_WAGON|COMPACT|MINIVAN|SEDAN|SUV",
-            message = "{bodytype.bodyTypeIsNotCorrect}",
-            payload = Severity.Error.class)
     private Bodytype bodytype;
 
     @NotNull
@@ -265,7 +252,8 @@ public class CarDto {
     }
 
     public void setDateOfAddingTheAdd(LocalDateTime dateOfAddingTheAdd) {
-        this.dateOfAddingTheAdd = dateOfAddingTheAdd;
+
+        this.dateOfAddingTheAdd = dateOfAddingTheAdd.truncatedTo(ChronoUnit.SECONDS);
     }
 
     public LocalDateTime getDateOfUpdatingTheAdd() {
@@ -273,7 +261,10 @@ public class CarDto {
     }
 
     public void setDateOfUpdatingTheAdd(LocalDateTime dateOfUpdatingTheAdd) {
-        this.dateOfUpdatingTheAdd = dateOfUpdatingTheAdd;
+        if (dateOfUpdatingTheAdd != null)
+            this.dateOfUpdatingTheAdd = dateOfUpdatingTheAdd.truncatedTo(ChronoUnit.SECONDS);
+        else
+            this.dateOfUpdatingTheAdd = null;
     }
 
     public @NotNull Year getYearOfProduction() {

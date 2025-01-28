@@ -2,13 +2,18 @@ package com.app.myapp.mapper;
 
 import com.app.myapp.dto.CarDto;
 import com.app.myapp.model.model.Car;
-import jakarta.validation.constraints.NotNull;
+import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
+@Service
 public class CarMapper {
 
-    public static Car toEntity(@NotNull CarDto carDto) {
+    public Car toEntity(CarDto carDto) {
+        if (carDto == null) {
+            throw new NullPointerException("Invalid car DTO");
+        }
+
         Car car = new Car();
 
         car.setPrice(carDto.getPrice());
@@ -16,7 +21,8 @@ public class CarMapper {
         car.setDisplacement(carDto.getDisplacement());
         car.setPower(carDto.getPower());
         car.setDescription(carDto.getDescription());
-        car.setDateOfAddingTheAdd(LocalDateTime.now());
+        car.setDateOfAddingTheAdd(carDto.getDateOfAddingTheAdd());
+        car.setDateOfUpdatingTheAdd(carDto.getDateOfUpdatingTheAdd());
         car.setYearOfProduction(carDto.getYearOfProduction());
         car.setDoorNumber(carDto.getDoorNumber());
         car.setAmountOfSeats(carDto.getAmountOfSeats());
@@ -32,7 +38,11 @@ public class CarMapper {
         return car;
     }
 
-    public static CarDto toDto(@NotNull Car car) {
+    public CarDto toDto(Car car) {
+        if (car == null) {
+            throw new NullPointerException("Invalid car entity");
+        }
+
         CarDto carDto = new CarDto();
 
         carDto.setPrice(car.getPrice());
@@ -41,6 +51,7 @@ public class CarMapper {
         carDto.setPower(car.getPower());
         carDto.setDescription(car.getDescription());
         carDto.setDateOfAddingTheAdd(car.getDateOfAddingTheAdd());
+        carDto.setDateOfUpdatingTheAdd(car.getDateOfUpdatingTheAdd());
         carDto.setYearOfProduction(car.getYearOfProduction());
         carDto.setDoorNumber(car.getDoorNumber());
         carDto.setAmountOfSeats(car.getAmountOfSeats());
