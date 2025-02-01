@@ -11,6 +11,7 @@ import com.app.myapp.mapper.CarMapper;
 import com.app.myapp.model.model.Car;
 import com.app.myapp.repository.CarRepository;
 import com.app.myapp.service.car_service.service.CarService;
+import com.app.myapp.service.car_service.utils.CarServiceUtils;
 import com.app.myapp.service.car_service.utils.RestPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -29,13 +30,13 @@ public class CarServiceImpl implements CarService {
 
     private final CarRepository carRepository;
     private final CarMapper carMapper;
-    private final CarUtilsImpl serviceUtils;
+    private final CarServiceUtils carServiceUtils;
 
     @Autowired
-    public CarServiceImpl(CarRepository carRepository, CarMapper carMapper, CarUtilsImpl serviceUtils1, CarUtilsImpl carUtilsImpl) {
+    public CarServiceImpl(CarRepository carRepository, CarMapper carMapper, CarServiceUtilsImpl carServiceUtilsImpl) {
         this.carRepository = carRepository;
         this.carMapper = carMapper;
-        this.serviceUtils = serviceUtils1;
+        this.carServiceUtils = carServiceUtilsImpl;
     }
 
     @Override
@@ -152,7 +153,7 @@ public class CarServiceImpl implements CarService {
                     carsPageEntities
                             .getContent()
                             .stream()
-                            .filter(car -> serviceUtils.filterCarsForUserWithGivenSearchRangeBounds(car, finalSearchRangeDto))
+                            .filter(car -> carServiceUtils.filterCarsForUserWithGivenSearchRangeBounds(car, finalSearchRangeDto))
                             .map(carMapper::carEntityToResponseDto)
                             .toList();
 
@@ -178,17 +179,16 @@ public class CarServiceImpl implements CarService {
                 throw new InvalidCarException("Updating car data is not correct.");
             }
 
-            if (!serviceUtils.hasAtLeastOneNonNullProperty(carPropertiesToUpdate)) {
+            if (!carServiceUtils.hasAtLeastOneNonNullProperty(carPropertiesToUpdate)) {
                 throw new InvalidCarException("No properties to update.");
             }
 
-            if (!serviceUtils.isDateOfUpdatingTheAddValid(carPropertiesToUpdate)) {
+            if (!carServiceUtils.isDateOfUpdatingTheAddValid(carPropertiesToUpdate)) {
                 throw new InvalidCarException("Date of updating advertisement is not correct.");
             }
 
 
-
-            carFromDatabaseToBeUpdated = serviceUtils
+            carFromDatabaseToBeUpdated = carServiceUtils
                     .updatingCarWithNewDataFromUser(carFromDatabaseToBeUpdated, carPropertiesToUpdate);
 
             Car updatedAndSavedCar = carRepository.save(carFromDatabaseToBeUpdated);
