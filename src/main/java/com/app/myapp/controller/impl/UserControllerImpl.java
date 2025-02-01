@@ -1,8 +1,12 @@
 package com.app.myapp.controller.impl;
 
 import com.app.myapp.controller.UserController;
-import com.app.myapp.dto.UserDto;
-import com.app.myapp.service.user_service.impl.UserServiceImpl;
+import com.app.myapp.dto.user_dtos.UserChangePasswordDto;
+import com.app.myapp.dto.user_dtos.UserCreateDto;
+import com.app.myapp.dto.user_dtos.UserResponseDto;
+import com.app.myapp.dto.user_dtos.UserUpdateDto;
+import com.app.myapp.service.user_service.service.UserService;
+import com.app.myapp.validation.validation.pesel_validation.UniquePesel;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,40 +16,54 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserControllerImpl implements UserController {
 
-    private final UserServiceImpl userServiceImpl;
+    private final UserService userService;
 
     @Autowired
-    public UserControllerImpl(UserServiceImpl userServiceImpl) {
-        this.userServiceImpl = userServiceImpl;
+    public UserControllerImpl(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
-    @PostMapping("/addUser")
-    public UserDto addUser(@RequestBody @Valid UserDto userDto) {
-        return userServiceImpl.addUser(userDto);
+    @PostMapping("/createUser")
+    public UserResponseDto saveUser(@Valid @RequestBody UserCreateDto createUserDto) {
+        return userService
+                .saveUser(createUserDto);
     }
 
     @Override
     @PutMapping("/updateUser/{id}")
-    public UserDto updateUser(@PathVariable int id, @RequestBody @Valid UserDto userDto) {
-        return null;
+    public UserResponseDto updateUser(@PathVariable int id, @Valid @RequestBody UserUpdateDto updateUserDto) {
+        return userService.updateUser(id, updateUserDto);
     }
 
     @Override
-    @GetMapping("/getUserById/{id}")
-    public UserDto getUserById(@PathVariable int id) {
-        return null;
+    @PutMapping("/changePassword")
+    public UserResponseDto changePassword(@RequestBody UserChangePasswordDto changePasswordDto) {
+        return userService.changePassword(changePasswordDto);
     }
 
     @Override
-    @DeleteMapping("/deleteUserById/{id}")
-    public UserDto deleteUser(@PathVariable int id) {
-        return null;
+    @GetMapping("/{id}")
+    public UserResponseDto getUserById(@PathVariable int id) {
+        return userService.getUserById(id);
+    }
+
+    @Override
+    @GetMapping("/userByPesel")
+    public UserResponseDto getUserByPesel(@RequestParam @UniquePesel String pesel) {
+        return userService.getUserByPesel(pesel);
+    }
+
+    @Override
+    @DeleteMapping("/deleteUser/{id}")
+    public UserResponseDto deleteUser(@PathVariable int id) {
+        return userService.deleteUser(id);
     }
 }
