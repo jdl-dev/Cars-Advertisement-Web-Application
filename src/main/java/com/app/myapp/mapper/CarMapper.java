@@ -1,69 +1,81 @@
 package com.app.myapp.mapper;
 
-import com.app.myapp.dto.CarDto;
+import com.app.myapp.dto.car_dtos.CarCreateDto;
+import com.app.myapp.dto.car_dtos.CarResponseDto;
+import com.app.myapp.dto.car_dtos.CarUpdateDto;
 import com.app.myapp.model.model.Car;
 import org.springframework.stereotype.Service;
-
-import java.time.temporal.ChronoUnit;
 
 @Service
 public class CarMapper {
 
-    public Car toEntity(CarDto carDto) {
-        if (carDto == null) {
-            throw new NullPointerException("Invalid car DTO");
-        }
-
-        Car car = new Car();
-
-        car.setPrice(carDto.getPrice());
-        car.setMileage(carDto.getMileage());
-        car.setDisplacement(carDto.getDisplacement());
-        car.setPower(carDto.getPower());
-        car.setDescription(carDto.getDescription());
-        car.setDateOfAddingTheAdd(carDto.getDateOfAddingTheAdd());
-        car.setDateOfUpdatingTheAdd(carDto.getDateOfUpdatingTheAdd());
-        car.setYearOfProduction(carDto.getYearOfProduction());
-        car.setDoorNumber(carDto.getDoorNumber());
-        car.setAmountOfSeats(carDto.getAmountOfSeats());
-        car.setVin(carDto.getVin());
-        car.setColor(carDto.getColor());
-        car.setState(carDto.getState());
-        car.setBrand(carDto.getBrand());
-        car.setPetrol(carDto.getPetrol());
-        car.setGearbox(carDto.getGearbox());
-        car.setBodytype(carDto.getBodytype());
-        car.setUser(carDto.getUser());
-
-        return car;
+    public Car carCreateDtoEntity(CarCreateDto carCreateDto) {
+        return Car.builder()
+                .price(carCreateDto.getPrice())
+                .mileage(carCreateDto.getMileage())
+                .displacement(carCreateDto.getDisplacement())
+                .power(carCreateDto.getPower())
+                .description(carCreateDto.getDescription())
+                .dateOfAddingTheAdd(carCreateDto.getDateOfAddingTheAdd())
+                .yearOfProduction(carCreateDto.getYearOfProduction())
+                .doorNumber(carCreateDto.getDoorNumber())
+                .amountOfSeats(carCreateDto.getAmountOfSeats())
+                .vin(carCreateDto.getVin())
+                .color(carCreateDto.getColor())
+                .state(carCreateDto.getState())
+                .brand(carCreateDto.getBrand())
+                .petrol(carCreateDto.getPetrol())
+                .gearbox(carCreateDto.getGearbox())
+                .bodytype(carCreateDto.getBodytype())
+                .user(carCreateDto.getUser())
+                .build();
     }
 
-    public CarDto toDto(Car car) {
-        if (car == null) {
-            throw new NullPointerException("Invalid car entity");
-        }
+    public Car carUpdateDtoEntity(CarUpdateDto carUpdateDto) {
+        return Car.builder()
+                .price(carUpdateDto.getPrice())
+                .mileage(carUpdateDto.getMileage())
+                .displacement(carUpdateDto.getDisplacement())
+                .power(carUpdateDto.getPower())
+                .description(carUpdateDto.getDescription())
+                .dateOfAddingTheAdd(carUpdateDto.getDateOfAddingTheAdd())
+                .dateOfUpdatingTheAdd(carUpdateDto.getDateOfUpdatingTheAdd())
+                .yearOfProduction(carUpdateDto.getYearOfProduction())
+                .doorNumber(carUpdateDto.getDoorNumber())
+                .amountOfSeats(carUpdateDto.getAmountOfSeats())
+                .vin(carUpdateDto.getVin())
+                .color(carUpdateDto.getColor())
+                .state(carUpdateDto.getState())
+                .brand(carUpdateDto.getBrand())
+                .petrol(carUpdateDto.getPetrol())
+                .gearbox(carUpdateDto.getGearbox())
+                .bodytype(carUpdateDto.getBodytype())
+                .user(carUpdateDto.getUser())
+                .build();
+    }
 
-        CarDto carDto = new CarDto();
-
-        carDto.setPrice(car.getPrice());
-        carDto.setMileage(car.getMileage());
-        carDto.setDisplacement(car.getDisplacement());
-        carDto.setPower(car.getPower());
-        carDto.setDescription(car.getDescription());
-        carDto.setDateOfAddingTheAdd(car.getDateOfAddingTheAdd());
-        carDto.setDateOfUpdatingTheAdd(car.getDateOfUpdatingTheAdd());
-        carDto.setYearOfProduction(car.getYearOfProduction());
-        carDto.setDoorNumber(car.getDoorNumber());
-        carDto.setAmountOfSeats(car.getAmountOfSeats());
-        carDto.setVin(car.getVin());
-        carDto.setColor(car.getColor());
-        carDto.setState(car.getState());
-        carDto.setBrand(car.getBrand());
-        carDto.setPetrol(car.getPetrol());
-        carDto.setGearbox(car.getGearbox());
-        carDto.setBodytype(car.getBodytype());
-        carDto.setUser(car.getUser());
-
-        return carDto;
+    public CarResponseDto carEntityToResponseDto(Car car) {
+        return CarResponseDto
+                .builder()
+                .id(car.getId())
+                .price(car.getPrice())
+                .mileage(car.getMileage())
+                .displacement(car.getDisplacement())
+                .power(car.getPower())
+                .description(car.getDescription())
+                .dateOfAddingTheAdd(car.getDateOfAddingTheAdd())
+                .dateOfUpdatingTheAdd(car.getDateOfUpdatingTheAdd())
+                .yearOfProduction(car.getYearOfProduction())
+                .doorNumber(car.getDoorNumber())
+                .amountOfSeats(car.getAmountOfSeats())
+                .vin(car.getVin())
+                .color(car.getColor())
+                .state(car.getState())
+                .brand(car.getBrand())
+                .petrol(car.getPetrol())
+                .gearbox(car.getGearbox())
+                .bodytype(car.getBodytype())
+                .user(car.getUser())
+                .build();
     }
 }
