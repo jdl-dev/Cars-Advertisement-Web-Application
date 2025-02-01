@@ -1,4 +1,4 @@
-package com.app.myapp.dto;
+package com.app.myapp.dto.car_dtos;
 
 import com.app.myapp.model.model.User;
 import com.app.myapp.model.model.car_members.Bodytype;
@@ -23,11 +23,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 import java.time.Year;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 
 @NoArgsConstructor
 @AllArgsConstructor
-public class CarDto {
-
+public class CarUpdateDto {
     @NotNull(message = "Price must be given")
     @Min(
             value = 1,
@@ -151,6 +151,8 @@ public class CarDto {
             value = 99999999,
             message = "{price.max}",
             payload = Severity.Error.class)
+
+
     public int getPrice() {
         return price;
     }
@@ -261,10 +263,10 @@ public class CarDto {
     }
 
     public void setDateOfUpdatingTheAdd(LocalDateTime dateOfUpdatingTheAdd) {
-        if (dateOfUpdatingTheAdd != null)
-            this.dateOfUpdatingTheAdd = dateOfUpdatingTheAdd.truncatedTo(ChronoUnit.SECONDS);
-        else
-            this.dateOfUpdatingTheAdd = null;
+        this.dateOfUpdatingTheAdd =
+                Objects.isNull(dateOfUpdatingTheAdd) ?
+                        null :
+                        dateOfUpdatingTheAdd.truncatedTo(ChronoUnit.SECONDS);
     }
 
     public @NotNull Year getYearOfProduction() {
