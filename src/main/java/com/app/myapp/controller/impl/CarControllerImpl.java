@@ -1,8 +1,11 @@
 package com.app.myapp.controller.impl;
 
 import com.app.myapp.controller.CarController;
-import com.app.myapp.dto.CarDto;
+import com.app.myapp.dto.car_dtos.CarCreateDto;
+import com.app.myapp.dto.car_dtos.CarDto;
 import com.app.myapp.dto.SearchRangeDto;
+import com.app.myapp.dto.car_dtos.CarResponseDto;
+import com.app.myapp.dto.car_dtos.CarUpdateDto;
 import com.app.myapp.service.car_service.CarService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,23 +40,23 @@ public class CarControllerImpl implements CarController {
     }
 
     @PostMapping("/addCar")
-    public CarDto addCar(@Valid @RequestBody CarDto carDto) {
-        return carService.saveCar(carDto);
+    public CarDto saveCar(@Valid @RequestBody CarCreateDto createdCarDto) {
+        return carService.saveCar(createdCarDto);
     }
 
     @PostMapping("/addManyCars")
-    public List<CarDto> addManyCars(@RequestBody List<@Valid CarDto> carDtoList) {
-        return carService.addManyCars(carDtoList);
+    public List<CarCreateDto> addManyCars(@RequestBody List<@Valid CarCreateDto> createdCarDtos) {
+        return carService.addManyCars(createdCarDtos);
     }
 
 
     @GetMapping("/allCars")
-    public List<CarDto> getAllCars() {
+    public List<CarResponseDto> getAllCars() {
         return carService.getAllCars();
     }
 
     @PostMapping("/filteredCars")
-    public Page<CarDto> getAllCarsFromTheGivenRange(@Valid @RequestBody(required = false) SearchRangeDto searchRangeDto,
+    public Page<CarResponseDto> getAllCarsFromTheGivenRange(@Valid @RequestBody(required = false) SearchRangeDto searchRangeDto,
                                                     @RequestParam(value = "page", defaultValue = "0") int page,
                                                     @RequestParam(value = "size", defaultValue = "35", required = false) int size,
                                                     @RequestParam(value = "sortBy", defaultValue = "price", required = false) String sortBy,
@@ -62,8 +65,8 @@ public class CarControllerImpl implements CarController {
     }
 
     @PutMapping("/{id}")
-    public CarDto updateCar(@PathVariable long id, @Valid @RequestBody CarDto carDto) {
-        return carService.updateCar(id, carDto);
+    public CarUpdateDto updateCar(@PathVariable long id, @Valid @RequestBody CarUpdateDto updatedCar) {
+        return carService.updateCar(id, updatedCar);
     }
 
     @DeleteMapping("/{id}")

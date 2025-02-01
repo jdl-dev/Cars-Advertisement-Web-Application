@@ -1,21 +1,24 @@
 package com.app.myapp.controller;
 
-import com.app.myapp.dto.CarDto;
+import com.app.myapp.dto.car_dtos.CarCreateDto;
+import com.app.myapp.dto.car_dtos.CarDto;
 import com.app.myapp.dto.SearchRangeDto;
+import com.app.myapp.dto.car_dtos.CarResponseDto;
+import com.app.myapp.dto.car_dtos.CarUpdateDto;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface CarController {
-    CarDto addCar(CarDto carDto);
+    CarDto saveCar(CarCreateDto createdCarDto);
 
-    List<CarDto> addManyCars(List<CarDto> carDtoList);
+    List<CarCreateDto> addManyCars(List<CarCreateDto> createdCarsDtos);
 
-    List<CarDto> getAllCars();
+    List<CarResponseDto> getAllCars();
 
-    Page<CarDto> getAllCarsFromTheGivenRange(SearchRangeDto searchRangeDto, int page, int pageSize, String sortBy, String order);
+    Page<CarResponseDto> getAllCarsFromTheGivenRange(SearchRangeDto searchRangeDto, int page, int pageSize, String sortBy, String order);
 
-    CarDto updateCar(long id, CarDto carDto);
+    CarUpdateDto updateCar(long id, CarUpdateDto updatedCar);
 
     CarDto deleteCar(long id);
 }
