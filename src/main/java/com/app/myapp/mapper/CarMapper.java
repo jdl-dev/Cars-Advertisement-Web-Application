@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CarMapper {
 
-    public Car carCreateDtoEntity(CarCreateDto carCreateDto) {
+    public Car carCreateDtoToEntity(CarCreateDto carCreateDto) {
         return Car.builder()
                 .price(carCreateDto.getPrice())
                 .mileage(carCreateDto.getMileage())
@@ -38,7 +38,6 @@ public class CarMapper {
                 .displacement(carUpdateDto.getDisplacement())
                 .power(carUpdateDto.getPower())
                 .description(carUpdateDto.getDescription())
-                .dateOfAddingTheAdd(carUpdateDto.getDateOfAddingTheAdd())
                 .dateOfUpdatingTheAdd(carUpdateDto.getDateOfUpdatingTheAdd())
                 .yearOfProduction(carUpdateDto.getYearOfProduction())
                 .doorNumber(carUpdateDto.getDoorNumber())
@@ -50,7 +49,6 @@ public class CarMapper {
                 .petrol(carUpdateDto.getPetrol())
                 .gearbox(carUpdateDto.getGearbox())
                 .bodytype(carUpdateDto.getBodytype())
-                .user(carUpdateDto.getUser())
                 .build();
     }
 
