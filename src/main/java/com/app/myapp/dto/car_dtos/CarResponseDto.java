@@ -9,8 +9,8 @@ import com.app.myapp.model.model.car_members.Petrol;
 import com.app.myapp.model.model.car_members.State;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.time.Year;
@@ -18,6 +18,7 @@ import java.time.Year;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class CarResponseDto {
     private long id;
     private int price;
