@@ -1,311 +1,220 @@
 package com.app.myapp.service.car_service.impl;
 
-import com.app.myapp.dto.CarDto;
 import com.app.myapp.dto.SearchRangeDto;
+import com.app.myapp.dto.car_dtos.CarCreateDto;
+import com.app.myapp.dto.car_dtos.CarResponseDto;
+import com.app.myapp.dto.car_dtos.CarUpdateDto;
+import com.app.myapp.exception.CarNotFoundException;
+import com.app.myapp.exception.DatabaseConnectionException;
+import com.app.myapp.exception.InvalidCarException;
 import com.app.myapp.mapper.CarMapper;
 import com.app.myapp.model.model.Car;
-import com.app.myapp.model.model.car_members.Bodytype;
-import com.app.myapp.model.model.car_members.Brand;
-import com.app.myapp.model.model.car_members.ColorPalette;
-import com.app.myapp.model.model.car_members.Gearbox;
-import com.app.myapp.model.model.car_members.Petrol;
-import com.app.myapp.model.model.car_members.State;
 import com.app.myapp.repository.CarRepository;
-import com.app.myapp.service.car_service.CarService;
-import com.app.myapp.service.car_service.RestPage;
+import com.app.myapp.service.car_service.service.CarService;
+import com.app.myapp.service.car_service.utils.RestPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.Year;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.util.Objects;
 
 @Service
 public class CarServiceImpl implements CarService {
 
-
     private final CarRepository carRepository;
     private final CarMapper carMapper;
+    private final CarUtilsImpl serviceUtils;
 
     @Autowired
-    public CarServiceImpl(CarRepository carRepository, CarMapper carMapper) {
+    public CarServiceImpl(CarRepository carRepository, CarMapper carMapper, CarUtilsImpl serviceUtils1, CarUtilsImpl carUtilsImpl) {
         this.carRepository = carRepository;
         this.carMapper = carMapper;
+        this.serviceUtils = serviceUtils1;
     }
 
     @Override
-    public CarDto saveCar(CarDto carDto) {
+    public CarResponseDto saveCar(CarCreateDto createdCarDto) {
+        Car carToSave =
+                carMapper
+                        .carCreateDtoToEntity(createdCarDto);
 
-        Car carToSave = carMapper
-                .toEntity(carDto);
+        try {
+            Car savedCar =
+                    carRepository
+                            .save(carToSave);
 
-        Car savedCar = carRepository
-                .save(carToSave);
+            return carMapper
+                    .carEntityToResponseDto(savedCar);
 
-        return carMapper
-                .toDto(savedCar);
+        } catch (DataAccessException exception) {
+            throw new DatabaseConnectionException("Failed due to problems with database when saving the car.");
+        } catch (Exception exception) {
+            throw new RuntimeException("A unexpected error occurred while saving the car.");
+        }
     }
 
     @Override
-    public List<CarDto> addManyCars(List<CarDto> carDtoList) {
+    public List<CarResponseDto> addManyCars(List<CarCreateDto> createdCarsDtos) {
+        List<Car> cars =
+                createdCarsDtos
+                        .stream()
+                        .map(carMapper::carCreateDtoToEntity)
+                        .toList();
+        try {
 
-        List<Car> cars = carDtoList.stream()
-                .map(carMapper::toEntity)
-                .toList();
+            List<Car> savedCars =
+                    carRepository
+                            .saveAll(cars);
 
-        List<Car> savedCars = carRepository.saveAll(cars);
+            return savedCars
+                    .stream()
+                    .map(carMapper::carEntityToResponseDto)
+                    .toList();
 
-        return savedCars.stream()
-                .map(carMapper::toDto)
-                .toList();
+        } catch (DataAccessException exception) {
+            throw new DatabaseConnectionException("Failed due to problems with database when saving the list of cars.");
+        } catch (Exception exception) {
+            throw new RuntimeException("A unexpected error occurred while saving the list of cars.");
+        }
     }
 
+    @Cacheable(cacheNames = "getCarById")
     @Override
-    public CarDto getCarById(long id) {
-        Car car = carRepository
-                .findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Car with given id doesn't exist"));
+    public CarResponseDto getCarById(long id) {
+        try {
 
-        CarDto carDto = carMapper.toDto(car);
+            Car carFromDatabaseFoundById =
+                    carRepository
+                            .findById(id)
+                            .orElseThrow(() -> new CarNotFoundException("Car with given id doesn't exist: " + id));
 
-        return carDto;
+            CarResponseDto carResponseDto =
+                    carMapper
+                            .carEntityToResponseDto(carFromDatabaseFoundById);
+
+            return carResponseDto;
+
+        } catch (DataAccessException exception) {
+            throw new DatabaseConnectionException("Failed due to problems with database when retrieving car by id from database.");
+        } catch (Exception exception) {
+            throw new RuntimeException("A unexpected error occurred while retrieving car by id from database.");
+        }
     }
 
     @Cacheable(cacheNames = "allCars")
     @Override
-    public List<CarDto> getAllCars() {
+    public List<CarResponseDto> getAllCars() {
+        try {
 
-        List<Car> cars = carRepository.findAll();
+            List<Car> cars =
+                    carRepository
+                            .findAll();
 
-        List<CarDto> carsDtoList = cars
-                .stream()
-                .map(carMapper::toDto)
-                .toList();
+            List<CarResponseDto> carResponseDtos =
+                    cars
+                            .stream()
+                            .map(carMapper::carEntityToResponseDto)
+                            .toList();
 
-        return carsDtoList;
+            return carResponseDtos;
+
+        } catch (DataAccessException exception) {
+            throw new DatabaseConnectionException("Failed due to problems with database when retrieving all cars from database.");
+        } catch (Exception exception) {
+            throw new RuntimeException("A unexpected error occurred while retrieving all cars from database.");
+        }
     }
 
-    @Cacheable(cacheNames = "cars")
+    @Cacheable(cacheNames = "carsPage")
     @Override
-    public Page<CarDto> getAllCarsFromTheGivenRange(SearchRangeDto searchRangeDto, int page, int size, String sortBy, String order) {
-        if (searchRangeDto == null) {
-            searchRangeDto = new SearchRangeDto();
+    public Page<CarResponseDto> getAllCarsFromTheGivenRange(SearchRangeDto searchRangeDto, int page, int size, String sortBy, String order) {
+        SearchRangeDto finalSearchRangeDto =
+                Objects.isNull(searchRangeDto) ?
+                        new SearchRangeDto() :
+                        searchRangeDto;
+
+        try {
+            Pageable pageRequest =
+                    PageRequest
+                            .of(page, size, Sort.by(Sort.Direction.fromString(order), sortBy));
+
+            Page<Car> carsPageEntities =
+                    carRepository
+                            .findAll(pageRequest);
+
+            List<CarResponseDto> carResponseDtos =
+                    carsPageEntities
+                            .getContent()
+                            .stream()
+                            .filter(car -> serviceUtils.filterCarsForUserWithGivenSearchRangeBounds(car, finalSearchRangeDto))
+                            .map(carMapper::carEntityToResponseDto)
+                            .toList();
+
+            int total = carResponseDtos.size();
+
+            return new RestPage<>(carResponseDtos, page, size, total);
+
+        } catch (DataAccessException exception) {
+            throw new DatabaseConnectionException("Failed due to problems with database when retrieving cars from given range.");
+        } catch (Exception exception) {
+            throw new RuntimeException("A unexpected error occurred while retrieving cars from given range.");
         }
-
-        SearchRangeDto finalSearchRangeDto = searchRangeDto;
-
-        Pageable pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(order), sortBy));
-
-        Page<Car> carsPage = carRepository.findAll(pageRequest);
-
-        List<CarDto> carDtoResultPare = carsPage
-                .getContent()
-                .stream()
-                .filter(car -> filterCarsForUserWithGivenSearchRangeBounds(car, finalSearchRangeDto))
-                .map(carMapper::toDto)
-                .toList();
-
-        return new RestPage<>(carDtoResultPare, page, size, carDtoResultPare.size());
-    }
-
-    @Override
-    public CarDto updateCar(long id, CarDto carDto) {
-
-        Car car = carRepository
-                .findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Car with given id doesn't exist"));
-
-        boolean isChanged = false;
-
-        int oldPrice = car.getPrice();
-        int newPrice = carDto.getPrice();
-        if (!(oldPrice == newPrice)) {
-            car.setPrice(newPrice);
-            isChanged = true;
-        }
-
-        int oldMileage = car.getMileage();
-        int newMileage = carDto.getMileage();
-        if (!(oldMileage == newMileage)) {
-            car.setMileage(newMileage);
-            isChanged = true;
-        }
-
-        int oldDisplacement = car.getDisplacement();
-        int newDisplacement = carDto.getDisplacement();
-        if (!(oldDisplacement == newDisplacement)) {
-            car.setDisplacement(newDisplacement);
-            isChanged = true;
-        }
-
-        int oldPower = car.getPower();
-        int newPower = carDto.getPower();
-        if (!(oldPower == newPower)) {
-            car.setPower(newPower);
-            isChanged = true;
-        }
-
-        String oldDescription = car.getDescription();
-        String newDescription = carDto.getDescription();
-        if (!oldDescription.equals(newDescription)) {
-            car.setDescription(newDescription);
-            isChanged = true;
-        }
-
-        Year oldYearOfProduction = car.getYearOfProduction();
-        Year newYearOfProduction = carDto.getYearOfProduction();
-        if (!(oldYearOfProduction.compareTo(newYearOfProduction) == 0)) {
-            car.setYearOfProduction(newYearOfProduction);
-            isChanged = true;
-        }
-
-        int oldDoorsNumber = car.getDoorNumber();
-        int newDoorsNumber = carDto.getDoorNumber();
-        if (!(oldDoorsNumber == newDoorsNumber)) {
-            car.setDoorNumber(newDoorsNumber);
-            isChanged = true;
-        }
-
-        int oldAmountOfSeats = car.getAmountOfSeats();
-        int newAmountOfSeats = carDto.getAmountOfSeats();
-        if (!(oldAmountOfSeats == newAmountOfSeats)) {
-            car.setAmountOfSeats(newAmountOfSeats);
-            isChanged = true;
-        }
-
-        if (isChanged) {
-            car.setDateOfUpdatingTheAdd(carDto.getDateOfUpdatingTheAdd());
-        }
-
-        if (isChanged) {
-            carRepository.save(car);
-        }
-
-        return carMapper.toDto(car);
     }
 
     @Override
-    public CarDto deleteCar(long id) {
+    public CarResponseDto updateCar(long id, CarUpdateDto carPropertiesToUpdate) {
+        try {
+            Car carFromDatabaseToBeUpdated = carRepository
+                    .findById(id)
+                    .orElseThrow(() -> new CarNotFoundException("Car with given id doesn't exist: " + id));
 
-        Car car = carRepository
-                .findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Car with given id doesn't exist"));
+            if (carPropertiesToUpdate == null) {
+                throw new InvalidCarException("Updating car data is not correct.");
+            }
 
-        carRepository.deleteById(id);
-        return carMapper.toDto(car);
+            if (carPropertiesToUpdate.areDataToUpdateExistingCarContainsMinimumOneNewValue() <= 0) {
+                throw new InvalidCarException("No properties to update.");
+            }
+
+            carFromDatabaseToBeUpdated = serviceUtils
+                    .updatingCarWithNewDataFromUser(carFromDatabaseToBeUpdated, carPropertiesToUpdate);
+
+            Car updatedAndSavedCar = carRepository.save(carFromDatabaseToBeUpdated);
+
+            return carMapper
+                    .carEntityToResponseDto(updatedAndSavedCar);
+
+
+        } catch (DataAccessException exception) {
+            throw new DatabaseConnectionException("Failed due to problems with database when updating car.");
+        } catch (Exception exception) {
+            throw new RuntimeException("A unexpected error occurred while updating car.");
+        }
     }
 
-    private boolean filterCarsForUserWithGivenSearchRangeBounds(Car car, SearchRangeDto searchRangeDto) {
-        int price = car.getPrice();
-        int minPrice = searchRangeDto.getPriceRangeDto().getMinPrice();
-        int maxPrice = searchRangeDto.getPriceRangeDto().getMaxPrice();
-        if (!compareValueIfItsInGivenRange(price, minPrice, maxPrice)) {
-            return false;
-        }
 
-        int mileage = car.getMileage();
-        int minMileage = searchRangeDto.getMileageRangeDto().getMinMileage();
-        int maxMileage = searchRangeDto.getMileageRangeDto().getMaxMileage();
-        if (!compareValueIfItsInGivenRange(mileage, minMileage, maxMileage)) {
-            return false;
-        }
+    @Override
+    public CarResponseDto deleteCar(long id) {
+        try {
 
-        int displacement = car.getDisplacement();
-        int minDisplacement = searchRangeDto.getDisplacementRangeDto().getMinDisplacement();
-        int maxDisplacement = searchRangeDto.getDisplacementRangeDto().getMaxDisplacement();
-        if (!compareValueIfItsInGivenRange(displacement, minDisplacement, maxDisplacement)) {
-            return false;
-        }
+            Car deletedCar = carRepository
+                    .findById(id)
+                    .orElseThrow(() -> new CarNotFoundException("Car with given id doesn't exist: " + id));
 
-        int power = car.getPower();
-        int minPower = searchRangeDto.getPowerRangeDto().getMinPower();
-        int maxPower = searchRangeDto.getPowerRangeDto().getMaxPower();
-        if (!compareValueIfItsInGivenRange(power, minPower, maxPower)) {
-            return false;
-        }
+            carRepository.deleteById(id);
 
-        int yearOfProduction = Integer.parseInt(car.getYearOfProduction().toString());
-        int minYearOfProduction = searchRangeDto.getYearOfProductionRangeDto().getMinYearOfProduction();
-        int maxYearOfProduction = searchRangeDto.getYearOfProductionRangeDto().getMaxYearOfProduction();
-        if (!compareValueIfItsInGivenRange(yearOfProduction, minYearOfProduction, maxYearOfProduction)) {
-            return false;
-        }
+            return carMapper.carEntityToResponseDto(deletedCar);
 
-        int doors = car.getDoorNumber();
-        int minDoors = searchRangeDto.getDoorsRangeDto().getMinDoorNumber();
-        int maxDoors = searchRangeDto.getDoorsRangeDto().getMaxDoorNumber();
-        if (!compareValueIfItsInGivenRange(doors, minDoors, maxDoors)) {
-            return false;
+        } catch (DataAccessException exception) {
+            throw new DatabaseConnectionException("Failed due to problems with database when deleting car.");
+        } catch (Exception exception) {
+            throw new RuntimeException("A unexpected error occurred while deleting car.");
         }
-
-        int seats = car.getAmountOfSeats();
-        int minSeats = searchRangeDto.getSeatsRangeDto().getMinAmountOfSeats();
-        int maxSeats = searchRangeDto.getSeatsRangeDto().getMaxAmountOfSeats();
-        if (!compareValueIfItsInGivenRange(seats, minSeats, maxSeats)) {
-            return false;
-        }
-
-        var color = car.getColor();
-        List<ColorPalette> colors = searchRangeDto.getColors();
-        if (!colors.contains(color)) {
-            return false;
-        }
-
-        var state = car.getState();
-        List<State> states = searchRangeDto.getStates();
-        if (!states.contains(state)) {
-            return false;
-        }
-
-        var brand = car.getBrand();
-        List<Brand> brands = searchRangeDto.getBrands();
-        if (!brands.contains(brand)) {
-            return false;
-        }
-
-        var petrolType = car.getPetrol();
-        List<Petrol> petrolTypes = searchRangeDto.getPetrolTypes();
-        if (!petrolTypes.contains(petrolType)) {
-            return false;
-        }
-
-        var gearboxType = car.getGearbox();
-        List<Gearbox> gearboxTypes = searchRangeDto.getGearboxTypes();
-        if (!gearboxTypes.contains(gearboxType)) {
-            return false;
-        }
-
-        var bodyType = car.getBodytype();
-        List<Bodytype> bodyTypes = searchRangeDto.getBodytypeList();
-        if (!bodyTypes.contains(bodyType)) {
-            return false;
-        }
-
-        return true;
     }
-
-    private boolean compareValueIfItsInGivenRange(int value, int minValue, int maxValue) {
-        return value >= minValue && value <= maxValue;
-    }
-
-    //
-//    @Override
-//    public Car saveCar(CarDto carDto) {
-//
-//    }
-//
-//    @Override
-//    public Car updateCar(int id, CarDto carDto) {
-//        return null;
-//    }
-//
-//    @Override
-//    public Car deleteCar(int id) {
-//        return null;
-//    }
 }
