@@ -178,9 +178,15 @@ public class CarServiceImpl implements CarService {
                 throw new InvalidCarException("Updating car data is not correct.");
             }
 
-            if (carPropertiesToUpdate.areDataToUpdateExistingCarContainsMinimumOneNewValue() <= 0) {
+            if (!serviceUtils.hasAtLeastOneNonNullProperty(carPropertiesToUpdate)) {
                 throw new InvalidCarException("No properties to update.");
             }
+
+            if (!serviceUtils.isDateOfUpdatingTheAddValid(carPropertiesToUpdate)) {
+                throw new InvalidCarException("Date of updating advertisement is not correct.");
+            }
+
+
 
             carFromDatabaseToBeUpdated = serviceUtils
                     .updatingCarWithNewDataFromUser(carFromDatabaseToBeUpdated, carPropertiesToUpdate);
