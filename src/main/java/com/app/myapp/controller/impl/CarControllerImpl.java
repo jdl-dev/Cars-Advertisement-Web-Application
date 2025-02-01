@@ -2,11 +2,10 @@ package com.app.myapp.controller.impl;
 
 import com.app.myapp.controller.CarController;
 import com.app.myapp.dto.car_dtos.CarCreateDto;
-import com.app.myapp.dto.car_dtos.CarDto;
 import com.app.myapp.dto.SearchRangeDto;
 import com.app.myapp.dto.car_dtos.CarResponseDto;
 import com.app.myapp.dto.car_dtos.CarUpdateDto;
-import com.app.myapp.service.car_service.CarService;
+import com.app.myapp.service.car_service.service.CarService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,12 +39,12 @@ public class CarControllerImpl implements CarController {
     }
 
     @PostMapping("/addCar")
-    public CarDto saveCar(@Valid @RequestBody CarCreateDto createdCarDto) {
+    public CarResponseDto saveCar(@Valid @RequestBody CarCreateDto createdCarDto) {
         return carService.saveCar(createdCarDto);
     }
 
     @PostMapping("/addManyCars")
-    public List<CarCreateDto> addManyCars(@RequestBody List<@Valid CarCreateDto> createdCarDtos) {
+    public List<CarResponseDto> addManyCars(@RequestBody List<@Valid CarCreateDto> createdCarDtos) {
         return carService.addManyCars(createdCarDtos);
     }
 
@@ -65,12 +64,12 @@ public class CarControllerImpl implements CarController {
     }
 
     @PutMapping("/{id}")
-    public CarUpdateDto updateCar(@PathVariable long id, @Valid @RequestBody CarUpdateDto updatedCar) {
+    public CarResponseDto updateCar(@PathVariable long id, @Valid @RequestBody CarUpdateDto updatedCar) {
         return carService.updateCar(id, updatedCar);
     }
 
     @DeleteMapping("/{id}")
-    public CarDto deleteCar(@PathVariable long id) {
+    public CarResponseDto deleteCar(@PathVariable long id) {
         return carService.deleteCar(id);
     }
 
