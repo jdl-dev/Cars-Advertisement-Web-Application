@@ -1,49 +1,54 @@
 package com.app.myapp.mapper;
 
-import com.app.myapp.dto.UserDto;
+import com.app.myapp.dto.car_dtos.CarResponseDto;
+import com.app.myapp.dto.user_dtos.UserCreateDto;
+import com.app.myapp.dto.user_dtos.UserResponseDto;
 import com.app.myapp.model.model.User;
-import jakarta.validation.constraints.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserMapper {
-    public User toEntity(@NotNull UserDto userDto) {
-        User user = new User();
 
-        user.setName(userDto.getName());
-        user.setUsername(userDto.getUsername());
-        user.setSurname(userDto.getSurname());
-        user.setUsername(userDto.getUsername());
-        user.setBirthday(userDto.getBirthday());
-        user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
-        user.setPhone(userDto.getPhone());
-        user.setAddress(userDto.getAddress());
-        user.setCity(userDto.getCity());
-        user.setPesel(userDto.getPesel());
-        user.setGender(userDto.getGender());
-        user.setAdvertisements(userDto.getAdvertisements());
+    private PasswordEncoder passwordEncoder;
 
-        return user;
+    @Autowired
+    public UserMapper(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
     }
 
-    public UserDto toDto(@NotNull User user) {
-        UserDto userDto = new UserDto();
+    public User userCreateDtoToEntity(UserCreateDto userCreateDto) {
+        return User
+                .builder()
+                .name(userCreateDto.getName())
+                .surname(userCreateDto.getSurname())
+                .username(userCreateDto.getUsername())
+                .birthday(userCreateDto.getBirthday())
+                .email(userCreateDto.getEmail())
+                .password(passwordEncoder.encode(userCreateDto.getPassword()))
+                .phone(userCreateDto.getPhone())
+                .address(userCreateDto.getAddress())
+                .city(userCreateDto.getCity())
+                .pesel(userCreateDto.getPesel())
+                .gender(userCreateDto.getGender())
+                .build();
+    }
 
-        userDto.setName(user.getName());
-        userDto.setUsername(user.getUsername());
-        userDto.setSurname(user.getSurname());
-        userDto.setUsername(user.getUsername());
-        userDto.setBirthday(user.getBirthday());
-        userDto.setEmail(user.getEmail());
-        userDto.setPassword(user.getPassword());
-        userDto.setPhone(user.getPhone());
-        userDto.setAddress(user.getAddress());
-        userDto.setCity(user.getCity());
-        userDto.setPesel(user.getPesel());
-        userDto.setGender(user.getGender());
-        userDto.setAdvertisements(user.getAdvertisements());
-
-        return userDto;
+    public UserResponseDto entityToUserResponseDto(User user) {
+        return UserResponseDto
+                .builder()
+                .name(user.getName())
+                .surname(user.getSurname())
+                .username(user.getUsername())
+                .birthday(user.getBirthday())
+                .email(user.getEmail())
+                .phone(user.getPhone())
+                .address(user.getAddress())
+                .city(user.getCity())
+                .pesel(user.getPesel())
+                .gender(user.getGender())
+                .advertisements(user.getAdvertisements())
+                .build();
     }
 }
