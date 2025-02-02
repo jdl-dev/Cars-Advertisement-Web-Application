@@ -2,10 +2,12 @@ package com.app.myapp.service.user_service.impl;
 
 import com.app.myapp.dto.user_dtos.UserUpdateDto;
 import com.app.myapp.service.user_service.utils.UserServiceUtils;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 import java.util.stream.Stream;
 
+@Component
 public class UserServiceUtilsImpl implements UserServiceUtils {
 
     @Override
