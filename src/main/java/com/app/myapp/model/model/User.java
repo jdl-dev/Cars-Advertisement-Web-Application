@@ -4,6 +4,8 @@ import com.app.myapp.model.model.user_members.Gender;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -42,6 +44,7 @@ public class User {
     @Column(unique = true)
     private String pesel;
 
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @OneToMany(mappedBy = "user")
