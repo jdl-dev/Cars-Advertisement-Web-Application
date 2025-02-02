@@ -9,7 +9,9 @@ import com.app.myapp.service.user_service.service.UserService;
 import com.app.myapp.validation.validation.pesel_validation.UniquePesel;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,14 +34,14 @@ public class UserControllerImpl implements UserController {
 
     @Override
     @PostMapping("/createUser")
-    public UserResponseDto saveUser(@Valid @RequestBody UserCreateDto createUserDto) {
+    public UserResponseDto saveUser(@RequestBody UserCreateDto createUserDto) {
         return userService
                 .saveUser(createUserDto);
     }
 
     @Override
     @PutMapping("/updateUser/{id}")
-    public UserResponseDto updateUser(@PathVariable int id, @Valid @RequestBody UserUpdateDto updateUserDto) {
+    public UserResponseDto updateUser(@PathVariable int id, @RequestBody UserUpdateDto updateUserDto) {
         return userService.updateUser(id, updateUserDto);
     }
 
@@ -57,7 +59,7 @@ public class UserControllerImpl implements UserController {
 
     @Override
     @GetMapping("/userByPesel")
-    public UserResponseDto getUserByPesel(@RequestParam @UniquePesel String pesel) {
+    public UserResponseDto getUserByPesel(@RequestParam String pesel) {
         return userService.getUserByPesel(pesel);
     }
 
@@ -65,5 +67,12 @@ public class UserControllerImpl implements UserController {
     @DeleteMapping("/deleteUser/{id}")
     public UserResponseDto deleteUser(@PathVariable int id) {
         return userService.deleteUser(id);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> handleException() {
+        return ResponseEntity
+                .badRequest()
+                .body("Something happened, please contact the admin.");
     }
 }

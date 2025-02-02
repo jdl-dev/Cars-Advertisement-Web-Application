@@ -6,7 +6,6 @@ import com.app.myapp.dto.car_dtos.CarCreateDto;
 import com.app.myapp.dto.car_dtos.CarResponseDto;
 import com.app.myapp.dto.car_dtos.CarUpdateDto;
 import com.app.myapp.service.car_service.service.CarService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,14 +33,14 @@ public class CarControllerImpl implements CarController {
 
     @Override
     @PostMapping("/addCar")
-    public CarResponseDto saveCar(@Valid @RequestBody CarCreateDto createdCarDto) {
+    public CarResponseDto saveCar(@RequestBody CarCreateDto createdCarDto) {
         return carService
                 .saveCar(createdCarDto);
     }
 
     @Override
     @PostMapping("/addManyCars")
-    public List<CarResponseDto> addManyCars(@RequestBody List<@Valid CarCreateDto> createdCarDtos) {
+    public List<CarResponseDto> addManyCars(@RequestBody List<CarCreateDto> createdCarDtos) {
         return carService
                 .addManyCars(createdCarDtos);
     }
@@ -56,7 +55,7 @@ public class CarControllerImpl implements CarController {
     @Override
     @PostMapping("/filteredCars")
     public Page<CarResponseDto> getAllCarsFromTheGivenRange(
-            @Valid @RequestBody(required = false) SearchRangeDto searchRangeDto,
+            @RequestBody(required = false) SearchRangeDto searchRangeDto,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "35", required = false) int size,
             @RequestParam(value = "sortBy", defaultValue = "price", required = false) String sortBy,
@@ -67,7 +66,7 @@ public class CarControllerImpl implements CarController {
 
     @Override
     @PutMapping("/{id}")
-    public CarResponseDto updateCar(@PathVariable long id, @Valid @RequestBody CarUpdateDto updatedCar) {
+    public CarResponseDto updateCar(@PathVariable long id, @RequestBody CarUpdateDto updatedCar) {
         return carService
                 .updateCar(id, updatedCar);
     }
