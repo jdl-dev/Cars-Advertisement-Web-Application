@@ -17,11 +17,15 @@ import com.app.myapp.validation.payloads.Severity;
 import com.app.myapp.validation.validation.valid_values_range.ValidValuesRange;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.Objects;
 
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class SearchRangeDto {
@@ -64,110 +68,6 @@ public class SearchRangeDto {
 
     @NotNull
     private List<Bodytype> bodytypeList = List.of(Bodytype.values());
-
-    public PriceRangeDto getPriceRangeDto() {
-        return priceRangeDto;
-    }
-
-    public void setPriceRangeDto(PriceRangeDto priceRangeDto) {
-        this.priceRangeDto = priceRangeDto;
-    }
-
-    public MileageRangeDto getMileageRangeDto() {
-        return mileageRangeDto;
-    }
-
-    public void setMileageRangeDto(MileageRangeDto mileageRangeDto) {
-        this.mileageRangeDto = mileageRangeDto;
-    }
-
-    public DisplacementRangeDto getDisplacementRangeDto() {
-        return displacementRangeDto;
-    }
-
-    public void setDisplacementRangeDto(DisplacementRangeDto displacementRangeDto) {
-        this.displacementRangeDto = displacementRangeDto;
-    }
-
-    public PowerRangeDto getPowerRangeDto() {
-        return powerRangeDto;
-    }
-
-    public void setPowerRangeDto(PowerRangeDto powerRangeDto) {
-        this.powerRangeDto = powerRangeDto;
-    }
-
-    public YearOfProductionRangeDto getYearOfProductionRangeDto() {
-        return yearOfProductionRangeDto;
-    }
-
-    public void setYearOfProductionRangeDto(YearOfProductionRangeDto yearOfProductionRangeDto) {
-        this.yearOfProductionRangeDto = yearOfProductionRangeDto;
-    }
-
-    public DoorsRangeDto getDoorsRangeDto() {
-        return doorsRangeDto;
-    }
-
-    public void setDoorsRangeDto(DoorsRangeDto doorsRangeDto) {
-        this.doorsRangeDto = doorsRangeDto;
-    }
-
-    public SeatsRangeDto getSeatsRangeDto() {
-        return seatsRangeDto;
-    }
-
-    public void setSeatsRangeDto(SeatsRangeDto seatsRangeDto) {
-        this.seatsRangeDto = seatsRangeDto;
-    }
-
-    public List<ColorPalette> getColors() {
-        return colors;
-    }
-
-    public void setColors(List<ColorPalette> colors) {
-        this.colors = colors;
-    }
-
-    public @NotNull List<State> getStates() {
-        return states;
-    }
-
-    public void setStates(@NotNull List<State> states) {
-        this.states = states;
-    }
-
-    public @NotNull List<Brand> getBrands() {
-        return brands;
-    }
-
-    public void setBrands(@NotNull List<Brand> brands) {
-        this.brands = brands;
-    }
-
-    public @NotNull List<Petrol> getPetrolTypes() {
-        return petrolTypes;
-    }
-
-    public void setPetrolTypes(@NotNull List<Petrol> petrolTypes) {
-        this.petrolTypes = petrolTypes;
-    }
-
-    public @NotNull List<Gearbox> getGearboxTypes() {
-        return gearboxTypes;
-    }
-
-    public void setGearboxTypes(@NotNull List<Gearbox> gearboxTypes) {
-        this.gearboxTypes = gearboxTypes;
-    }
-
-    public @NotNull List<Bodytype> getBodytypeList() {
-        return bodytypeList;
-    }
-
-    public void setBodytypeList(@NotNull List<Bodytype> bodytypeList) {
-        this.bodytypeList = bodytypeList;
-    }
 
     @Override
     public boolean equals(Object object) {
