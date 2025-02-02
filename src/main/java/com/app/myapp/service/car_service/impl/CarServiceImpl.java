@@ -4,9 +4,9 @@ import com.app.myapp.dto.SearchRangeDto;
 import com.app.myapp.dto.car_dtos.CarCreateDto;
 import com.app.myapp.dto.car_dtos.CarResponseDto;
 import com.app.myapp.dto.car_dtos.CarUpdateDto;
-import com.app.myapp.exception.CarNotFoundException;
-import com.app.myapp.exception.DatabaseConnectionException;
-import com.app.myapp.exception.InvalidCarException;
+import com.app.myapp.exception.car_exceptions.CarNotFoundException;
+import com.app.myapp.exception.other_purpose_exceptions.DatabaseConnectionException;
+import com.app.myapp.exception.car_exceptions.CarInvalidException;
 import com.app.myapp.mapper.CarMapper;
 import com.app.myapp.model.model.Car;
 import com.app.myapp.repository.CarRepository;
@@ -20,7 +20,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -177,17 +176,12 @@ public class CarServiceImpl implements CarService {
                     .orElseThrow(() -> new CarNotFoundException("Car with given id doesn't exist: " + id));
 
             if (carPropertiesToUpdate == null) {
-                throw new InvalidCarException("Updating car data is not correct.");
+                throw new CarInvalidException("Updating car data is not correct.");
             }
 
             if (!carServiceUtils.hasAtLeastOneNonNullProperty(carPropertiesToUpdate)) {
-                throw new InvalidCarException("No properties to update.");
+                throw new CarInvalidException("No properties to update.");
             }
-
-            if (!carServiceUtils.isDateOfUpdatingTheAddValid(carPropertiesToUpdate)) {
-                throw new InvalidCarException("Date of updating advertisement is not correct.");
-            }
-
 
             carFromDatabaseToBeUpdated = carServiceUtils
                     .updatingCarWithNewDataFromUser(carFromDatabaseToBeUpdated, carPropertiesToUpdate);
