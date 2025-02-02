@@ -45,8 +45,8 @@ public class UserControllerImpl implements UserController {
 
     @Override
     @PutMapping("/changePassword")
-    public UserResponseDto changePassword(@RequestBody UserChangePasswordDto changePasswordDto) {
-        return userService.changePassword(changePasswordDto);
+    public UserResponseDto changePassword(@PathVariable int id, @RequestBody UserChangePasswordDto changePasswordDto) {
+        return userService.changePassword(id, changePasswordDto);
     }
 
     @Override

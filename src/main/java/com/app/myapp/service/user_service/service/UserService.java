@@ -17,7 +17,7 @@ public interface UserService {
     //UPDATE
     UserResponseDto updateUser(long id, UserUpdateDto userDto);
 
-    UserResponseDto changePassword(UserChangePasswordDto userChangePasswordDto);
+    UserResponseDto changePassword(long id, UserChangePasswordDto userChangePasswordDto);
 
     //DELETE
     UserResponseDto deleteUser(long id);

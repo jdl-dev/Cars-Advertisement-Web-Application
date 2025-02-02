@@ -11,7 +11,7 @@ public interface UserController {
 
     UserResponseDto updateUser(int id, UserUpdateDto updateUserDto);
 
-    UserResponseDto changePassword(UserChangePasswordDto changePasswordDto);
+    UserResponseDto changePassword(int id, UserChangePasswordDto changePasswordDto);
 
     UserResponseDto getUserById(int id);
 
