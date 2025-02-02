@@ -1,5 +1,7 @@
 package com.app.myapp.validation.validation.description_validation;
 
+import com.app.myapp.exception.other_purpose_exceptions.ForbiddenWordsLoadingException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,7 +26,7 @@ public class ForbiddenWordsLoader {
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ForbiddenWordsLoadingException("Error occurs during loading forbidden words process", e);
         }
 
         return forbiddenWords;
