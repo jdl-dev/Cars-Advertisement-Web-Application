@@ -6,9 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findUserByPesel(String pesel);
+
     @Query(value = "SELECT email FROM cars_database.user", nativeQuery = true)
     List<String> findTableWithEmails();
 
