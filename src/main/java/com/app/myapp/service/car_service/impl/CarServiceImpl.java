@@ -13,6 +13,7 @@ import com.app.myapp.repository.CarRepository;
 import com.app.myapp.service.car_service.service.CarService;
 import com.app.myapp.service.car_service.utils.CarServiceUtils;
 import com.app.myapp.service.car_service.utils.RestPage;
+import com.app.myapp.validation.validator.ObjectValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
@@ -31,16 +32,24 @@ public class CarServiceImpl implements CarService {
     private final CarRepository carRepository;
     private final CarMapper carMapper;
     private final CarServiceUtils carServiceUtils;
+    private final ObjectValidator<CarCreateDto> carCreateDtoObjectValidator;
+    private final ObjectValidator<CarUpdateDto> carUpdateDtoObjectValidator;
+    private final ObjectValidator<SearchRangeDto> searchRangeDtoObjectValidator;
 
     @Autowired
-    public CarServiceImpl(CarRepository carRepository, CarMapper carMapper, CarServiceUtilsImpl carServiceUtilsImpl) {
+    public CarServiceImpl(CarRepository carRepository, CarMapper carMapper, CarServiceUtilsImpl carServiceUtilsImpl, ObjectValidator<CarCreateDto> carCreateDtoObjectValidator, ObjectValidator<CarUpdateDto> carUpdateDtoObjectValidator, ObjectValidator<SearchRangeDto> searchRangeDtoObjectValidator) {
         this.carRepository = carRepository;
         this.carMapper = carMapper;
         this.carServiceUtils = carServiceUtilsImpl;
+        this.carCreateDtoObjectValidator = carCreateDtoObjectValidator;
+        this.carUpdateDtoObjectValidator = carUpdateDtoObjectValidator;
+        this.searchRangeDtoObjectValidator = searchRangeDtoObjectValidator;
     }
 
     @Override
     public CarResponseDto saveCar(CarCreateDto createdCarDto) {
+        carCreateDtoObjectValidator.validate(createdCarDto);
+
         Car carToSave =
                 carMapper
                         .carCreateDtoToEntity(createdCarDto);
@@ -62,6 +71,10 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<CarResponseDto> addManyCars(List<CarCreateDto> createdCarsDtos) {
+        createdCarsDtos
+                .stream()
+                .peek(carCreateDtoObjectValidator::validate);
+
         List<Car> cars =
                 createdCarsDtos
                         .stream()
@@ -140,6 +153,8 @@ public class CarServiceImpl implements CarService {
                         new SearchRangeDto() :
                         searchRangeDto;
 
+        searchRangeDtoObjectValidator.validate(searchRangeDto);
+
         try {
             Pageable pageRequest =
                     PageRequest
@@ -170,6 +185,8 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public CarResponseDto updateCar(long id, CarUpdateDto carPropertiesToUpdate) {
+        carUpdateDtoObjectValidator.validate(carPropertiesToUpdate);
+
         try {
             Car carFromDatabaseToBeUpdated = carRepository
                     .findById(id)
