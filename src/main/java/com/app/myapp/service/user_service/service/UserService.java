@@ -1,5 +1,6 @@
 package com.app.myapp.service.user_service.service;
 
+import com.app.myapp.dto.user_dtos.PeselDto;
 import com.app.myapp.dto.user_dtos.UserChangePasswordDto;
 import com.app.myapp.dto.user_dtos.UserCreateDto;
 import com.app.myapp.dto.user_dtos.UserResponseDto;
@@ -12,7 +13,7 @@ public interface UserService {
     //READ
     UserResponseDto getUserById(long id);
 
-    UserResponseDto getUserByPesel(String pesel);
+    UserResponseDto getUserByPesel(PeselDto pesel);
 
     //UPDATE
     UserResponseDto updateUser(long id, UserUpdateDto userDto);

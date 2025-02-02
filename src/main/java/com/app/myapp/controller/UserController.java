@@ -1,5 +1,6 @@
 package com.app.myapp.controller;
 
+import com.app.myapp.dto.user_dtos.PeselDto;
 import com.app.myapp.dto.user_dtos.UserChangePasswordDto;
 import com.app.myapp.dto.user_dtos.UserCreateDto;
 import com.app.myapp.dto.user_dtos.UserResponseDto;
@@ -15,7 +16,7 @@ public interface UserController {
 
     UserResponseDto getUserById(int id);
 
-    UserResponseDto getUserByPesel(String pesel);
+    UserResponseDto getUserByPesel(PeselDto pesel);
 
     UserResponseDto deleteUser(int id);
 }

@@ -1,6 +1,7 @@
 package com.app.myapp.controller.impl;
 
 import com.app.myapp.controller.UserController;
+import com.app.myapp.dto.user_dtos.PeselDto;
 import com.app.myapp.dto.user_dtos.UserChangePasswordDto;
 import com.app.myapp.dto.user_dtos.UserCreateDto;
 import com.app.myapp.dto.user_dtos.UserResponseDto;
@@ -59,7 +60,7 @@ public class UserControllerImpl implements UserController {
 
     @Override
     @GetMapping("/userByPesel")
-    public UserResponseDto getUserByPesel(@RequestParam String pesel) {
+    public UserResponseDto getUserByPesel(@RequestParam PeselDto pesel) {
         return userService.getUserByPesel(pesel);
     }
 
