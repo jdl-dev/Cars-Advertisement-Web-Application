@@ -2,10 +2,14 @@ package com.app.myapp.dto.user_dtos;
 
 import com.app.myapp.model.model.Car;
 import com.app.myapp.model.model.user_members.Gender;
+import lombok.Builder;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Builder
+@ToString
 public class UserResponseDto {
     private long userId;
     private String name;
